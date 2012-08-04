@@ -1,0 +1,213 @@
+/******** JQuery Mobile styling override ********/
+
+.content fieldset {
+    margin: 0;
+}
+
+.content .radio-list .ui-radio .ui-corner-top, .content .radio-list .ui-radio .ui-corner-bottom {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.content .radio-list .ui-radio-on .ui-checkbox-on {
+    background-color: #B2B2B2;
+}
+
+/***** Header button custom icon styling *****/
+
+.ui-icon-home {
+	background-color: transparent;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+	box-shadow: none;
+}
+
+.ui-icon-app-sidebar {
+	background-color: transparent;
+	background-image: url("images/side.png");
+	background-size: 100%;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+	box-shadow: none;
+}
+
+.ui-icon-app-context {
+	background-color: transparent;
+	background-image: url("images/context.png");
+	background-size: 100%;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+	box-shadow: none;
+}
+
+.view .header .ui-icon {
+    width: 22px;
+	height: 22px;
+	margin: 1px 1px 1px 1px !important;
+}
+
+/***** Header styling *****/
+
+.mainheader {
+	text-align: center;
+	font-size: 2em;
+}
+
+.subheader {
+	text-align: center;
+	font-size: 1.1em;
+	line-height: 2em;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 0;
+}
+
+.sidebar .ui-input-search {
+    margin-left: 38px;
+    margin-right: 6px;
+}
+
+.sidebar .ui-select {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.short-header {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+    line-height: 1em;
+    text-align: center;
+}
+
+.sidebar  .header-label {
+    display: none;
+}
+
+.sidebar  .radio-legend {
+    display: none;
+}
+
+.sidebar  select {
+    width: 100%;
+}
+
+/***** Viewport styling *****/
+/*
+ * #viewable contains a wrapper around #main-wrapper
+ *     #viewable is the explicitly viewable region
+ *     #main-wrapper contains the full content that is panned around
+ *         #main-wrapper consists of a sidebar and view component
+ */
+#viewable
+{
+    position: absolute;
+    height: 100%;    
+    background: transparent;
+    width: 360px;
+    left: 0;
+    overflow: hidden;
+}
+
+#main-wrapper
+{
+    width: 680px;
+    left: -320px;
+}
+
+.wrapper
+{
+    position: absolute;
+    height: 100%;    
+    background: #DDD;
+}
+
+#main-wrapper .sidebar {
+    width: 320px;
+    position: relative;
+    float: left;
+    background: transparent;
+    
+    -moz-border-radius-bottomright: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    -ms-border-bottom-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    
+    border-bottom: 1px solid #CCC;
+}
+
+#main-wrapper .view {
+    width: 360px;
+	height: 100%;
+    position: relative;
+    float: right;
+}
+
+#main-wrapper .sidebar .content {
+    background: #CCC;
+	height: 100%;
+    padding: 0;
+}
+
+#main-wrapper .view .content {
+    background: #DDD;
+	height: 100%;
+    padding: 0;
+}
+
+/***** List item styling *****/
+.child-list {
+
+}
+
+.child-list-item {
+}
+
+/***** List item components styling *****/
+
+.user-list-item  .avatar {
+}
+
+.user-list-item  .username {
+}
+
+.child-list-item  .avatar {
+    width: 75px;
+    height: 75px;
+}
+
+.child-list-item  .user {
+    border-right: 1px solid #CCC;
+    overflow: ellipsis;
+    width: 90px;
+}
+
+.child-list-item .user a {
+    text-decoration: none;
+}
+
+.child-list-item .user .username {
+    font-size: 0.8em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.child-list-item {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
