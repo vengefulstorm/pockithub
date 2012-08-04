@@ -18,53 +18,53 @@
 /***** Header button custom icon styling *****/
 
 .ui-icon-home {
-	background-color: transparent;
+    background-color: transparent;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     -ms-border-radius: 0px;
     border-radius: 0px;
-	box-shadow: none;
+    box-shadow: none;
 }
 
 .ui-icon-app-sidebar {
-	background-color: transparent;
-	background-image: url("images/side.png");
-	background-size: 100%;
+    background-color: transparent;
+    background-image: url("images/side.png");
+    background-size: 100%;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     -ms-border-radius: 0px;
     border-radius: 0px;
-	box-shadow: none;
+    box-shadow: none;
 }
 
 .ui-icon-app-context {
-	background-color: transparent;
-	background-image: url("images/context.png");
-	background-size: 100%;
+    background-color: transparent;
+    background-image: url("images/context.png");
+    background-size: 100%;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     -ms-border-radius: 0px;
     border-radius: 0px;
-	box-shadow: none;
+    box-shadow: none;
 }
 
 .view .header .ui-icon {
     width: 22px;
-	height: 22px;
-	margin: 1px 1px 1px 1px !important;
+    height: 22px;
+    margin: 1px 1px 1px 1px !important;
 }
 
 /***** Header styling *****/
 
 .mainheader {
-	text-align: center;
-	font-size: 2em;
+    text-align: center;
+    font-size: 2em;
 }
 
 .subheader {
-	text-align: center;
-	font-size: 1.1em;
-	line-height: 2em;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 2em;
     padding-top: 3px;
     padding-bottom: 3px;
     border-bottom: 0;
@@ -153,20 +153,20 @@
 
 #main-wrapper .view {
     width: 360px;
-	height: 100%;
+    height: 100%;
     position: relative;
     float: right;
 }
 
 #main-wrapper .sidebar .content {
     background: #CCC;
-	height: 100%;
+    height: 100%;
     padding: 0;
 }
 
 #main-wrapper .view .content {
     background: #DDD;
-	height: 100%;
+    height: 100%;
     padding: 0;
 }
 
