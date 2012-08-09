@@ -40,6 +40,17 @@ $sectionRadioSet.click(function(event) {
     $toBeRefreshed.checkboxradio("refresh");
 });
 
+$("[class^=directory-list-item]").live("click",function(event){
+    var itemType = $(this).attr('data-type');
+    var itemName = $(this).attr('data-name');
+    var itemLink = $(this).attr('data-link');
+
+    if (itemType == 'dir'){
+      switchToSection(itemLink);
+    }else{
+      showFileContents(itemName); 
+    } 
+});
 });
 
 function toggleSidebar(containerId) {
@@ -71,7 +82,7 @@ function switchToSection(nextRQ) {
             transformer = transformToChild;
             break;
         case 'Code':        
-            template = function(opts) {}; // TODO: Create template and helper functions to generate markup
+            template = directory_list; // TODO: Create template and helper functions to generate markup
                 
             if (!nextRQ) {
                 rq = getCodeRequest(window.ctx["user"], window.ctx["repo"]);
@@ -174,3 +185,7 @@ function getCodeRequest(user, repo, path) {
     return rq;
 }
 
+function showFileContents(filename){
+  //TODO: Complete
+   alert('todo!');
+}
