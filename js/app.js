@@ -3,14 +3,15 @@ window.ctx = {
     user: "vengefulstorm",
     repo: "rage490",
     section: "Watchers",
+    subSection: "",
     contentWrapper: "#main-wrapper",
     containerTheme: "c",
     childTheme: "c",
     childSelectedTheme: "b"
 }
 
-switchToSection(window.ctx.section);
-initSidebarSections(window.ctx.section);
+switchToSection();
+initSidebarSections();
 
 // Initialize click handlers
 $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(event) {
@@ -23,6 +24,9 @@ $sectionRadioSet.click(function(event) {
     // Save initialized JQquery Mobile radio button objects
     // Add "selected" theme to input/label elements of clicked radio button
     // Refresh previously saved set of radio button objects
+    window.ctx["section"] = $(this).siblings("input").val();
+    switchToSection();
+    
     $sectionRadioSet.prev().attr("data-theme", window.ctx["childTheme"]);
     $toBeRefreshed = $sectionRadioSet.attr("data-theme", window.ctx["childTheme"])
         .removeClass("ui-btn-up-" + window.ctx["childSelectedTheme"])
@@ -49,19 +53,40 @@ function toggleSidebar(containerId) {
     }
 }
 
-function switchToSection(section) {
-    var UserList = Handlebars.templates["user-list"];
+function switchToSection(nextRQ) {
+    var rq = "";
+    var template;
+    var data = {};
+    var transformer = function(data){ return data; }; // initialize to dummy transformer function
+    var section = window.ctx["section"];
+    if (nextRQ) {
+        rq = nextRQ;
+    }
     switch(section) {
         case 'Watchers':
-            var rq = getWatchersRequest(window.ctx["user"], window.ctx["repo"]);
-            loadTemplatedContent(rq, UserList, $(window.ctx["contentWrapper"]));
+            template = Handlebars.templates["user-list"];
+            if (!nextRQ) {
+                rq = getWatchersRequest(window.ctx["user"], window.ctx["repo"]);
+            }
+            transformer = transformToChild;
             break;
+        case 'Code':        
+            template = function(opts) {}; // TODO: Create template and helper functions to generate markup
+                
+            if (!nextRQ) {
+                rq = getCodeRequest(window.ctx["user"], window.ctx["repo"]);
+            }
+            transformer = transformToDirectoryItem;
+            break;            
         default:
-            break;
+            return;
     }
+    $(".view .subheader", window.ctx["contentWrapper"]).html(section);
+    loadTemplatedContent(rq, template, $(window.ctx["contentWrapper"]), transformer, data);
 }
 
-function initSidebarSections(selectedSection) {
+function initSidebarSections() {
+    var selectedSection = window.ctx["section"];
     var RadioList = Handlebars.templates["radio-list"];
     var opts = {
         list: getSectionList(),
@@ -94,14 +119,15 @@ function getSectionList(context) {
     ]
 }
 
-function loadTemplatedContent(rq, template, $container) {
+function loadTemplatedContent(rq, template, $container, transformer, data) {
     $.ajax({
         type: 'GET',
         url: rq,
+        data: data,
         dataType: 'jsonp',
         success: function(data) {
             var opts = {
-                list: $.map(data.data, transformToChild),
+                list: $.map(data.data, transformer),
                 containerTheme: window.ctx['containerTheme'],
                 childTheme: window.ctx['childTheme']
             }
@@ -115,7 +141,7 @@ function loadTemplatedContent(rq, template, $container) {
 }
 
 function transformToChild(jsonItem) {
-    child = {
+    var child = {
         user_name: jsonItem["login"],
         user_url: jsonItem["url"],
         avatar_url: jsonItem["avatar_url"]        
@@ -123,7 +149,28 @@ function transformToChild(jsonItem) {
     return child;
 }
 
-function getWatchersRequest(user, repo) {
-    var rq = "https://api.github.com";
-    return rq + "/repos/" + user + "/" + repo + "/watchers";
+function transformToDirectoryItem(jsonItem) {
+    var dirItem = {
+        // flatten json object to required fields in template
+        type: jsonItem["type"],
+        link: jsonItem["_links"]["self"],
+        name: jsonItem["name"],
+        path: jsonItem["path"]
+    }
+    return dirItem;
 }
+
+function getWatchersRequest(user, repo) {
+    var rq = "https://api.github.com/repos/";
+    return rq + user + "/" + repo + "/watchers";
+}
+
+function getCodeRequest(user, repo, path) {
+    var rq = "https://api.github.com/repos/";
+    rq = rq + user + "/" + repo + "/contents/";
+    if (path) {
+        rq = rq + path;
+    }
+    return rq;
+}
+

@@ -119,15 +119,9 @@
     position: absolute;
     height: 100%;    
     background: transparent;
-    width: 360px;
+    width: 100%;
     left: 0;
     overflow: hidden;
-}
-
-#main-wrapper
-{
-    width: 680px;
-    left: -320px;
 }
 
 .wrapper
@@ -137,8 +131,14 @@
     background: #DDD;
 }
 
+#main-wrapper
+{
+    width: 190%;
+    left: -90%;
+}
+
 #main-wrapper .sidebar {
-    width: 320px;
+    width: 47.369%;
     position: relative;
     float: left;
     background: transparent;
@@ -152,7 +152,7 @@
 }
 
 #main-wrapper .view {
-    width: 360px;
+    width: 52.631%;
     height: 100%;
     position: relative;
     float: right;
@@ -211,3 +211,4 @@
     padding-top: 2px !important;
     padding-bottom: 2px !important;
 }
+
