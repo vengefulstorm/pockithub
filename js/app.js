@@ -7,7 +7,7 @@ window.ctx = {
     contentWrapper: "#main-wrapper",
     containerTheme: "c",
     childTheme: "c",
-    childSelectedTheme: "b"
+    childSelectedTheme: "c"
 }
 
 switchToSection();
@@ -18,26 +18,17 @@ $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(eve
     event.stopPropagation();
     toggleSidebar("main-wrapper");
 });
-$sectionRadioSet = $(".sidebar .content .radio-list .ui-radio label", window.ctx["contentWrapper"]);
-$sectionRadioSet.click(function(event) {
-    // Remove "unselected" theme from input/label elements of radio buttion set
-    // Save initialized JQquery Mobile radio button objects
-    // Add "selected" theme to input/label elements of clicked radio button
-    // Refresh previously saved set of radio button objects
+$contentWrapper = $(window.ctx["contentWrapper"]);
+$radioWrapper = $contentWrapper.find(".sidebar .content .radio-list .ui-radio label");
+$radioWrapper.bind("touchstart", function(event) {
+    event.stopPropagation();
     window.ctx["section"] = $(this).siblings("input").val();
     switchToSection();
-    
-    $sectionRadioSet.prev().attr("data-theme", window.ctx["childTheme"]);
-    $toBeRefreshed = $sectionRadioSet.attr("data-theme", window.ctx["childTheme"])
-        .removeClass("ui-btn-up-" + window.ctx["childSelectedTheme"])
-        .addClass("ui-btn-up-" + window.ctx["childTheme"]);
-    $(this).prev().attr("data-theme", window.ctx["childSelectedTheme"]);
-    $(this).attr("data-theme", window.ctx["childSelectedTheme"])
-        .removeClass("ui-btn-hover-" + window.ctx["childTheme"])
-        .addClass("ui-btn-hover-" + window.ctx["childSelectedTheme"])
-        .removeClass("ui-btn-up-" + window.ctx["childTheme"])
-        .addClass("ui-btn-up-" + window.ctx["childSelectedTheme"]);
-    $toBeRefreshed.checkboxradio("refresh");
+});
+$radioWrapper.bind("click", function(event) {    
+    event.stopPropagation();
+    window.ctx["section"] = $(this).siblings("input").val();
+    switchToSection();
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
