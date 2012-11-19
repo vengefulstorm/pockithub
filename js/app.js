@@ -10,6 +10,8 @@ window.ctx = {
     childSelectedTheme: "c"
 }
 
+$.getScript("request_helpers.js");
+
 switchToSection();
 initSidebarSections();
 
@@ -160,20 +162,6 @@ function transformToDirectoryItem(jsonItem) {
         path: jsonItem["path"]
     }
     return dirItem;
-}
-
-function getWatchersRequest(user, repo) {
-    var rq = "https://api.github.com/repos/";
-    return rq + user + "/" + repo + "/watchers";
-}
-
-function getCodeRequest(user, repo, path) {
-    var rq = "https://api.github.com/repos/";
-    rq = rq + user + "/" + repo + "/contents/";
-    if (path) {
-        rq = rq + path;
-    }
-    return rq;
 }
 
 function showFileContents(filename){
