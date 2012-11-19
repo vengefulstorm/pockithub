@@ -66,6 +66,7 @@ function switchToSection(nextRQ) {
     if (nextRQ) {
         rq = nextRQ;
     }
+    var preProcessor = null;
     switch(section) {
         case 'Watchers':
             template = Handlebars.templates["user-list"];
@@ -74,8 +75,9 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToChild;
             break;
-        case 'Code':        
-            template = directory_list; // TODO: Create template and helper functions to generate markup
+        case 'Code':
+            template = Handlebars.templates["directory-list"];
+            preProcessor = sortDirectory;
                 
             if (!nextRQ) {
                 rq = getCodeRequest(window.ctx["user"], window.ctx["repo"]);
@@ -86,7 +88,7 @@ function switchToSection(nextRQ) {
             return;
     }
     $(".view .subheader", window.ctx["contentWrapper"]).html(section);
-    loadTemplatedContent(rq, template, $(window.ctx["contentWrapper"]), transformer, data);
+    loadTemplatedContent(rq, template, $(window.ctx["contentWrapper"]), transformer, data, preProcessor);
 }
 
 function initSidebarSections() {
@@ -123,7 +125,7 @@ function getSectionList(context) {
     ]
 }
 
-function loadTemplatedContent(rq, template, $container, transformer, data) {
+function loadTemplatedContent(rq, template, $container, transformer, data, preProcessor) {
     $.ajax({
         type: 'GET',
         url: rq,
@@ -134,6 +136,9 @@ function loadTemplatedContent(rq, template, $container, transformer, data) {
                 list: $.map(data.data, transformer),
                 containerTheme: window.ctx['containerTheme'],
                 childTheme: window.ctx['childTheme']
+            }
+            if (preProcessor) {
+                opts = preProcessor(opts);
             }
             var templated = template(opts);
             $(".view .content", $container).html(templated).trigger("create");
@@ -168,3 +173,32 @@ function showFileContents(filename){
   //TODO: Complete
    alert('todo!');
 }
+
+function sortDirectory(opts) {
+    var dir = opts.list;
+    dir.sort(sortByName).sort(sortByType);
+    return opts;
+}
+
+//internal functions for sorting
+function sortByType(a, b){
+    var typeA = a.type;
+    var typeB = b.type;
+
+    if (typeA <= typeB){ //sorting "dir" type before "file" type
+        return -1; 
+    }else{
+        return 1;
+    }
+}
+function sortByName(a, b){
+    var typeA = a.name;
+    var typeB = b.name;
+
+    if (typeA <= typeB){ //sorting "dir" type before "file" type
+        return -1; 
+    }else{
+        return 1;
+    }
+}
+

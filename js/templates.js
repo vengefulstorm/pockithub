@@ -1,5 +1,109 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['child-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, foundHelper;
+  buffer += " data-theme='";
+  foundHelper = helpers.containerTheme;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.containerTheme; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "' ";
+  return buffer;}
+
+function program3(depth0,data,depth1) {
+  
+  var buffer = "", stack1, foundHelper;
+  buffer += "\n        <li class='child-list-item' ";
+  stack1 = depth1.childTheme;
+  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">\n            <div class='user'>\n                <a href='javascript:void(0)'>\n                    <img src='";
+  foundHelper = helpers.avatar_url;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "' class='avatar'/>\n                    <h1 class='username'>";
+  foundHelper = helpers.user_name;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "</h1>\n                </a>\n\n            </div>\n            <div class='content'>\n                ";
+  stack1 = depth0.content;
+  foundHelper = helpers.render;
+  stack1 = foundHelper ? foundHelper.call(depth0, stack1, {hash:{}}) : helperMissing.call(depth0, "render", stack1, {hash:{}});
+  buffer += escapeExpression(stack1) + "\n            </div>\n        </li>\n    ";
+  return buffer;}
+function program4(depth0,data,depth2) {
+  
+  var buffer = "", stack1;
+  buffer += " data-theme='";
+  stack1 = depth2.childTheme;
+  stack1 = typeof stack1 === functionType ? stack1() : stack1;
+  buffer += escapeExpression(stack1) + "' ";
+  return buffer;}
+
+  buffer += "<ul data-role='listview' ";
+  stack1 = depth0.containerTheme;
+  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " data-inset='false' class='child-list'>\n    ";
+  stack1 = depth0.list;
+  stack1 = helpers.each.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</ul>\n";
+  return buffer;});
+templates['directory-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, foundHelper;
+  buffer += " data-theme='";
+  foundHelper = helpers.containerTHeme;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.containerTHeme; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "' ";
+  return buffer;}
+
+function program3(depth0,data) {
+  
+  var buffer = "", stack1, foundHelper;
+  buffer += "\n    <li class='directory-list-item' data-name='";
+  foundHelper = helpers.name;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "' data-type='";
+  foundHelper = helpers.type;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "' data-link='";
+  foundHelper = helpers.link;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.link; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "'>\n      <a href='javascript:void(0)'>\n        <img src='";
+  stack1 = depth0.type;
+  foundHelper = helpers.getItemIcon;
+  stack1 = foundHelper ? foundHelper.call(depth0, stack1, {hash:{}}) : helperMissing.call(depth0, "getItemIcon", stack1, {hash:{}});
+  buffer += escapeExpression(stack1) + "'/>\n        <h1 class='itemName'>";
+  foundHelper = helpers.name;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "</h1>\n      </a>\n    </li>\n  ";
+  return buffer;}
+
+  buffer += "<ul data-role='listview' ";
+  stack1 = depth0.containerTheme;
+  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " data-inset='false'>\n  ";
+  stack1 = depth0.list;
+  stack1 = helpers.each.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(3, program3, data)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</ul>\n\n";
+  return buffer;});
 templates['radio-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -39,7 +143,7 @@ function program3(depth0,data,depth1) {
   foundHelper = helpers.item;
   if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
   else { stack1 = depth0.item; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "</label>\r\n	";
+  buffer += escapeExpression(stack1) + "</label>\r\n    ";
   return buffer;}
 function program4(depth0,data,depth2) {
   
@@ -81,11 +185,11 @@ function program8(depth0,data,depth3) {
   stack1 = depth0.containerTheme;
   stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " class='radio-list'>\r\n	";
+  buffer += " class='radio-list'>\r\n    ";
   stack1 = depth0.list;
   stack1 = helpers.each.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</fieldset>";
+  buffer += "\r\n</fieldset>\r\n";
   return buffer;});
 templates['user-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -104,11 +208,11 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1, foundHelper;
-  buffer += "\r\n		<li class='user-list-item' ";
+  buffer += "\r\n        <li class='user-list-item' ";
   stack1 = depth1.childTheme;
   stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n			<a href='javascript:void(0)'>\r\n                <img src='";
+  buffer += ">\r\n            <a href='javascript:void(0)'>\r\n                <img src='";
   foundHelper = helpers.avatar_url;
   if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
@@ -116,7 +220,7 @@ function program3(depth0,data,depth1) {
   foundHelper = helpers.user_name;
   if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "</h1>\r\n            </a>\r\n            \r\n		</li>\r\n	";
+  buffer += escapeExpression(stack1) + "</h1>\r\n            </a>\r\n            \r\n        </li>\r\n    ";
   return buffer;}
 function program4(depth0,data,depth2) {
   
@@ -131,64 +235,10 @@ function program4(depth0,data,depth2) {
   stack1 = depth0.containerTheme;
   stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='user-list'>\r\n	";
+  buffer += " data-inset='false' class='user-list'>\r\n    ";
   stack1 = depth0.list;
   stack1 = helpers.each.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>";
-  return buffer;});
-templates['child-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
-
-function program1(depth0,data) {
-  
-  var buffer = "", stack1, foundHelper;
-  buffer += " data-theme='";
-  foundHelper = helpers.containerTheme;
-  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
-  else { stack1 = depth0.containerTheme; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "' ";
-  return buffer;}
-
-function program3(depth0,data,depth1) {
-  
-  var buffer = "", stack1, foundHelper;
-  buffer += "\n		<li class='child-list-item' ";
-  stack1 = depth1.childTheme;
-  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1)});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\n			<div class='user'>\n				<a href='javascript:void(0)'>\n                    <img src='";
-  foundHelper = helpers.avatar_url;
-  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
-  else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "' class='avatar'/>\n                    <h1 class='username'>";
-  foundHelper = helpers.user_name;
-  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
-  else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "</h1>\n                </a>\n\n			</div>\n            <div class='content'>\n    			";
-  stack1 = depth0.content;
-  foundHelper = helpers.render;
-  stack1 = foundHelper ? foundHelper.call(depth0, stack1, {hash:{}}) : helperMissing.call(depth0, "render", stack1, {hash:{}});
-  buffer += escapeExpression(stack1) + "\n            </div>\n		</li>\n	";
-  return buffer;}
-function program4(depth0,data,depth2) {
-  
-  var buffer = "", stack1;
-  buffer += " data-theme='";
-  stack1 = depth2.childTheme;
-  stack1 = typeof stack1 === functionType ? stack1() : stack1;
-  buffer += escapeExpression(stack1) + "' ";
-  return buffer;}
-
-  buffer += "<ul data-role='listview' ";
-  stack1 = depth0.containerTheme;
-  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='child-list'>\n	";
-  stack1 = depth0.list;
-  stack1 = helpers.each.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0)});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n";
+  buffer += "\r\n</ul>\r\n";
   return buffer;});
 })();

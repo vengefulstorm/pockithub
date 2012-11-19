@@ -1,49 +1,10 @@
-var template = 
-"<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTHeme}}' {{/if}} data-inset='false'>\
-  {{#each list}}\
-    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}'>\
-      <a href='javascript:void(0)'>\
-        {{#ifEquals \"dir\" type}}\
-          <img src='css/images/Actions-document-open-folder-icon.png'/>\
-        {{else}}\
-          <img src='css/images/Mimetypes-x-office-document-icon.png'/>\
-        {{/ifEquals}}\
-        <h1 class='itemName'>{{name}}</h1>\
-      </a>\
-    </li>\
-  {{/each}}\
-</ul>";
-
-function directory_list (opts) {
-  var dir = opts.list;
-  dir.sort(sortByName).sort(sortByType);
-  var some_function = Handlebars.compile(template);
-
-  return some_function(opts);
-
-  //internal functions for sorting
-  function sortByType(a, b){
-    var typeA = a.type;
-    var typeB = b.type;
-    
-    if (typeA <= typeB){ //sorting "dir" type before "file" type
-      return -1; 
-    }else{
-      return 1;
-    }
-  }
-  function sortByName(a, b){
-    var typeA = a.name;
-    var typeB = b.name;
-    
-    if (typeA <= typeB){ //sorting "dir" type before "file" type
-      return -1; 
-    }else{
-      return 1;
-    }
-  }
-
-}
-
-
-
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTHeme}}' {{/if}} data-inset='false'>
+  {{#each list}}
+    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}'>
+      <a href='javascript:void(0)'>
+        <img src='{{getItemIcon type}}'/>
+        <h1 class='itemName'>{{name}}</h1>
+      </a>
+    </li>
+  {{/each}}
+</ul>

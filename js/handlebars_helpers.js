@@ -10,3 +10,11 @@ Handlebars.registerHelper('ifEquals', function(elt1, elt2, options) {
     }
 });
 
+Handlebars.registerHelper('getItemIcon', function(type) {
+    if (type == 'dir') {
+        return 'css/images/Actions-document-open-folder-icon.png';
+    } else {
+        return 'css/images/Mimetypes-x-office-document-icon.png';
+    }
+});
+
