@@ -10,8 +10,6 @@ window.ctx = {
     childSelectedTheme: "c"
 }
 
-$.getScript("request_helpers.js");
-
 switchToSection();
 initSidebarSections();
 
