@@ -92,3 +92,14 @@ function getMilestonesRequest(owner, repo, number=-1) {
     return rq;
 }
 
+function getSearchIssuesRequest(owner, repo, state, query) {
+    return BASE_API_URL + "/legacy/issues/search/" + owner + "/" + repo + "/" + state + "/" + query;
+}
+
+function getSearchReposRequest(query) {
+    return BASE_API_URL + "/legacy/repos/search/" + query;
+}
+
+function getSearchUserRequest(query) {
+    return BASE_API_URL + "/legacy/user/search/" + query;
+}
