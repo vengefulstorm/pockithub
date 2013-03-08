@@ -71,7 +71,7 @@ function switchToSection(nextRQ) {
             if (!nextRQ) {
                 rq = getWatchersRequest(window.ctx["user"], window.ctx["repo"]);
             }
-            transformer = transformToChild;
+            transformer = transformToWatcherChild;
             break;
         case 'Code':
             template = Handlebars.templates["directory-list"];
@@ -81,7 +81,21 @@ function switchToSection(nextRQ) {
                 rq = getCodeRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToDirectoryItem;
-            break;            
+            break;
+        case 'Issues':
+            template = Handlebars.templates["child-list"];
+            if (!nextRQ) {
+                rq = getIssuesRequest(window.ctx["user"], window.ctx["repo"]);
+            }
+            transformer = transformToIssueChild;
+            break;
+        case 'Milestones':
+            template = Handlebars.templates["child-list"];
+            if (!nextRQ) {
+                rq = getMilestonesRequest(window.ctx["user"], window.ctx["repo"]);
+            }
+            transformer = transformToMilestoneChild;
+            break;
         default:
             return;
     }
@@ -147,12 +161,23 @@ function loadTemplatedContent(rq, template, $container, transformer, data, prePr
     });
 }
 
-function transformToChild(jsonItem) {
-    var child = {
-        user_name: jsonItem["login"],
-        user_url: jsonItem["url"],
-        avatar_url: jsonItem["avatar_url"]        
-    }
+function transformToMilestoneChild(jsonItem) {
+    return transformToChild(jsonItem, {}, { "type":"milestone" });
+}
+
+function transformToIssueChild(jsonItem) {
+    return transformToChild(jsonItem, jsonItem["user"], { "type":"issue" });
+}
+
+function transformToWatcherChild(jsonItem) {
+    return transformToChild(jsonItem, jsonItem, { "type":"watcher" });
+}
+
+function transformToChild(jsonItem, userItem={}, child={}) {
+    child["user_name"] = userItem["login"];
+    child["user_url"] = userItem["url"];
+    child["avatar_url"] = userItem["avatar_url"];
+    child["content"] = jsonItem;
     return child;
 }
 
