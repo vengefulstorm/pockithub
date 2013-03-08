@@ -3,7 +3,7 @@
         <li class='child-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
             {{#if avatar_url}}
             <div class='user'>
-                <a href='javascript:void(0)'>
+                <a href='javascript:void(0)' data-url='{user_url}}' class="user-link">
                     <img src='{{avatar_url}}' class='avatar'/>
                     <h1 class='username'>{{user_name}}</h1>
                 </a>

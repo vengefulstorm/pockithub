@@ -9,6 +9,10 @@ Handlebars.registerHelper('render', function(item, type) {
             elt = elt + 'data-url="' + item['url'] + '">';
             elt = elt + '<h1>' + item['title'] + '</h1><p>' + item['description'] + '</p>';
             break;
+        case "commit":
+            elt = elt + 'data-url="' + item['url'] + '">';
+            elt = elt + '<h1>' + item['message'] + '</h1>';
+            break;
         default:
             elt = elt + ">";
             break;

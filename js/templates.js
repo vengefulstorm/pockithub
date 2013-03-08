@@ -44,7 +44,7 @@ function program4(depth0,data,depth2) {
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n            <div class='user'>\r\n                <a href='javascript:void(0)'>\r\n                    <img src='";
+  buffer += "\r\n            <div class='user'>\r\n                <a href='javascript:void(0)' data-url='{user_url}}' class=\"user-link\">\r\n                    <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -306,11 +306,7 @@ function program3(depth0,data,depth1) {
   buffer += "\r\n        <li class='user-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n            <a href='javascript:void(0)' data-url='";
-  if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "'>\r\n                <img src='";
+  buffer += ">\r\n            <a href='javascript:void(0)' data-url='{user_url}}' class=\"user-link\">\r\n                <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -318,7 +314,7 @@ function program3(depth0,data,depth1) {
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n            </a>\r\n            \r\n        </li>\r\n    ";
+    + "</h1>\r\n            </a>\r\n        </li>\r\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -330,7 +326,7 @@ function program4(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<ul data-role='listview' data-scroll=\"true\" ";
+  buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " data-inset='false' class='user-list'>\r\n    ";

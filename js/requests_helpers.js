@@ -1,5 +1,25 @@
 var BASE_API_URL = "https://api.github.com";
 
+function getUserRequest(user) {
+    return BASE_API_URL + "/users/" + user;
+}
+
+function getUserWithAuth() {
+    return BASE_API_URL + "/user";
+}
+
+function getReposRequest(user) {
+    return BASE_API_URL + "/users/" + user + "/repos";
+}
+
+function getOrgReposRequest(org) {
+    return BASE_API_URL + "/orgs/" + org + "/repos";
+}
+
+function getReposWithAuthRequest() {
+    return BASE_API_URL + "/user/repos";
+}
+
 function getWatchersRequest(user, repo) {
     return BASE_API_URL + "/repos/" + user + "/" + repo + "/watchers";
 }
@@ -8,6 +28,14 @@ function getCodeRequest(user, repo, path) {
     var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/contents/";
     if (path) {
         rq = rq + path;
+    }
+    return rq;
+}
+
+function getCommitsRequest(user, repo, sha) {
+    var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/commits";
+    if (sha) {
+        rq = rq + "/" + sha;
     }
     return rq;
 }

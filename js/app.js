@@ -82,6 +82,13 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToDirectoryItem;
             break;
+        case 'Commits':
+            template = Handlebars.templates["child-list"];
+            if (!nextRQ) {
+                rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"]);
+            }
+            transformer = transformToCommitChild;
+            break;
         case 'Issues':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
@@ -162,22 +169,41 @@ function loadTemplatedContent(rq, template, $container, transformer, data, prePr
 }
 
 function transformToMilestoneChild(jsonItem) {
-    return transformToChild(jsonItem, {}, { "type":"milestone" });
+    var child = {
+        "type": "milestone",
+        "content": jsonItem
+    };
+    return transformToChild({}, child);
 }
 
 function transformToIssueChild(jsonItem) {
-    return transformToChild(jsonItem, jsonItem["user"], { "type":"issue" });
+    var child = {
+        "type": "issue",
+        "content": jsonItem
+    };
+    return transformToChild(jsonItem["user"], child);
 }
 
 function transformToWatcherChild(jsonItem) {
-    return transformToChild(jsonItem, jsonItem, { "type":"watcher" });
+    var child = {
+        "type": "watcher",
+        "content": jsonItem
+    };
+    return transformToChild(jsonItem, child);
 }
 
-function transformToChild(jsonItem, userItem={}, child={}) {
+function transformToCommitChild(jsonItem) {
+    var child = {
+        "type": "commit",
+        "content": jsonItem["commit"]
+    };
+    return transformToChild(jsonItem["author"], child);
+}
+
+function transformToChild(userItem={}, child={}) {
     child["user_name"] = userItem["login"];
     child["user_url"] = userItem["url"];
     child["avatar_url"] = userItem["avatar_url"];
-    child["content"] = jsonItem;
     return child;
 }
 
