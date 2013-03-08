@@ -20,48 +20,72 @@ function getReposWithAuthRequest() {
     return BASE_API_URL + "/user/repos";
 }
 
-function getWatchersRequest(user, repo) {
-    return BASE_API_URL + "/repos/" + user + "/" + repo + "/watchers";
+function getOrgsRequest(user) {
+    return BASE_API_URL + "/users/" + user + "/orgs";
 }
 
-function getCodeRequest(user, repo, path) {
-    var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/contents/";
+function getOrgsWithAuthRequest() {
+    return BASE_API_URL + "/user/orgs";
+}
+
+function getOrgRequest(org) {
+    regurn BASE_API_URL + "/orgs/" + org;
+}
+
+function getWatchersRequest(owner, repo) {
+    return BASE_API_URL + "/repos/" + owner + "/" + repo + "/watchers";
+}
+
+function getCodeRequest(owner, repo, path) {
+    var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/contents/";
     if (path) {
         rq = rq + path;
     }
     return rq;
 }
 
-function getCommitsRequest(user, repo, sha) {
-    var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/commits";
+function getCommitsRequest(owner, repo, sha) {
+    var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/commits";
     if (sha) {
         rq = rq + "/" + sha;
     }
     return rq;
 }
 
-function getIssuesRequest(user, repo, number=-1) {
-    var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/issues";
+function getIssuesRequest(owner, repo, number=-1) {
+    var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/issues";
     if (number != -1) {
         rq = rq + "/" + number;
     }
     return rq;
 }
 
-function getIssuesRequestWithAuth(user) {
-    var rq = BASE_API_URL;
-    if (user) {
-        rq = rq + "/user";
-    }
-    return rq + "/issues";
+function getIssuesRequestWithAuth() {
+    return BASE_API_URL + "/user/issues";
 }
 
 function getOrgIssuesRequestWithAuth(org) {
     return BASE_API_URL + "/orgs/" + org + "/issues";
 }
 
-function getMilestonesRequest(user, repo, number=-1) {
-    var rq = BASE_API_URL + "/repos/" + user + "/" + repo + "/milestones";
+function getPullRequestsRequest(owner, repo, number=-1) {
+    var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/pulls";    
+    if (number != -1) {
+        rq = rq + "/" + number;
+    }
+    return rq;
+}
+
+function getPullRequestCommitsRequest(owner, repo, number) {
+    return BASE_API_URL + "/repos/" + owner + "/" + repo + "/pulls/" + number + "/commits";
+}
+
+function getPullRequestFilesRequest(owner, repo, number) {
+    return BASE_API_URL + "/repos/" + owner + "/" + repo + "/pulls/" + number + "/files";
+}
+
+function getMilestonesRequest(owner, repo, number=-1) {
+    var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/milestones";
     if (number != -1) {
         rq = rq + "/" + number;
     }
