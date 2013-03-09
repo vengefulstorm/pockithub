@@ -29,7 +29,7 @@ function getOrgsWithAuthRequest() {
 }
 
 function getOrgRequest(org) {
-    regurn BASE_API_URL + "/orgs/" + org;
+    return BASE_API_URL + "/orgs/" + org;
 }
 
 function getWatchersRequest(owner, repo) {
@@ -102,4 +102,16 @@ function getSearchReposRequest(query) {
 
 function getSearchUserRequest(query) {
     return BASE_API_URL + "/legacy/user/search/" + query;
+}
+
+function getRepoFeedRequest(owner, repo) {
+    return BASE_API_URL + "/repos/" + owner + "/" + repo + "/events";
+}
+
+function getFeedRequest(user, publicOnly) {
+    var rq = BASE_API_URL + "/users/" + user + "/received_events";
+    if (publicOnly) {
+        rq = rq + "/public";
+    }
+    return rq;
 }

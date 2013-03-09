@@ -14,7 +14,44 @@ Handlebars.registerHelper('render', function(item, type) {
             elt = elt + '<h1>' + item['message'] + '</h1>';
             break;
         default:
-            elt = elt + ">";
+            if (/^.*Event$/.test(type)) {
+                var action = "", url = "", title = "", body = "", eventType = "";
+                switch (type) {
+                    // TODO: enumerate the rest of the event types
+                    case "PushEvent":
+                        action = "pushed";
+                        eventType = item["size"] + " commits";
+                        body = [];
+                        $.each(item["commits"], function(idx, val) {
+                            body.push(val["message"]);
+                        });
+                        body = body.join(", ");
+                        break;
+                    case "IssuesEvent":
+                        var issue = item["issue"];
+                        url = issue["url"];
+                        title = issue["title"];
+                        body = issue["body"];
+                        action = item["action"];
+                        eventType = "issue";
+                        break;
+                    case "IssueCommentEvent":
+                        var issue = item["issue"];
+                        var comment = item["comment"];
+                        url = issue["url"];
+                        title = issue["title"];
+                        body = comment["body"];
+                        action = item["action"];
+                        eventType = "comment on issue";
+                        break;
+                    default:
+                        break;
+                }
+                elt = elt + 'data-url="' + url + '">';
+                elt = elt + '<h1>' + action + ' ' + eventType + ': ' + title + '</h1><p>' + body + '</p>';
+            } else {
+                elt = elt + ">";
+            }
             break;
     }
     elt = elt + '</a>';

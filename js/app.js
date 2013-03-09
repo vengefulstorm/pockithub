@@ -1,7 +1,8 @@
 $(function() {
 window.ctx = {
+    pageType: "repo",
     user: "vengefulstorm",
-    repo: "rage490",
+    repo: "pockithub",
     section: "Watchers",
     subSection: "",
     contentWrapper: "#main-wrapper",
@@ -65,7 +66,18 @@ function switchToSection(nextRQ) {
         rq = nextRQ;
     }
     var preProcessor = null;
-    switch(section) {
+    switch(section) {    
+        case 'Feed':
+            template = Handlebars.templates["child-list"];
+            if (!nextRQ) {
+                if (window.ctx["pageType"] == "repo") {
+                    rq = getRepoFeedRequest(window.ctx["user"], window.ctx["repo"]);
+                } else {
+                    rq = getFeedRequest(window.ctx["user"]);
+                }
+            }
+            transformer = transformToFeedChild;
+            break;
         case 'Watchers':
             template = Handlebars.templates["user-list"];
             if (!nextRQ) {
@@ -198,6 +210,15 @@ function transformToCommitChild(jsonItem) {
         "content": jsonItem["commit"]
     };
     return transformToChild(jsonItem["author"], child);
+}
+
+function transformToFeedChild(jsonItem) {
+    var child = {
+        "type": jsonItem["type"],
+        "content": jsonItem["payload"],
+        "target": jsonItem["repo"]
+    };
+    return transformToChild(jsonItem["actor"], child);
 }
 
 function transformToChild(userItem={}, child={}) {
