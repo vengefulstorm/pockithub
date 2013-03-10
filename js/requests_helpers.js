@@ -52,7 +52,8 @@ function getCommitsRequest(owner, repo, sha) {
     return rq;
 }
 
-function getIssuesRequest(owner, repo, number=-1) {
+function getIssuesRequest(owner, repo, number) {
+    number = (typeof number === 'undefined') ? -1 : number;
     var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/issues";
     if (number != -1) {
         rq = rq + "/" + number;
@@ -68,7 +69,8 @@ function getOrgIssuesRequestWithAuth(org) {
     return BASE_API_URL + "/orgs/" + org + "/issues";
 }
 
-function getPullRequestsRequest(owner, repo, number=-1) {
+function getPullRequestsRequest(owner, repo, number) {
+    number = (typeof number === 'undefined') ? -1 : number;
     var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/pulls";    
     if (number != -1) {
         rq = rq + "/" + number;
@@ -84,7 +86,8 @@ function getPullRequestFilesRequest(owner, repo, number) {
     return BASE_API_URL + "/repos/" + owner + "/" + repo + "/pulls/" + number + "/files";
 }
 
-function getMilestonesRequest(owner, repo, number=-1) {
+function getMilestonesRequest(owner, repo, number) {
+    number = (typeof number === 'undefined') ? -1 : number;
     var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/milestones";
     if (number != -1) {
         rq = rq + "/" + number;

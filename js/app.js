@@ -221,7 +221,9 @@ function transformToFeedChild(jsonItem) {
     return transformToChild(jsonItem["actor"], child);
 }
 
-function transformToChild(userItem={}, child={}) {
+function transformToChild(userItem, child) {
+    userItem = (typeof userItem === 'undefined') ? {} : userItem;
+    child = (typeof child === 'undefined') ? {} : child;
     child["user_name"] = userItem["login"];
     child["user_url"] = userItem["url"];
     child["avatar_url"] = userItem["avatar_url"];
