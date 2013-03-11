@@ -30,6 +30,7 @@ $radioWrapper.bind("click", function(event) {
     event.stopPropagation();
     window.ctx["section"] = $(this).siblings("input").val();
     switchToSection();
+    toggleSidebar("main-wrapper");
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
@@ -41,7 +42,7 @@ $("[class^=directory-list-item]").live("click",function(event){
       switchToSection(itemLink);
     }else{
       showFileContents(itemName); 
-    } 
+    }
 });
 });
 
