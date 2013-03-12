@@ -15,6 +15,15 @@
     background-color: #B2B2B2;
 }
 
+/***** Overthrow styling (scroll enabling plugin) *****/
+
+/* Overthrow CSS:
+   Enable overflow: auto on elements with overthrow class when html element has overthrow class too */
+.overthrow-enabled .overthrow {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 /***** Header button custom icon styling *****/
 
 .ui-icon-home {

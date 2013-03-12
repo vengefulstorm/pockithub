@@ -173,7 +173,7 @@ function loadTemplatedContent(rq, template, $container, transformer, data, prePr
                 opts = preProcessor(opts);
             }
             var templated = template(opts);
-            $(".view .content", $container).html(templated).trigger("create");
+            $(".view .content", $container).html(templated).trigger("create").scrollTop(0);     
         },
         error: function() { 
             alert("Error on retrieving: " + rq);
