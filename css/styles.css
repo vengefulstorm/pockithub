@@ -1,5 +1,7 @@
 /******** JQuery Mobile styling override ********/
-
+.content {
+  overflow-y:scroll;
+}
 .content fieldset {
     margin: 0;
 }
