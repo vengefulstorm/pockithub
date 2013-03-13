@@ -21,7 +21,7 @@ def internal_server_error(e):
 #LANDING PAGE
 @app.route('/')
 def hello():
-    return send_from_directory('/path/to/static/files', "landing.html");
+    return send_from_directory('./', "index.html");
 
 
 #OAUTH SETUP
@@ -52,7 +52,7 @@ def handleAuth():
 #MAIN APP
 @app.route('/app')
 def serveApp():
-    return send_from_directory('/path/to/static/files', "index.html");
+    return send_from_directory('./', "index.html");
 
 
 #HELPER END POINT
