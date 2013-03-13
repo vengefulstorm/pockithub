@@ -1,0 +1,12 @@
+<fieldset data-role='controlgroup' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} class='radio-list'>
+    {{#each list}}
+        <input type='radio' 
+            {{#ifEquals item ../selectedItem}} 
+                checked='checked' {{#if ../../childSelectedTheme}} data-theme='{{../../../childSelectedTheme}}' {{/if}} 
+            {{else}} 
+                {{#if ../../childTheme}} data-theme='{{../../../childTheme}}' {{/if}} 
+            {{/ifEquals}}
+            name='section-choice' id='section-choice-{{idx}}' value='{{item}}'  />
+        <label for='section-choice-{{idx}}'>{{item}}</label>
+    {{/each}}
+</fieldset>

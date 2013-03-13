@@ -1,0 +1,17 @@
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='child-list'>
+    {{#each list}}
+        <li class='child-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            {{#if avatar_url}}
+            <div class='user'>
+                <a href='javascript:void(0)' data-url='{user_url}}' class="user-link">
+                    <img src='{{avatar_url}}' class='avatar'/>
+                    <h1 class='username'>{{user_name}}</h1>
+                </a>
+            </div>
+            {{/if}}
+            <div class='item-content'>
+                {{{render content type}}}
+            </div>
+        </li>
+    {{/each}}
+</ul>
