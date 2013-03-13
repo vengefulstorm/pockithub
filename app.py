@@ -56,9 +56,9 @@ def serveApp():
 
 
 #HELPER END POINT
-@app.route('')
-def blah():
-    return 
+#@app.route('')
+#def blah():
+#    return 
 
 
 if __name__ == '__main__':
