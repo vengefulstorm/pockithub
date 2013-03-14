@@ -44,6 +44,13 @@ $("[class^=directory-list-item]").live("click",function(event){
       showFileContents(itemName); 
     }
 });
+
+
+$("[class^=user-link]").live("click",function(event){
+    var obj1 = $(this).data("url");
+    window.ctx["section"] = 'User Profile';
+    switchToSection(obj1);
+});
 });
 
 function toggleSidebar(containerId) {
@@ -116,6 +123,13 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToMilestoneChild;
             break;
+        case 'User Profile':
+            template = Handlebars.templates["user-profile"];
+            if(!nextRQ){
+              rq = getUserRequest(window.ctx["user"]);
+            }
+            transformer = transformToUserProfile;
+            break;
         default:
             return;
     }
@@ -165,10 +179,16 @@ function loadTemplatedContent(rq, template, $container, transformer, data, prePr
         dataType: 'jsonp',
         success: function(data) {
             var opts = {
-                list: $.map(data.data, transformer),
                 containerTheme: window.ctx['containerTheme'],
                 childTheme: window.ctx['childTheme']
             }
+
+            if (data.data.length) {
+              opts["list"] = $.map(data.data, transformer);
+            }else{
+              opts["list"] = [data.data];
+            }
+
             if (preProcessor) {
                 opts = preProcessor(opts);
             }
@@ -240,6 +260,31 @@ function transformToDirectoryItem(jsonItem) {
         path: jsonItem["path"]
     }
     return dirItem;
+}
+
+function transformToUserProfile(jsonItem) {
+    var userProfileItem = {
+        login: jsonItem["login"],
+        id: jsonItem["id"],
+        avatar_url: jsonItem["avatar_url"],
+        gravatar_id: jsonItem["gravatar_id"],
+        url: jsonItem["url"],
+        name: jsonItem["name"],
+        company: jsonItem["company"],
+        blog: jsonItem["blog"],
+        location: jsonItem["location"],
+        email: jsonItem["email"],
+        hireable: jsonItem["hireable"],
+        bio: jsonItem["bio"],
+        public_repos: jsonItem["public_repos"],
+        public_gists: jsonItem["public_gists"],
+        followers: jsonItem["followers"],
+        following: jsonItem["following"],
+        html_url: jsonItem["html_url"],
+        created_at: jsonItem["created_at"],
+        type: jsonItem["type"]
+    }
+    return userProfileItem;
 }
 
 function showFileContents(filename){
