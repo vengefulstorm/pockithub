@@ -51,6 +51,19 @@ $("[class^=user-link]").live("click",function(event){
     window.ctx["section"] = 'User Profile';
     switchToSection(obj1);
 });
+
+$("[class^=issues-comments-button-link]").live("click",function(event){
+    if ($(this).attr("value")  == "false"){
+      var url = $(this).data("url");
+      $(this).attr("value","true");
+      window.ctx["section"] = "Issues View";
+      switchToSection(url);
+    }else{
+      var issuesNumber = getIssuesNumberFromUrl($(this).data("url"));
+      $(this).attr("value","false");
+      $("#issues-comments-list-"+issuesNumber).html("");
+    }
+});
 });
 
 function toggleSidebar(containerId) {
@@ -66,8 +79,10 @@ function toggleSidebar(containerId) {
 
 function switchToSection(nextRQ) {
     var rq = "";
+    var rq2;
     var template;
     var data = {};
+    var templateToFill = $(".view .content", window.ctx["contentWrapper"]);
     var transformer = function(data){ return data; }; // initialize to dummy transformer function
     var section = window.ctx["section"];
     if (nextRQ) {
@@ -110,7 +125,7 @@ function switchToSection(nextRQ) {
             transformer = transformToCommitChild;
             break;
         case 'Issues':
-            template = Handlebars.templates["child-list"];
+            template = Handlebars.templates["issue-list"];
             if (!nextRQ) {
                 rq = getIssuesRequest(window.ctx["user"], window.ctx["repo"]);
             }
@@ -130,11 +145,17 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToUserProfile;
             break;
+        case 'Issues View':
+            template = Handlebars.templates["issue-view"];
+            transformer = transformToIssue;
+            issuesNumber = getIssuesNumberFromUrl(rq);
+            templateToFill = $("#issues-comments-list-"+issuesNumber);
+            break;
         default:
             return;
     }
     $(".view .subheader", window.ctx["contentWrapper"]).html(section);
-    loadTemplatedContent(rq, template, $(window.ctx["contentWrapper"]), transformer, data, preProcessor);
+    loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
 }
 
 function initSidebarSections() {
@@ -171,7 +192,7 @@ function getSectionList(context) {
     ]
 }
 
-function loadTemplatedContent(rq, template, $container, transformer, data, preProcessor) {
+function loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill) {
     $.ajax({
         type: 'GET',
         url: rq,
@@ -193,7 +214,7 @@ function loadTemplatedContent(rq, template, $container, transformer, data, prePr
                 opts = preProcessor(opts);
             }
             var templated = template(opts);
-            $(".view .content", $container).html(templated).trigger("create").scrollTop(0);     
+            templateToFill.html(templated).trigger("create").scrollTop(0);
         },
         error: function() { 
             alert("Error on retrieving: " + rq);
@@ -287,6 +308,10 @@ function transformToUserProfile(jsonItem) {
     return userProfileItem;
 }
 
+function transformToIssue(jsonItem){
+  return jsonItem;
+}
+
 function showFileContents(filename){
   //TODO: Complete
    alert('todo!');
@@ -320,3 +345,7 @@ function sortByName(a, b){
     }
 }
 
+function getIssuesNumberFromUrl(rq){
+    var issuesNumber = rq.split("issues/")[1];
+    return issuesNumber.substring(0,issuesNumber.indexOf("/comments"));
+}

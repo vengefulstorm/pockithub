@@ -99,6 +99,18 @@ function getSearchIssuesRequest(owner, repo, state, query) {
     return BASE_API_URL + "/legacy/issues/search/" + owner + "/" + repo + "/" + state + "/" + query;
 }
 
+function getIssuesComments(issuesUrl){
+  return issuesUrl + "/comments";
+}
+
+function getIssuesComment(owner,repo,number){
+  var rq = BASE_API_URL + "/repos/" + owner + "/" + repo + "/issues/comments";
+  if (number != -1){
+    rq = rq + "/" + number;
+  }
+  return rq;
+}
+
 function getSearchReposRequest(query) {
     return BASE_API_URL + "/legacy/repos/search/" + query;
 }

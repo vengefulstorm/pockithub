@@ -1,0 +1,46 @@
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='issues-list'>
+    {{#each list}}
+        <li class='issues-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            {{#if avatar_url}}
+            <div class='user'>
+                <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
+                    <img src='{{avatar_url}}' class='avatar'/>
+                    <h1 class='username'>{{user_name}}</h1>
+                </a>
+            </div>
+            {{/if}}
+
+            <div class='item-content'>
+                {{{render content type}}}
+            </div>
+            {{#with content}}
+                <div class='issues-list-number'>{{number}}</div>
+                <div class='issues-list-labels'>
+                {{#if labels}}
+                {{#each labels}}
+                    <ul>
+                        <ui>{{name}}</ui>
+                    </ul>
+                {{/each}}
+                {{/if}}
+                </div>
+                <div class='issues-assignee'>
+                    Assigned To:
+                    {{#if assignee}}
+                        {{#with assignee}}{{login}}{{/with}}
+                    {{else}}
+                        nope
+                    {{/if}}
+                </div>
+                <h1>Comments: {{comments}} </h1>
+                <div class='issues-comments-button'>
+                    <a href='javascript:void(0)' data-role="button" data-inline="true" data-mini="true" data-url='{{comments_url}}' class='issues-comments-button-link ui-link' value="false">
+                      Toggle Comments
+                    </a>
+                </div>
+                <div id='issues-comments-list-{{number}}'>
+                </div>
+            {{/with}}
+         </li>
+    {{/each}}
+</ul>

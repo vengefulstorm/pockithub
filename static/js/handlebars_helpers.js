@@ -2,7 +2,7 @@ Handlebars.registerHelper('render', function(item, type) {
     var elt = '<a href="javascript:void(0)" ';
     switch(type) {
         case "issue":
-            elt = elt + 'data-url="' + item['url'] + '">';
+            elt = elt + 'data-url="' + item['url'] + '" class="issue-link">';
             elt = elt + '<h1>' + item['title'] + '</h1><p>' + item['body'] + '</p>';
             break;
         case "milestone":

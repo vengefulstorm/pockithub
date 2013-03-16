@@ -1,0 +1,10 @@
+{{#each list}}
+  {{#with user}}
+    User: {{login}}
+    Avatar: {{avatar_url}}
+  {{/with}}
+  Comment: {{body}}
+  Created at: {{created_at}} 
+  <br/>
+  <br/>
+{{/each}}
