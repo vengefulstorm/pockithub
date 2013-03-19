@@ -1,16 +1,4 @@
-$(function() {
-window.ctx = {
-    pageType: "repo",
-    user: "vengefulstorm",
-    repo: "pockithub",
-    section: "Watchers",
-    subSection: "",
-    contentWrapper: "#main-wrapper",
-    containerTheme: "c",
-    childTheme: "c",
-    childSelectedTheme: "c"
-}
-
+var init = function init() {
 switchToSection();
 initSidebarSections();
 
@@ -44,7 +32,7 @@ $("[class^=directory-list-item]").live("click",function(event){
       showFileContents(itemName); 
     }
 });
-});
+}
 
 function toggleSidebar(containerId) {
     var $container = $("#" + containerId);

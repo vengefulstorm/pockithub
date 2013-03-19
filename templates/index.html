@@ -2,17 +2,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">        
-        <link rel="stylesheet" href="static/css/jquery.mobile-1.1.1.min.css">
-        <link rel="stylesheet" href="static/css/styles.css">
-        <script src="static/js/libs/jquery-1.7.2.min.js"></script>
-        <script src="static/js/libs/jquery.mobile-1.1.1.min.js"></script>
-				<script src="static/js/libs/overthrow.js"></script>
-        <script src="static/js/libs/handlebars.js"></script>
-        <script src="static/js/handlebars_helpers.js"></script>
-        <script src="static/js/requests_helpers.js"></script>
-        <script src="static/js/templates.js"></script>
-        <script src="static/js/app.js"></script>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"> 
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css"><!--/static/jquery.mobile-1.1.1.min.css">-->
+        <link rel="stylesheet" href="/static/styles.css">
+				<!-- Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome -->
+				<!-- we will most likely be including font awesome for their github icon in our logo -->
+        <script src="/static/jquery-1.7.2.min.js"></script>
+        <script src="/static/jquery.mobile-1.1.1.min.js"></script>
+				<script src="/static/overthrow.js"></script>
+        <script src="/static/handlebars.js"></script>
+        <script src="/static/handlebars_helpers.js"></script>
+        <script src="/static/requests_helpers.js"></script>
+        <script src="/static/templates.js"></script>
+        <script src="/static/app.js"></script>
+
+				<!-- set window context -->
+				<script>
+					$(function() {
+					    window.ctx = {
+					        pageType: "repo",
+					        {% if user %}user: "{{ user }}",{% endif %}
+					        {% if repo %}repo: "{{ repo }}",{% endif %}
+					        {% if section %}section: "{{ section }}",{% else %}section: "Code",{% endif %}
+                  subSection: "",
+                  contentWrapper: "#main-wrapper",
+                  containerTheme: "c",
+                  childTheme: "c",
+                  childSelectedTheme: "c"
+					    }
+					    init();
+					});
+				</script>
+
     </head>
     <body>
         <div id="viewable">

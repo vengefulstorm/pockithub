@@ -14,6 +14,34 @@
     background-color: #B2B2B2;
 }
 
+.ui-icon-searchfield:after {
+		background-image: url(icons-18-white.png)
+}
+
+.ui-icon-alt {
+		background-image: url(icons-18-white.png)
+}
+
+.ui-icon-loading {
+	background: url(ajax-loader.gif);
+}																								 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min--moz-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 240dpi) {
+	
+	.ui-icon-plus, .ui-icon-minus, .ui-icon-delete, .ui-icon-arrow-r,
+	.ui-icon-arrow-l, .ui-icon-arrow-u, .ui-icon-arrow-d, .ui-icon-check,
+	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
+	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, .ui-icon-searchfield:after, 
+	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
+		background-image: url(icons-36-white.png);
+	}
+	.ui-icon-alt {
+		background-image: url(icons-36-black.png);
+	}
+}
+
 /***** Overthrow styling (scroll enabling plugin) *****/
 
 /* Overthrow CSS:
@@ -36,7 +64,7 @@
 
 .ui-icon-app-sidebar {
     background-color: transparent;
-    background-image: url("images/side.png");
+    background-image: url("/static/side.png");
     background-size: 100%;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
@@ -47,7 +75,7 @@
 
 .ui-icon-app-context {
     background-color: transparent;
-    background-image: url("images/context.png");
+    background-image: url("/static/context.png");
     background-size: 100%;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
