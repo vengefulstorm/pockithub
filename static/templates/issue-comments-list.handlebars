@@ -1,0 +1,17 @@
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='issue-comments-list'>
+    {{#isEmpty list}}
+        <li class='issue-comments-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            <div class='item-content'>No Comments</div>
+        </li>
+    {{else}}
+        {{#each list}}
+            <li class='issue-comments-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+                <img src='{{user.avatar_url}}'/>            
+                <span class='ui-li-aside'>{{created_at}}</span>
+                <div class='item-content'>
+                    {{body}}
+                </div>
+            </li>
+        {{/each}}
+    {{/isEmpty}}
+</ul>

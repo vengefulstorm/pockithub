@@ -1,3 +1,27 @@
+Handlebars.registerHelper('isEmpty', function(item, block) {
+    var size = 0;
+    if (item.length) {
+        if (item.length == 1) {
+            if (item[0].length && item[0].length > 0) {
+                size = 1;
+            } else {
+                size = 0;
+            }
+        } else {
+            size = item.length;
+        }
+    } else if (typeof item === 'object') {
+        $.each(item, function(idx, val) {
+            if (val.length) size++;
+        });
+    }
+    if (size == 0) {
+        return block.fn(this);
+    } else {
+        return block.inverse(this);
+    }
+});
+
 Handlebars.registerHelper('render', function(item, type) {
     var elt = '<a href="javascript:void(0)" ';
     switch(type) {
@@ -55,6 +79,28 @@ Handlebars.registerHelper('render', function(item, type) {
             break;
     }
     elt = elt + '</a>';
+    return elt;
+});
+
+Handlebars.registerHelper('renderIssue', function(item) {
+    var elt = '<a href="javascript:void(0)" ';    
+    elt = elt + 'data-url="' + item['url'] + '" class="issue-link">';
+    elt = elt + '<h1 style="display:inline;">' + item['title'] + '</h1>';
+    var labels = item['labels'];
+    if (typeof labels !== 'undefined') {
+        var labelsList = '<ul class="horizontal-list" style="display:inline; padding:0;">';
+        $.each(labels, function(idx, val) {
+            labelsList = labelsList + '<li class="label-element" style="background-color:#' + val['color'] + ';">' + val['name'] + '</li>';
+        });
+        elt = elt + labelsList + '</ul>';
+    }
+    elt = elt + '<br/><br/><p>' + item['body'] + '</p>';
+    elt = elt + '</a>';
+    return elt;
+});
+
+Handlebars.registerHelper('renderIssueComment', function(commentBody) {
+    var elt = '<br/>' + commentBody;
     return elt;
 });
 
