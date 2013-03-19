@@ -1,4 +1,22 @@
 var init = function init() {
+    window.forwardSectionMap = {
+        'Issues': 'issues',
+        'Milestones': 'milestones',
+        'Watchers': 'watchers',
+        'Feed': 'feed',
+        'Commits': 'commits',
+        'Code': 'code'
+    }
+    
+    window.backwardSectionMap = {
+        'issues': 'Issues',
+        'milestones': 'Milestones',
+        'watchers': 'Watchers',
+        'feed': 'Feed',
+        'commits': 'Commits',
+        'code': 'Code'
+    }
+
     window.ctx["upDir"] = [];
     window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
     window.ctx["currentBranch"] = "master";
@@ -15,12 +33,12 @@ $contentWrapper = $(window.ctx["contentWrapper"]);
 $radioWrapper = $contentWrapper.find(".sidebar .content .radio-list .ui-radio label");
 $radioWrapper.bind("touchstart", function(event) {
     event.stopPropagation();
-    window.ctx["section"] = $(this).siblings("input").val();
+    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
 });
 $radioWrapper.bind("click", function(event) {    
     event.stopPropagation();
-    window.ctx["section"] = $(this).siblings("input").val();
+    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
     toggleSidebar("main-wrapper");
 });
@@ -65,6 +83,11 @@ $("[class^=issues-comments-button-link]").live("click",function(event){
     }
 });
 };
+
+function selectSectionRadioButton(section) {
+    var radioBtnText = window.backwardSectionMap[section];
+    $('.sidebar .content .radio-list .ui-radio input:radio[value=' + radioBtnText + ']').attr('checked', 'checked').checkboxradio("refresh");
+}
 
 function toggleSidebar(containerId) {
     var $container = $("#" + containerId);
@@ -123,7 +146,7 @@ function switchToSection(nextRQ) {
     }
     var preProcessor = null;
     switch(section) {    
-        case 'Feed':
+        case 'feed':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 if (window.ctx["pageType"] == "repo") {
@@ -134,14 +157,14 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToFeedChild;
             break;
-        case 'Watchers':
+        case 'watchers':
             template = Handlebars.templates["user-list"];
             if (!nextRQ) {
                 rq = getWatchersRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToWatcherChild;
             break;
-        case 'Code':
+        case 'code':
             template = Handlebars.templates["directory-list"];
             preProcessor = sortDirectory;
                 
@@ -150,27 +173,29 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToDirectoryItem;
             break;
-        case 'Commits':
+        case 'commits':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToCommitChild;
             break;
-        case 'Issues':
+        case 'issues':
             template = Handlebars.templates["issue-list"];
             if (!nextRQ) {
                 rq = getIssuesRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToIssueChild;
             break;
-        case 'Milestones':
+        case 'milestones':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 rq = getMilestonesRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToMilestoneChild;
             break;
+            
+        // TODO: change section names for the following to update for convention
         case 'User Profile':
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
@@ -187,7 +212,7 @@ function switchToSection(nextRQ) {
         default:
             return;
     }
-    $(".view .subheader", window.ctx["contentWrapper"]).html(section);
+    $(".view .subheader", window.ctx["contentWrapper"]).html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
 }
 
@@ -202,7 +227,8 @@ function initSidebarSections() {
         childSelectedTheme: window.ctx['childSelectedTheme']
     }
     var templated = RadioList(opts);
-    $(".sidebar .content", window.ctx["contentWrapper"]).html(templated).trigger("create");
+    $(".sidebar .content", window.ctx["contentWrapper"]).html(templated).trigger("create");    
+    selectSectionRadioButton(window.ctx["section"]);
 }
 
 function getSectionList(context) {
