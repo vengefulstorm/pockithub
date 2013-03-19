@@ -146,7 +146,7 @@ function program3(depth0,data) {
   buffer += " data-inset='false'>\n    <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id=\"upDir\">\n        <a href='javascript:void(0)'>\n            <img src='";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.getItemIcon),stack1 ? stack1.call(depth0, "dir", options) : helperMissing.call(depth0, "getItemIcon", "dir", options)))
-    + "' />\n            <h1 class='itemName'>..</h1>\n        </a>\n    </li>\n    ";
+    + "'/>\n            <h1 class='itemName'>..</h1>\n        </a>\n    </li>\n    ";
   stack2 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</ul>\n";

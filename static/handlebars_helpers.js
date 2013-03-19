@@ -68,9 +68,9 @@ Handlebars.registerHelper('ifEquals', function(elt1, elt2, options) {
 
 Handlebars.registerHelper('getItemIcon', function(type) {
     if (type == 'dir') {
-        return '/static/css/images/Actions-document-open-folder-icon.png';
+        return '/static/Actions-document-open-folder-icon.png';
     } else {
-        return '/static/css/images/Mimetypes-x-office-document-icon.png';
+        return '/static/Mimetypes-x-office-document-icon.png';
     }
 });
 

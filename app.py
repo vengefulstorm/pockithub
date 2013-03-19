@@ -2,19 +2,24 @@ import os
 import urllib2
 import urllib
 import json
+import base64
 
-from flask import Flask, url_for, send_from_directory
+from flask import Flask, url_for, send_from_directory, render_template
+from render_section import render_section
+
 
 app = Flask(__name__);
+app.register_blueprint(render_section);
+
 
 #LANDING PAGE
-@app.route('/')
-def hello():
-    return send_from_directory('templates', filename='index.html');
-
+@app.route('/', methods=['GET'])
+def serveLanding():
+    return render_template('index.html', user='vengefulstorm', repo='pockithub');
+    
 
 #OAUTH SETUP
-@app.route('/auth')
+@app.route('/auth', methods=['GET'])
 def handleAuth():
     code = request.args.get('code');
     cid = str(os.getenv('CLIENT_ID'));
@@ -36,18 +41,20 @@ def handleAuth():
     tok = resp['access_token'];
     
     return redirect(url_for('app', token=tok));
-    
-    
-#MAIN APP
-@app.route('/app')
-def serveApp():
-    return render_template('index.html');
 
 
 #HELPER END POINT
-#@app.route('')
-#def blah():
-#    return 
+#@app.route('/helper/encrypt', methods=['POST'])
+#def encrypt():
+#    injson = None;
+#    if request.headers['Content-Type'] == 'application/json':
+#        injson = json.dumps(request.json);
+
+#    data = injson['data'];
+#    data = b64decode(data);
+    
+#    resp = make_response(...)
+# jsonify ...
 
 
 if __name__ == '__main__':

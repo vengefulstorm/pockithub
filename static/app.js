@@ -1,22 +1,10 @@
-$(function() {
-window.ctx = {
-    pageType: "repo",
-    user: "vengefulstorm",
-    repo: "pockithub",
-    section: "Watchers",
-    subSection: "",
-    contentWrapper: "#main-wrapper",
-    containerTheme: "c",
-    childTheme: "c",
-    childSelectedTheme: "c",
-    divTypeEnum: {"issue-view":1, "code-view":2},
-    upDir: [],
-    currentBranch : "master"
-}
-
-renderDiv();
-switchToSection();
-initSidebarSections();
+var init = function init() {
+    window.ctx["upDir"] = [];
+    window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
+    window.ctx["currentBranch"] = "master";
+    renderDiv();
+    switchToSection();
+    initSidebarSections();
 
 // Initialize click handlers
 $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(event) {
@@ -76,7 +64,7 @@ $("[class^=issues-comments-button-link]").live("click",function(event){
       $("#issues-comments-list-"+issuesNumber).html("");
     }
 });
-});
+};
 
 function toggleSidebar(containerId) {
     var $container = $("#" + containerId);
