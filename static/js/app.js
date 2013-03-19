@@ -8,9 +8,13 @@ window.ctx = {
     contentWrapper: "#main-wrapper",
     containerTheme: "c",
     childTheme: "c",
-    childSelectedTheme: "c"
+    childSelectedTheme: "c",
+    divTypeEnum: {"issue-view":1, "code-view":2},
+    upDir: [],
+    currentBranch : "master"
 }
 
+renderDiv();
 switchToSection();
 initSidebarSections();
 
@@ -37,11 +41,20 @@ $("[class^=directory-list-item]").live("click",function(event){
     var itemType = $(this).attr('data-type');
     var itemName = $(this).attr('data-name');
     var itemLink = $(this).attr('data-link');
+    var itemPath = $(this).attr('data-path');
 
     if (itemType == 'dir'){
-      switchToSection(itemLink);
+        if ($(this).attr("id") == "upDir"){
+            if(window.ctx["upDir"].length > 0){
+                //there is something here
+                switchToSection(window.ctx["upDir"].pop());
+            }
+        }else{
+            updateUpDirContext(itemName,itemLink);
+            switchToSection(itemLink);
+        }
     }else{
-      showFileContents(itemName); 
+        renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
     }
 });
 
@@ -56,8 +69,7 @@ $("[class^=issues-comments-button-link]").live("click",function(event){
     if ($(this).attr("value")  == "false"){
       var url = $(this).data("url");
       $(this).attr("value","true");
-      window.ctx["section"] = "Issues View";
-      switchToSection(url);
+      renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }else{
       var issuesNumber = getIssuesNumberFromUrl($(this).data("url"));
       $(this).attr("value","false");
@@ -77,6 +89,39 @@ function toggleSidebar(containerId) {
     }
 }
 
+//given api request and id, updates the id with information
+function renderDiv(nextRQ, divType) {
+    var rq = "";
+    var data = {};
+    var template;
+    var transformer = function(data){ return data; };
+    var preProcessor = null;
+    if(nextRQ){
+        rq = nextRQ;
+    }
+    
+    switch(divType) {
+        case window.ctx["divTypeEnum"]["issue-view"]:
+            template = Handlebars.templates["issue-view"];
+            transformer = transformToIssue;
+            var issuesNumber = getIssuesNumberFromUrl(rq);
+            divId = $("#issues-comments-list-"+issuesNumber);
+            break;
+        case window.ctx["divTypeEnum"]["code-view"]:
+            //TODO: pass in filetype as well
+            template = Handlebars.templates["code-view"];
+            transformer = transformToCode;
+            var filename = extractFilenameFromRequest(nextRQ);
+            var filetype = extractFiletypeFromRequest(filename);
+            divId = $("#file-"+filename);
+            break;
+        default:
+            return;
+    }
+    loadTemplatedContent(rq, template, transformer, data, preProcessor, divId)
+}
+
+//switches the main content view
 function switchToSection(nextRQ) {
     var rq = "";
     var rq2;
@@ -278,7 +323,8 @@ function transformToDirectoryItem(jsonItem) {
         type: jsonItem["type"],
         link: jsonItem["_links"]["self"],
         name: jsonItem["name"],
-        path: jsonItem["path"]
+        path: jsonItem["path"],
+        sha:  jsonItem["sha"]
     }
     return dirItem;
 }
@@ -309,12 +355,13 @@ function transformToUserProfile(jsonItem) {
 }
 
 function transformToIssue(jsonItem){
-  return jsonItem;
+    return jsonItem;
 }
 
-function showFileContents(filename){
-  //TODO: Complete
-   alert('todo!');
+function transformToCode(fileInfo){
+    //alert("haha1");
+    //alert(fileInfo["content"]);
+    return fileInfo;
 }
 
 function sortDirectory(opts) {
@@ -348,4 +395,26 @@ function sortByName(a, b){
 function getIssuesNumberFromUrl(rq){
     var issuesNumber = rq.split("issues/")[1];
     return issuesNumber.substring(0,issuesNumber.indexOf("/comments"));
+}
+
+function extractFilenameFromRequest(request) {
+    var filename = request.substring(request.lastIndexOf('/')+1);
+    filename = filename.replace(".","\\.");
+    return filename;
+}
+
+function extractFiletypeFromRequest(filename){
+    var index = filename.lastIndexOf('.');
+    if (index == -1){
+        return "";
+    }else{
+        //if filename ends with ".", it'll still return an empty string
+        return filename.substring(index+1);
+    }
+}
+
+function updateUpDirContext(name,link){
+    var index = link.indexOf(name);
+    var upDir = link.substring(0,index-1);
+    window.ctx["upDir"].push(upDir);
 }
