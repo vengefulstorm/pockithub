@@ -120,3 +120,23 @@ Handlebars.registerHelper('getItemIcon', function(type) {
     }
 });
 
+Handlebars.registerHelper('formatRelativeDate', function(isoDate) {
+    var date = new Date(isoDate);
+    var now = new Date();
+    var diff = (now-date);
+    
+    var diff = Math.round(diff/1000);
+    if (diff < 60) return diff + ' seconds ago';
+    
+    var diff = Math.round(diff/60);
+    if (diff < 60) return diff + ' minutes ago';
+    
+    var diff = Math.round(diff/60);
+    if (diff < 24) return diff + ' hours ago';
+    
+    var diff = Math.round(diff/24);
+    if (diff < 365) return diff + ' days ago';
+    
+    var diff = Math.round(diff/365);
+    return diff + ' years ago';
+});

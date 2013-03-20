@@ -120,7 +120,7 @@ $("[class^=user-link]").live("click",function(event){
     setSidebarSection();
 });
 
-$("li.issues-list-item").live("expand",function(event){
+$("li.issue-list-item").live("expand",function(event){
     if ($(".collapsible-content",this).not(":visible")) {
         var url = $(this).data("url");
         renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
