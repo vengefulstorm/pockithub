@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# 2013-03-20:v1
+
+static/styles.css
+static/jquery-1.7.2.min.js
+static/base64.js
+static/jquery.mobile-1.1.1.min.js
+static/overthrow.js
+static/handlebars.js
+static/handlebars_helpers.js
+static/requests_helpers.js
+static/templates.js
+static/app.js
+/*
+/*/*
+/*/*/*
+/*/*/*/*
+
+NETWORK
+http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css
