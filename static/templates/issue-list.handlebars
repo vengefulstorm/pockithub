@@ -22,18 +22,18 @@
                     {{#if assignee}}
                     {{#with assignee}}
                     <li class='user-list-item'>
-                        <a href='javascript:void(0)'>
+                        <a href='javascript:void(0)' data-url='{{user_url}}' class='user-link'>
                             <img class='thumbnail-small ui-li-icon' src='{{avatar_url}}' />
-                            <h3>Assigned to: {{login}}</h3>
+                            <h3 class="username" data-username="{{login}}">Assigned to: {{login}}</h3>
                         </a>
                     </li>
                     {{/with}}
                     {{/if}}
                     {{#with user}}
                     <li class='user-list-item'>
-                        <a href='javascript:void(0)'>
+                        <a href='javascript:void(0)' data-url='{{user_url}}' class='user-link'>
                             <img class='thumbnail-small ui-li-icon' src='{{avatar_url}}' />
-                            <h3>Opened by: {{login}}</h3>
+                            <h3 class="username" data-username="{{login}}">Opened by: {{login}}</h3>
                         </a>
                     </li>
                     {{/with}}

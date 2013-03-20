@@ -114,7 +114,7 @@ $("[class^=directory-list-item]").live("click",function(event){
 $("[class^=user-link]").live("click",function(event){
     window.ctx["section"] = 'profile';
     var url = $(this).data("url");
-    var clickedUser = $(this).find("[class^=username]").html();
+    var clickedUser = $(this).find("[class^=username]").data("username");
     window.ctx["user"]=clickedUser;
     switchToSection(url);
     setSidebarSection();
