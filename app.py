@@ -16,9 +16,6 @@ app.register_blueprint(render_section);
 #LANDING PAGE
 @app.route('/', methods=['GET'])
 def serveLanding():
-    #return PH_common.PAT;
-    #import pdb; pdb.set_trace()
-    #return render_template('index.html', user='vengefulstorm', repo='pockithub');
     return render_template('index.html', user='vengefulstorm', repo='pockithub', public_token=PH_common.PAT);
 
 
@@ -28,25 +25,40 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
+#MANIFEST
+@app.route('/manifest.appcache')
+def manifest():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'manifest.appcache', mimetype='text/cache-manifest')
+
+
 #OAUTH SETUP
 @app.route('/auth', methods=['GET'])
 def handleAuth():
     code = request.args.get('code');
-    #return PH_common.cid;
-    return cid;
-    
-    #data = { 'client_id' : PH_common.cid, 'client_secret' : PH_common.csecret, 'code' : code };
-    data = { 'client_id' : cid, 'client_secret' : csecret, 'code' : code };
-    data = urllib.urlencode(data);
+    data = json.dumps({ 'client_id' : PH_common.cid, 'client_secret' : PH_common.csecret, 'code' : code });
+
+    #get user access token
     url = 'https://github.com/login/oauth/access_token';
     header = { 'Accept' : 'application/json' };
+
     req = urllib2.Request(url, data, header);
     resp = urllib2.urlopen(req);
     resp = json.loads('\n'.join(resp.readlines()));
     
     tok = resp['access_token'];
+
+    #get authenticated user's name
+    url = 'https://api.github.com/user';
+    header = { 'Accept' : 'application/json' };
+
+    req = urllib2.Request(url, header);
+    resp = urllib2.urlopen(req);
+    resp = json.loads('\n'.join(resp.readlines()));
     
-    return redirect(url_for('/', user_token=tok));
+    usrName = resp['login'];
+    
+    #redirect to user's profile
+    return redirect(url_for('/' + usrName, user_token=tok));
 
 
 #HELPER END POINT

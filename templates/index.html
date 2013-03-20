@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="manifest.appcache">
+<html lang="en" manifest="/manifest.appcache">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"> 
@@ -27,12 +27,12 @@
 					        {% if repo %}repo: "{{ repo }}",{% endif %}
 					        {% if section %}section: "{{ section }}",{% else %}section: "code",{% endif %}
                   subSection: "",
+					        {% if public_token %}public_token: "{{ public_token }}",{% endif %}
+					        {% if user_token %}user_token: "{{ user_token }}",{% endif %}
                   contentWrapper: "#main-wrapper",
                   containerTheme: "c",
                   childTheme: "c",
                   childSelectedTheme: "c"
-					        {% if public_token %}public_token: "{{ public_token }}",{% endif %}
-					        {% if user_token %}user_token: "{{ user_token }}"{% endif %}
 					    }
 					    init();
 					});
