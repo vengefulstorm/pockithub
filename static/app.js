@@ -98,15 +98,10 @@ $("[class^=user-link]").live("click",function(event){
     setSidebarSection();
 });
 
-$("[class^=issues-comments-button-link]").live("click",function(event){
-    if ($(this).attr("value")  == "false"){
-      var url = $(this).data("url");
-      $(this).attr("value","true");
-      renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
-    }else{
-      var issuesNumber = getIssuesNumberFromUrl($(this).data("url"));
-      $(this).attr("value","false");
-      $("#issues-comments-list-"+issuesNumber).html("");
+$("li.issues-list-item").live("expand",function(event){
+    if ($(".collapsible-content",this).not(":visible")) {
+        var url = $(this).data("url");
+        renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }
 });
 };
@@ -140,7 +135,7 @@ function renderDiv(nextRQ, divType) {
     
     switch(divType) {
         case window.ctx["divTypeEnum"]["issue-view"]:
-            template = Handlebars.templates["issue-view"];
+            template = Handlebars.templates["issue-comments-list"];
             transformer = transformToIssue;
             var issuesNumber = getIssuesNumberFromUrl(rq);
             divId = $("#issues-comments-list-"+issuesNumber);
@@ -156,7 +151,7 @@ function renderDiv(nextRQ, divType) {
         default:
             return;
     }
-    loadTemplatedContent(rq, template, transformer, data, preProcessor, divId)
+    loadTemplatedContent(rq, template, transformer, data, preProcessor, divId);
 }
 
 //switches the main content view
@@ -323,7 +318,8 @@ function transformToMilestoneChild(jsonItem) {
 function transformToIssueChild(jsonItem) {
     var child = {
         "type": "issue",
-        "content": jsonItem
+        "content": jsonItem,
+        "children_url": jsonItem["comments_url"]
     };
     return transformToChild(jsonItem["user"], child);
 }

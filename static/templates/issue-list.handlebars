@@ -1,46 +1,43 @@
 <ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='issues-list'>
     {{#each list}}
-        <li class='issues-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
-            {{#if avatar_url}}
-            <div class='user'>
-                <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
-                    <img src='{{avatar_url}}' class='avatar'/>
-                    <h1 class='username'>{{user_name}}</h1>
-                </a>
-            </div>
-            {{/if}}
-
-            <div class='item-content'>
-                {{{render content type}}}
-            </div>
-            {{#with content}}
-                <div class='issues-list-number'>{{number}}</div>
-                <div class='issues-list-labels'>
-                {{#if labels}}
-                {{#each labels}}
-                    <ul>
-                        <ui>{{name}}</ui>
-                    </ul>
-                {{/each}}
-                {{/if}}
-                </div>
-                <div class='issues-assignee'>
-                    Assigned To:
-                    {{#if assignee}}
-                        {{#with assignee}}{{login}}{{/with}}
-                    {{else}}
-                        nope
-                    {{/if}}
-                </div>
-                <h1>Comments: {{comments}} </h1>
-                <div class='issues-comments-button'>
-                    <a href='javascript:void(0)' data-role="button" data-inline="true" data-mini="true" data-url='{{comments_url}}' class='issues-comments-button-link ui-link' value="false">
-                      Toggle Comments
+        <li data-role='collapsible' data-inset='false' class='issues-list-item' data-url='{{children_url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            <h3 class='collapsible-header' data-inset='false'>
+                {{#if avatar_url}}
+                <div class='user'>
+                    <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
+                        <img src='{{avatar_url}}' class='avatar'/>
+                        <h1 class='username'>{{user_name}}</h1>
                     </a>
                 </div>
-                <div id='issues-comments-list-{{number}}'>
+                {{/if}}
+
+                <div class='item-content'>
+                    <span class='ui-li-aside'>#{{content.number}}</span>
+                    {{{renderIssue content}}}
                 </div>
-            {{/with}}
+            </h3>
+            <div class='collapsible-content'>
+                {{#with content}}
+                <ul class='user-list' data-role='listview'>
+                    {{#if assignee}}
+                    <li class='user-list-item'>
+                        <a href='javascript:void(0)'>
+                            <img class='thumbnail-small ui-li-icon' src='{{assignee.avatar_url}}' />
+                            <h3>Assigned to: {{assignee.login}}</h3>
+                        </a>
+                    </li>
+                    {{/if}}
+                    <li class='user-list-item'>
+                        <a href='javascript:void(0)'>
+                            <img class='thumbnail-small ui-li-icon' src='{{user.avatar_url}}' />
+                            <h3>Opened by: {{user.login}}</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div id='issues-comments-list-{{number}}' class='child-content'>
+                </div>                
+                {{/with}}
+            </div>
          </li>
     {{/each}}
 </ul>
