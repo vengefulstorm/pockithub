@@ -358,12 +358,14 @@ function getUserContext() {
 }
 
 function loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill) {
-    var access_token = window.ctx["public_token"];
+    var access_token = window.ctx["user_token"];
     if (typeof access_token === 'undefined') {
-        access_token = window.ctx["user_token"];
+        access_token = window.ctx["public_token"];
     }
     
-    data["access_token"] = access_token;
+    if (typeof access_token !== 'undefined') {
+        data["access_token"] = access_token;
+    }
     
     $.ajax({
         type: 'GET',
