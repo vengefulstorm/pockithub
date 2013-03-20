@@ -3,26 +3,53 @@ var init = function init() {
         'Issues': 'issues',
         'Milestones': 'milestones',
         'Watchers': 'watchers',
-        'Feed': 'feed',
+        'Repo Feed': 'repo feed',
+        'User Feed': 'user feed',
         'Commits': 'commits',
-        'Code': 'code'
+        'Code': 'code',
+        'Profile': 'profile',
+        'Followers': 'followers',
+        'Following': 'following',
+        'Repos': 'repos',
+        'Starred Repos': 'starred repos'
     }
     
     window.backwardSectionMap = {
         'issues': 'Issues',
         'milestones': 'Milestones',
         'watchers': 'Watchers',
-        'feed': 'Feed',
+        'repo feed': 'Repo Feed',
+        'user feed': 'User Feed',
         'commits': 'Commits',
-        'code': 'Code'
+        'code': 'Code',
+        'profile': 'Profile',
+        'followers': 'Followers',
+        'following': 'Following',
+        'repos': 'Repos',
+        'starred repos': 'Starred Repos'
     }
 
     window.ctx["upDir"] = [];
     window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
     window.ctx["currentBranch"] = "master";
+    window.ctx["sectionToContextMap"] = 
+        {
+            "issues": "repo",
+            "milestones": "repo",
+            "watchers": "repo",
+            "repo Feed": "repo",
+            "commits": "repo",
+            "code": "repo",
+            "user Feed": "user",
+            "profile": "user",
+            "followers": "user",
+            "following": "user",
+            "repos": "repo",
+            "starred Repos": "repo"
+        };
     renderDiv();
     switchToSection();
-    initSidebarSections();
+    setSidebarSection();
 
 // Initialize click handlers
 $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(event) {
@@ -52,7 +79,6 @@ $("[class^=directory-list-item]").live("click",function(event){
     if (itemType == 'dir'){
         if ($(this).attr("id") == "upDir"){
             if(window.ctx["upDir"].length > 0){
-                //there is something here
                 switchToSection(window.ctx["upDir"].pop());
             }
         }else{
@@ -66,9 +92,10 @@ $("[class^=directory-list-item]").live("click",function(event){
 
 
 $("[class^=user-link]").live("click",function(event){
+    window.ctx["section"] = 'profile';
     var obj1 = $(this).data("url");
-    window.ctx["section"] = 'User Profile';
     switchToSection(obj1);
+    setSidebarSection();
 });
 
 $("li.issues-list-item").live("expand",function(event){
@@ -141,7 +168,7 @@ function switchToSection(nextRQ) {
     }
     var preProcessor = null;
     switch(section) {    
-        case 'feed':
+        case 'repo feed':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 if (window.ctx["pageType"] == "repo") {
@@ -189,33 +216,35 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToMilestoneChild;
             break;
-            
-        // TODO: change section names for the following to update for convention
-        case 'User Profile':
+        case 'profile':
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
               rq = getUserRequest(window.ctx["user"]);
             }
             transformer = transformToUserProfile;
             break;
-        case 'Issues View':
-            template = Handlebars.templates["issue-view"];
-            transformer = transformToIssue;
-            issuesNumber = getIssuesNumberFromUrl(rq);
-            templateToFill = $("#issues-comments-list-"+issuesNumber);
-            break;
         default:
             return;
     }
     $(".view .subheader", window.ctx["contentWrapper"]).html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
+    window.ctx["pageType"] = window.ctx["sectionToContextMap"][section];
+
 }
 
-function initSidebarSections() {
+function setSidebarSection() {
+    var list;
+    switch(window.ctx["pageType"]) {
+        case 'user':
+            list = getUserContext();
+            break;
+        default:
+            list = getRepoContext();
+    };
     var selectedSection = window.ctx["section"];
     var RadioList = Handlebars.templates["radio-list"];
     var opts = {
-        list: getSectionList(),
+        list: list,
         selectedItem: selectedSection,
         containerTheme: window.ctx['containerTheme'],
         childTheme: window.ctx['childTheme'],
@@ -226,23 +255,25 @@ function initSidebarSections() {
     selectSectionRadioButton(window.ctx["section"]);
 }
 
-function getSectionList(context) {
-    // TODO: 
-    // context is a person?
-    //return [
-    //    {item: "Profile", idx: 0},
-    //    {item: "Followers", idx: 1},
-    //    {item: "Repos", idx: 2},
-    //  ...
-    //]
-    // context is a repo?
+function getRepoContext() {
     return [
-        {item: "Feed", idx: 0},
+        {item: "Repo Feed", idx: 0},
         {item: "Commits", idx: 1},
         {item: "Code", idx: 2},
         {item: "Issues", idx: 3},
         {item: "Milestones", idx: 4},
         {item: "Watchers", idx: 5}
+    ]
+}
+
+function getUserContext() {
+    return [
+        {item: "Profile", idx:0},
+        {item: "User Feed", idx:1},
+        {item: "Repos", idx:2},
+        {item: "Followers", idx:3},
+        {item: "Following", idx:4},
+        {item: "Starred Repos", idx:5}
     ]
 }
 
@@ -369,7 +400,6 @@ function transformToIssue(jsonItem){
 }
 
 function transformToCode(fileInfo){
-    //alert("haha1");
     //alert(fileInfo["content"]);
     return fileInfo;
 }
