@@ -294,6 +294,13 @@ function getUserContext() {
 }
 
 function loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill) {
+    var access_token = window.ctx["public_token"];
+    if (typeof access_token === 'undefined') {
+        access_token = window.ctx["user_token"];
+    }
+    
+    data["access_token"] = access_token;
+    
     $.ajax({
         type: 'GET',
         url: rq,

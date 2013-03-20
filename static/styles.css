@@ -114,6 +114,10 @@ li.label-element {
     padding-right: 3px;
 }
 
+a {
+    outline: 0;
+}
+
 .thumbnail-small {
     max-height: 36px !important;
     max-width: 36px !important;
