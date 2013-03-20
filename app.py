@@ -28,6 +28,16 @@ def favicon():
 #MANIFEST
 @app.route('/manifest.appcache')
 def manifest():
+    toCache = [ 'styles.css', 
+                'jquery-1.7.2.min.js',
+                'base64.js',
+                'jquery.mobile-1.1.1.min.js'
+                'overthrow.js',
+                'handlebars.js',
+                'handlebars_helpers.js',
+                'requests_helpers.js',
+                'templates.js',
+                'app.js'];
     return send_from_directory(os.path.join(app.root_path, 'static'), 'manifest.appcache', mimetype='text/cache-manifest')
 
 
