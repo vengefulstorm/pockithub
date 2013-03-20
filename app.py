@@ -5,7 +5,7 @@ import base64
 import PH_common
 #import AES
 
-from flask import Flask, url_for, send_from_directory, render_template
+from flask import Flask, url_for, send_from_directory, render_template, request
 from render_section import render_section
 
 
@@ -28,17 +28,12 @@ def favicon():
 #MANIFEST
 @app.route('/manifest.appcache')
 def manifest():
-    toCache = [ 'styles.css', 
-                'jquery-1.7.2.min.js',
-                'base64.js',
-                'jquery.mobile-1.1.1.min.js'
-                'overthrow.js',
-                'handlebars.js',
-                'handlebars_helpers.js',
-                'requests_helpers.js',
-                'templates.js',
-                'app.js'];
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'manifest.appcache', mimetype='text/cache-manifest')
+    curr_url = request.url
+    
+    resp = make_response(render_template('manifest.appcache'));
+    resp.headers['Content-Type'] = 'text/cache-manifest';
+    return resp;
+    #return render(os.path.join(app.root_path, 'static'), 'manifest.appcache', mimetype='text/cache-manifest')
 
 
 #OAUTH SETUP

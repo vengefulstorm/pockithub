@@ -5,25 +5,24 @@ import base64
 #import httplib
 
 
-#def deleteOldPAT(oldUrl):
-#    conn = httplib.HTTPConnection(oldUrl)
-#    conn.request('DELETE', '/myurl', body)
-#    resp = conn.getresponse()
-#    content = resp.read()
+def getPAT():
+    username = str(os.getenv('PUBLIC_USERNAME'));
+    passwd = str(os.getenv('PUBLIC_PASSWORD'));
 
-#    username = str(os.getenv('PUBLIC_USERNAME'));
-#    passwd = str(os.getenv('PUBLIC_PASSWORD'));
+    PAT_req = urllib2.Request('https://api.github.com/authorizations');
 
-#    input_data = json.dumps({ 'client_id' : cid, 'client_secret' : csecret, 'note': 'public access' });
+    base64string = base64.encodestring('%s:%s' % (username, passwd)).replace('\n', '')
+    PAT_req.add_header("Authorization", "Basic %s" % base64string)
 
-#    PAT_req = urllib2.Request('https://api.github.com/authorizations');
+    PAT_resp = urllib2.urlopen(PAT_req);
+    PAT_resp = json.loads('\n'.join(PAT_resp.readlines()));
+    PAT_resp = PAT_resp[0];
 
-#    base64string = base64.encodestring('%s:%s' % (username, passwd)).replace('\n', '')
-#    PAT_req.add_header("Authorization", "Basic %s" % base64string)
-
-#    PAT_resp = urllib2.urlopen(PAT_req, input_data);
-#    PAT_resp = json.loads('\n'.join(PAT_resp.readlines()));
-#    return PAT_resp['token'];
+    if (PAT_resp['token']):
+        return PAT_resp['token'];
+    else:
+        return None;
+        #PAT_resp = register_PAT();
 
 
 def registerPAT():
@@ -39,11 +38,14 @@ def registerPAT():
 
     PAT_resp = urllib2.urlopen(PAT_req, input_data);
     PAT_resp = json.loads('\n'.join(PAT_resp.readlines()));
-    return (PAT_resp['token'], PAT_resp['url']);
+
+    return PAT_resp['token'];
 
 
 #GET CID & CSECRET
 cid = str(os.getenv('CLIENT_ID'));
 csecret = str(os.getenv('CLIENT_SECRET'));
-(PAT, PAT_url) = registerPAT();
+PAT = getPAT();
+if (PAT == None):
+    PAT = registerPAT();
 
