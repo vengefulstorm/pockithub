@@ -52,7 +52,7 @@ function program6(depth0,data) {
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='thumbnail-med'/>\r\n                    <h1 class='username'>";
+    + "'/>\r\n                    <h1 class='username'>";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -317,7 +317,7 @@ function program6(depth0,data) {
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='thumbnail-med'/>\r\n                        <h1 class='username'>";
+    + "'/>\r\n                        <h1 class='username'>";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -538,7 +538,7 @@ function program3(depth0,data,depth1) {
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='thumbnail-med'/>\r\n                <h1 class='username'>";
+    + "'/>\r\n                <h1 class='username'>";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -575,7 +575,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h2>\r\n  <img class='thumbnail-med' src=\"";
+    + "</h2>\r\n  <img src=\"";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)

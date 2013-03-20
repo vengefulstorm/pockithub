@@ -267,16 +267,8 @@ a {
     width: 99%;
 }
 
-.user-list .ui-li{
-    height: 50px;    
-}
-
-.child-list .ui-li {
-    height: 50px;
-}
-
-.child-list-item .item-content {
-    height: auto !important;
+.collapsible-content .issue-comments-list {
+    width: 99%;
 }
 
 .issue-comments-list-item  .item-content {
@@ -303,7 +295,7 @@ a {
     display: inline-block;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
-    width: 50px;
+    width: 90px;
     float: left;
     margin-right: 8px;
 }
@@ -313,7 +305,7 @@ a {
 }
 
 .child-list-item .user .username, .issue-list-item .user .username {
-    font-size: 0.6em;
+    font-size: 0.8em;
     margin-top: 0;
     margin-bottom: 0;
 }
