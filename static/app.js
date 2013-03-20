@@ -1,6 +1,71 @@
 var init = function init() {
-switchToSection();
-initSidebarSections();
+    // Check if a new cache is available on page load.
+    window.addEventListener('load', function(e) {
+        window.applicationCache.addEventListener('updateready', function(e) {
+            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                // Browser downloaded a new app cache.
+                // Swap it in and reload the page to get the new hotness.
+                window.applicationCache.swapCache();
+                if (confirm('A new version of this site is available. Load it?')) {
+                    window.location.reload();
+                }
+            } else {
+                // Manifest didn't changed. Nothing new to server.
+            }
+        }, false);
+    }, false);
+
+    window.forwardSectionMap = {
+        'Issues': 'issues',
+        'Milestones': 'milestones',
+        'Watchers': 'watchers',
+        'Repo Feed': 'repo feed',
+        'User Feed': 'user feed',
+        'Commits': 'commits',
+        'Code': 'code',
+        'Profile': 'profile',
+        'Followers': 'followers',
+        'Following': 'following',
+        'Repos': 'repos',
+        'Starred Repos': 'starred repos'
+    }
+    
+    window.backwardSectionMap = {
+        'issues': 'Issues',
+        'milestones': 'Milestones',
+        'watchers': 'Watchers',
+        'repo feed': 'Repo Feed',
+        'user feed': 'User Feed',
+        'commits': 'Commits',
+        'code': 'Code',
+        'profile': 'Profile',
+        'followers': 'Followers',
+        'following': 'Following',
+        'repos': 'Repos',
+        'starred repos': 'Starred Repos'
+    }
+
+    window.ctx["upDir"] = [];
+    window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
+    window.ctx["currentBranch"] = "master";
+    window.ctx["sectionToContextMap"] = 
+        {
+            "issues": "repo",
+            "milestones": "repo",
+            "watchers": "repo",
+            "repo Feed": "repo",
+            "commits": "repo",
+            "code": "repo",
+            "user Feed": "user",
+            "profile": "user",
+            "followers": "user",
+            "following": "user",
+            "repos": "repo",
+            "starred Repos": "repo"
+        };
+    renderDiv();
+    switchToSection();
+    setSidebarSection();
 
 // Initialize click handlers
 $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(event) {
@@ -11,12 +76,12 @@ $contentWrapper = $(window.ctx["contentWrapper"]);
 $radioWrapper = $contentWrapper.find(".sidebar .content .radio-list .ui-radio label");
 $radioWrapper.bind("touchstart", function(event) {
     event.stopPropagation();
-    window.ctx["section"] = $(this).siblings("input").val();
+    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
 });
 $radioWrapper.bind("click", function(event) {    
     event.stopPropagation();
-    window.ctx["section"] = $(this).siblings("input").val();
+    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
     toggleSidebar("main-wrapper");
 });
@@ -25,34 +90,42 @@ $("[class^=directory-list-item]").live("click",function(event){
     var itemType = $(this).attr('data-type');
     var itemName = $(this).attr('data-name');
     var itemLink = $(this).attr('data-link');
+    var itemPath = $(this).attr('data-path');
 
     if (itemType == 'dir'){
-      switchToSection(itemLink);
+        if ($(this).attr("id") == "upDir"){
+            if(window.ctx["upDir"].length > 0){
+                switchToSection(window.ctx["upDir"].pop());
+            }
+        }else{
+            updateUpDirContext(itemName,itemLink);
+            switchToSection(itemLink);
+        }
     }else{
-      showFileContents(itemName); 
+        renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
     }
 });
 
 
 $("[class^=user-link]").live("click",function(event){
+    window.ctx["section"] = 'profile';
     var obj1 = $(this).data("url");
-    window.ctx["section"] = 'User Profile';
     switchToSection(obj1);
+    setSidebarSection();
 });
 
-$("[class^=issues-comments-button-link]").live("click",function(event){
-    if ($(this).attr("value")  == "false"){
-      var url = $(this).data("url");
-      $(this).attr("value","true");
-      window.ctx["section"] = "Issues View";
-      switchToSection(url);
-    }else{
-      var issuesNumber = getIssuesNumberFromUrl($(this).data("url"));
-      $(this).attr("value","false");
-      $("#issues-comments-list-"+issuesNumber).html("");
+$("li.issues-list-item").live("expand",function(event){
+    if ($(".collapsible-content",this).not(":visible")) {
+        var url = $(this).data("url");
+        renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }
 });
 };
+
+function selectSectionRadioButton(section) {
+    var radioBtnText = window.backwardSectionMap[section];
+    $('.sidebar .content .radio-list .ui-radio input:radio[value=' + radioBtnText + ']').attr('checked', 'checked').checkboxradio("refresh");
+}
 
 function toggleSidebar(containerId) {
     var $container = $("#" + containerId);
@@ -65,6 +138,39 @@ function toggleSidebar(containerId) {
     }
 }
 
+//given api request and id, updates the id with information
+function renderDiv(nextRQ, divType) {
+    var rq = "";
+    var data = {};
+    var template;
+    var transformer = function(data){ return data; };
+    var preProcessor = null;
+    if(nextRQ){
+        rq = nextRQ;
+    }
+    
+    switch(divType) {
+        case window.ctx["divTypeEnum"]["issue-view"]:
+            template = Handlebars.templates["issue-comments-list"];
+            transformer = transformToIssue;
+            var issuesNumber = getIssuesNumberFromUrl(rq);
+            divId = $("#issues-comments-list-"+issuesNumber);
+            break;
+        case window.ctx["divTypeEnum"]["code-view"]:
+            //TODO: pass in filetype as well
+            template = Handlebars.templates["code-view"];
+            transformer = transformToCode;
+            var filename = extractFilenameFromRequest(nextRQ);
+            var filetype = extractFiletypeFromRequest(filename);
+            divId = $("#file-"+filename);
+            break;
+        default:
+            return;
+    }
+    loadTemplatedContent(rq, template, transformer, data, preProcessor, divId);
+}
+
+//switches the main content view
 function switchToSection(nextRQ) {
     var rq = "";
     var rq2;
@@ -78,7 +184,7 @@ function switchToSection(nextRQ) {
     }
     var preProcessor = null;
     switch(section) {    
-        case 'Feed':
+        case 'repo feed':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 if (window.ctx["pageType"] == "repo") {
@@ -89,14 +195,14 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToFeedChild;
             break;
-        case 'Watchers':
+        case 'watchers':
             template = Handlebars.templates["user-list"];
             if (!nextRQ) {
                 rq = getWatchersRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToWatcherChild;
             break;
-        case 'Code':
+        case 'code':
             template = Handlebars.templates["directory-list"];
             preProcessor = sortDirectory;
                 
@@ -105,78 +211,85 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToDirectoryItem;
             break;
-        case 'Commits':
+        case 'commits':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToCommitChild;
             break;
-        case 'Issues':
+        case 'issues':
             template = Handlebars.templates["issue-list"];
             if (!nextRQ) {
                 rq = getIssuesRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToIssueChild;
             break;
-        case 'Milestones':
+        case 'milestones':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 rq = getMilestonesRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToMilestoneChild;
             break;
-        case 'User Profile':
+        case 'profile':
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
               rq = getUserRequest(window.ctx["user"]);
             }
             transformer = transformToUserProfile;
             break;
-        case 'Issues View':
-            template = Handlebars.templates["issue-view"];
-            transformer = transformToIssue;
-            issuesNumber = getIssuesNumberFromUrl(rq);
-            templateToFill = $("#issues-comments-list-"+issuesNumber);
-            break;
         default:
             return;
     }
-    $(".view .subheader", window.ctx["contentWrapper"]).html(section);
+    $(".view .subheader", window.ctx["contentWrapper"]).html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
+    window.ctx["pageType"] = window.ctx["sectionToContextMap"][section];
+
 }
 
-function initSidebarSections() {
+function setSidebarSection() {
+    var list;
+    switch(window.ctx["pageType"]) {
+        case 'user':
+            list = getUserContext();
+            break;
+        default:
+            list = getRepoContext();
+    };
     var selectedSection = window.ctx["section"];
     var RadioList = Handlebars.templates["radio-list"];
     var opts = {
-        list: getSectionList(),
+        list: list,
         selectedItem: selectedSection,
         containerTheme: window.ctx['containerTheme'],
         childTheme: window.ctx['childTheme'],
         childSelectedTheme: window.ctx['childSelectedTheme']
     }
     var templated = RadioList(opts);
-    $(".sidebar .content", window.ctx["contentWrapper"]).html(templated).trigger("create");
+    $(".sidebar .content", window.ctx["contentWrapper"]).html(templated).trigger("create");    
+    selectSectionRadioButton(window.ctx["section"]);
 }
 
-function getSectionList(context) {
-    // TODO: 
-    // context is a person?
-    //return [
-    //    {item: "Profile", idx: 0},
-    //    {item: "Followers", idx: 1},
-    //    {item: "Repos", idx: 2},
-    //  ...
-    //]
-    // context is a repo?
+function getRepoContext() {
     return [
-        {item: "Feed", idx: 0},
+        {item: "Repo Feed", idx: 0},
         {item: "Commits", idx: 1},
         {item: "Code", idx: 2},
         {item: "Issues", idx: 3},
         {item: "Milestones", idx: 4},
         {item: "Watchers", idx: 5}
+    ]
+}
+
+function getUserContext() {
+    return [
+        {item: "Profile", idx:0},
+        {item: "User Feed", idx:1},
+        {item: "Repos", idx:2},
+        {item: "Followers", idx:3},
+        {item: "Following", idx:4},
+        {item: "Starred Repos", idx:5}
     ]
 }
 
@@ -221,7 +334,8 @@ function transformToMilestoneChild(jsonItem) {
 function transformToIssueChild(jsonItem) {
     var child = {
         "type": "issue",
-        "content": jsonItem
+        "content": jsonItem,
+        "children_url": jsonItem["comments_url"]
     };
     return transformToChild(jsonItem["user"], child);
 }
@@ -266,7 +380,8 @@ function transformToDirectoryItem(jsonItem) {
         type: jsonItem["type"],
         link: jsonItem["_links"]["self"],
         name: jsonItem["name"],
-        path: jsonItem["path"]
+        path: jsonItem["path"],
+        sha:  jsonItem["sha"]
     }
     return dirItem;
 }
@@ -297,12 +412,12 @@ function transformToUserProfile(jsonItem) {
 }
 
 function transformToIssue(jsonItem){
-  return jsonItem;
+    return jsonItem;
 }
 
-function showFileContents(filename){
-  //TODO: Complete
-   alert('todo!');
+function transformToCode(fileInfo){
+    //alert(fileInfo["content"]);
+    return fileInfo;
 }
 
 function sortDirectory(opts) {
@@ -336,4 +451,26 @@ function sortByName(a, b){
 function getIssuesNumberFromUrl(rq){
     var issuesNumber = rq.split("issues/")[1];
     return issuesNumber.substring(0,issuesNumber.indexOf("/comments"));
+}
+
+function extractFilenameFromRequest(request) {
+    var filename = request.substring(request.lastIndexOf('/')+1);
+    filename = filename.replace(".","\\.");
+    return filename;
+}
+
+function extractFiletypeFromRequest(filename){
+    var index = filename.lastIndexOf('.');
+    if (index == -1){
+        return "";
+    }else{
+        //if filename ends with ".", it'll still return an empty string
+        return filename.substring(index+1);
+    }
+}
+
+function updateUpDirContext(name,link){
+    var index = link.indexOf(name);
+    var upDir = link.substring(0,index-1);
+    window.ctx["upDir"].push(upDir);
 }

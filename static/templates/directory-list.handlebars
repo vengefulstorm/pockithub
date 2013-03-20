@@ -1,10 +1,18 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTHeme}}' {{/if}} data-inset='false'>
-  {{#each list}}
-    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}'>
-      <a href='javascript:void(0)'>
-        <img src='{{getItemIcon type}}'/>
-        <h1 class='itemName'>{{name}}</h1>
-      </a>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false'>
+    <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id="upDir">
+        <a href='javascript:void(0)'>
+            <img src='{{getItemIcon "dir"}}'/>
+            <h1 class='itemName'>..</h1>
+        </a>
     </li>
-  {{/each}}
+    {{#each list}}
+    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}' data-path='{{path}}'>
+        <a href='javascript:void(0)'>
+            <img src='{{getItemIcon type}}'/>
+            <h1 class='itemName'>{{name}}</h1>
+        </a>
+        <div id='file-{{name}}'>
+        </div>
+    </li>
+    {{/each}}
 </ul>

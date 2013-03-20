@@ -1,5 +1,9 @@
 var BASE_API_URL = "https://api.github.com";
 
+function getMarkdownRequest() {
+    return BASE_API_URL + "/markdown";
+}
+
 function getUserRequest(user) {
     return BASE_API_URL + "/users/" + user;
 }

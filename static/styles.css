@@ -3,6 +3,14 @@
     margin: 0;
 }
 
+.content .ui-li-heading {
+    margin: 0;
+}
+
+.content .ui-collapsible-content {
+    padding: 0;
+}
+
 .content .radio-list .ui-radio .ui-corner-top, .content .radio-list .ui-radio .ui-corner-bottom {
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
@@ -88,6 +96,32 @@
     width: 22px;
     height: 22px;
     margin: 1px 1px 1px 1px !important;
+}
+
+/***** Generic styling *****/
+
+.horizontal-list li{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+li.label-element {
+    color: black;
+    text-decoration: none;
+    text-shadow: 0 0 #000000;
+    font-size: 0.7em;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.thumbnail-small {
+    max-height: 36px !important;
+    max-width: 36px !important;
+    top: 0.1em !important;;
+}
+
+.content .ui-li-aside {
+    width: auto !important;
 }
 
 /***** Header styling *****/
@@ -206,15 +240,36 @@
     padding: 0;
 }
 
-/***** List item styling *****/
+/***** List styling *****/
 .child-list, .issues-list {
 
 }
 
-.child-list-item, .issues-list-item {
+.issue-comments-list {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    width: 99%;
 }
 
 /***** List item components styling *****/
+
+.collapsible-content .user-list-item {
+    width: 99%;
+}
+
+.issue-comments-list-item  .item-content {
+    height: auto !important;
+    width: 80%;
+}
+
+.issues-list .issues-list-item {
+    margin: 0;
+    padding: 0;
+}
+
+.user-list-item h3 {
+    padding-left: 1em;
+}
 
 .user-list-item  .avatar, .issues-list-item .avatar {
 }
