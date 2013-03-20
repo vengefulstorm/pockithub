@@ -20,13 +20,14 @@ var init = function init() {
         'Milestones': 'milestones',
         'Watchers': 'watchers',
         'Repo Feed': 'repo feed',
-        'User Feed': 'user feed',
         'Commits': 'commits',
         'Code': 'code',
+        'Pull Requests': 'pullrequests',
+        'User Feed': 'user feed',
         'Profile': 'profile',
         'Followers': 'followers',
         'Following': 'following',
-        'Repos': 'repos',
+        'User Repos': 'user repos',
         'Starred Repos': 'starred repos'
     }
     
@@ -35,13 +36,14 @@ var init = function init() {
         'milestones': 'Milestones',
         'watchers': 'Watchers',
         'repo feed': 'Repo Feed',
-        'user feed': 'User Feed',
         'commits': 'Commits',
         'code': 'Code',
+        'pullrequests': 'Pull Requests',
+        'user feed': 'User Feed',
         'profile': 'Profile',
         'followers': 'Followers',
         'following': 'Following',
-        'repos': 'Repos',
+        'user repos': 'User Repos',
         'starred repos': 'Starred Repos'
     }
 
@@ -53,15 +55,16 @@ var init = function init() {
             "issues": "repo",
             "milestones": "repo",
             "watchers": "repo",
-            "repo Feed": "repo",
+            "repo feed": "repo",
             "commits": "repo",
             "code": "repo",
-            "user Feed": "user",
+            "pullrequests": "repo",
+            "user feed": "user",
             "profile": "user",
             "followers": "user",
             "following": "user",
-            "repos": "repo",
-            "starred Repos": "repo"
+            "user repos": "repo",
+            "starred repos": "repo"
         };
     renderDiv();
     switchToSection();
@@ -72,18 +75,19 @@ $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(eve
     event.stopPropagation();
     toggleSidebar("main-wrapper");
 });
-$contentWrapper = $(window.ctx["contentWrapper"]);
-$radioWrapper = $contentWrapper.find(".sidebar .content .radio-list .ui-radio label");
-$radioWrapper.bind("touchstart", function(event) {
-    event.stopPropagation();
-    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
-    switchToSection();
-});
-$radioWrapper.bind("click", function(event) {    
+
+$sidebarWrapper = $(".sidebar .content");
+$sidebarWrapper.delegate(".radio-list .ui-radio label", "click",function(event) {
     event.stopPropagation();
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
     toggleSidebar("main-wrapper");
+});
+
+$sidebarWrapper.delegate(".radio-list .ui-radio label", "touchstart", function(event) {
+    event.stopPropagation();
+    window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
+    switchToSection();
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
@@ -109,8 +113,10 @@ $("[class^=directory-list-item]").live("click",function(event){
 
 $("[class^=user-link]").live("click",function(event){
     window.ctx["section"] = 'profile';
-    var obj1 = $(this).data("url");
-    switchToSection(obj1);
+    var url = $(this).data("url");
+    var clickedUser = $(this).find("[class^=username]").html();
+    window.ctx["user"]=clickedUser;
+    switchToSection(url);
     setSidebarSection();
 });
 
@@ -119,6 +125,19 @@ $("li.issues-list-item").live("expand",function(event){
         var url = $(this).data("url");
         renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }
+});
+
+$("[class=repo-list-item]").live("click",function(event){
+    //alert($(this).data("full_name"));
+    var full_name = $(this).data("full_name");
+    var name = $(this).data("name");
+    var repo = name;
+    var user = full_name.substring(0,full_name.indexOf(repo)-1);
+    window.ctx["repo"] = repo;
+    window.ctx["user"] = user;
+    window.ctx["section"] = "repo feed";
+    switchToSection();
+    setSidebarSection();
 });
 };
 
@@ -151,6 +170,7 @@ function renderDiv(nextRQ, divType) {
     
     switch(divType) {
         case window.ctx["divTypeEnum"]["issue-view"]:
+            preProcessor = reverseComments;
             template = Handlebars.templates["issue-comments-list"];
             transformer = transformToIssue;
             var issuesNumber = getIssuesNumberFromUrl(rq);
@@ -232,6 +252,13 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToMilestoneChild;
             break;
+        case 'pullrequests':
+            template = Handlebars.templates["pull-request-list"];
+            if (!nextRQ){
+                rq = getPullRequestsRequest(window.ctx["user"],window.ctx["repo"]);
+            }
+            transformer = transformToPullRequest;
+            break;
         case 'profile':
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
@@ -239,13 +266,49 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToUserProfile;
             break;
+        case 'user feed':
+            //pending auth tokens
+            //TODO:
+            break;
+        case 'user repos':
+            //pending auth tokens
+            template = Handlebars.templates["user-repos"];
+            if(!nextRQ){
+                rq = getUserRepos(window.ctx["user"]);
+            }
+            transformer = transformToUserRepos;
+            break;
+        case 'followers':
+            //TODO: take into consideration auth token
+            template = Handlebars.templates["followers-view"];
+            if(!nextRQ){
+                rq = getFollowers(window.ctx["user"]);
+            }
+            transformer = transformToFollowers;
+            break;
+        case 'following':
+            //TODO: take into consideration auth token
+            template = Handlebars.templates["following-view"];
+            if(!nextRQ){
+                rq = getFollowing(window.ctx["user"]);
+            }
+            transformer = transformToFollowing;
+            break;
+        case 'starred repos':
+            //TODO: take into consideration auth token
+            template = Handlebars.templates["starred-repos-view"];
+            if(!nextRQ){
+                rq = getStarredRepos(window.ctx["user"]);
+            }
+            transformer = transformToStarredRepos;
+            break;
         default:
             return;
     }
     $(".view .subheader", window.ctx["contentWrapper"]).html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
     window.ctx["pageType"] = window.ctx["sectionToContextMap"][section];
-
+    selectSectionRadioButton(window.ctx["section"]);
 }
 
 function setSidebarSection() {
@@ -276,9 +339,10 @@ function getRepoContext() {
         {item: "Repo Feed", idx: 0},
         {item: "Commits", idx: 1},
         {item: "Code", idx: 2},
-        {item: "Issues", idx: 3},
-        {item: "Milestones", idx: 4},
-        {item: "Watchers", idx: 5}
+        {item: "Pull Requests", idx: 3},
+        {item: "Issues", idx: 4},
+        {item: "Milestones", idx: 5},
+        {item: "Watchers", idx: 6}
     ]
 }
 
@@ -286,7 +350,7 @@ function getUserContext() {
     return [
         {item: "Profile", idx:0},
         {item: "User Feed", idx:1},
-        {item: "Repos", idx:2},
+        {item: "User Repos", idx:2},
         {item: "Followers", idx:3},
         {item: "Following", idx:4},
         {item: "Starred Repos", idx:5}
@@ -388,7 +452,8 @@ function transformToDirectoryItem(jsonItem) {
         link: jsonItem["_links"]["self"],
         name: jsonItem["name"],
         path: jsonItem["path"],
-        sha:  jsonItem["sha"]
+        sha:  jsonItem["sha"],
+        haveUpDir: true 
     }
     return dirItem;
 }
@@ -427,6 +492,26 @@ function transformToCode(fileInfo){
     return fileInfo;
 }
 
+function transformToUserRepos(jsonItem){
+    return jsonItem;
+}
+
+function transformToFollowers(jsonItem){
+    return jsonItem;
+}
+
+function transformToFollowing(jsonItem){
+    return jsonItem;
+}
+
+function transformToStarredRepos(jsonItem){
+    return jsonItem;
+}
+
+function transformToPullRequest(jsonItem){
+    return jsonItem;
+}
+
 function sortDirectory(opts) {
     var dir = opts.list;
     dir.sort(sortByName).sort(sortByType);
@@ -444,6 +529,7 @@ function sortByType(a, b){
         return 1;
     }
 }
+
 function sortByName(a, b){
     var typeA = a.name;
     var typeB = b.name;
@@ -453,6 +539,12 @@ function sortByName(a, b){
     }else{
         return 1;
     }
+}
+
+function reverseComments(opts){
+    var commentList = opts['list'];
+    opts['list'] = commentList.reverse();
+    return opts;
 }
 
 function getIssuesNumberFromUrl(rq){

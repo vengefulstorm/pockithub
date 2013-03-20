@@ -18,26 +18,26 @@
         <script src="/static/templates.js"></script>
         <script src="/static/app.js"></script>
 
-				<!-- set window context -->
-				<script>
-					$(function() {
-					    window.ctx = {
-					        pageType: "repo",
-					        {% if user %}user: "{{ user }}",{% endif %}
-					        {% if repo %}repo: "{{ repo }}",{% endif %}
-					        {% if section %}section: "{{ section }}",{% else %}section: "code",{% endif %}
-                  subSection: "",
-					        {% if public_token %}public_token: "{{ public_token }}",{% endif %}
-					        {% if user_token %}user_token: "{{ user_token }}",{% endif %}
-                  contentWrapper: "#main-wrapper",
-                  containerTheme: "c",
-                  childTheme: "c",
-                  childSelectedTheme: "c"
-					    }
-					    init();
-					});
-				</script>
-
+        <!-- set window context -->
+        <script>
+            $(function() {
+                window.ctx = {
+                    //TODO this will be passed in
+                    pageType: "repo",
+                    {% if user %}user: "{{ user }}",{% endif %}
+                    {% if repo %}repo: "{{ repo }}",{% endif %}
+                    {% if section %}section: "{{ section }}",{% else %}section: "code",{% endif %}
+                    subSection: "",
+                    {% if public_token %}public_token: "{{ public_token }}",{% endif %}
+                    {% if user_token %}user_token: "{{ user_token }}",{% endif %}
+                    contentWrapper: "#main-wrapper",
+                    containerTheme: "c",
+                    childTheme: "c",
+                    childSelectedTheme: "c"
+                }
+                init();
+            });
+        </script>
     </head>
     <body>
         <div id="viewable">
