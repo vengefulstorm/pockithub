@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"> 
 
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css"><!--/static/jquery.mobile-1.1.1.min.css">-->
+				<link rel="shortcut icon" href="/static/favicon.ico">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css">
         <link rel="stylesheet" href="/static/styles.css">
 				<!-- Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome -->
 				<!-- we will most likely be including font awesome for their github icon in our logo -->
@@ -24,12 +25,14 @@
 					        pageType: "repo",
 					        {% if user %}user: "{{ user }}",{% endif %}
 					        {% if repo %}repo: "{{ repo }}",{% endif %}
-					        {% if section %}section: "{{ section }}",{% else %}section: "Code",{% endif %}
+					        {% if section %}section: "{{ section }}",{% else %}section: "code",{% endif %}
                   subSection: "",
                   contentWrapper: "#main-wrapper",
                   containerTheme: "c",
                   childTheme: "c",
                   childSelectedTheme: "c"
+					        {% if public_token %}public_token: "{{ public_token }}",{% endif %}
+					        {% if user_token %}user_token: "{{ user_token }}"{% endif %}
 					    }
 					    init();
 					});
