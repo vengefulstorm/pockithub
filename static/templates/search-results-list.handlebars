@@ -1,0 +1,10 @@
+<h3 class="collapsible-header">{{title}}</h3>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='search-results-list'>
+    {{#each list}}
+        <li class='search-results-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            <a href='{{generateResultLink this}}' class="search-result-link">
+                {{{renderSearchResult this}}}
+            </a>
+        </li>
+    {{/each}}
+</ul>
