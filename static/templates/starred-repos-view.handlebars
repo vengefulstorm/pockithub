@@ -1,5 +1,11 @@
-{{#each list}}
-    <div class="starred-repos-list">
-        ABC
-    </div>
-{{/each}}
+<div class="starred-repo-list">
+    {{#each list}}
+        <li class="starred-repo-list-item" data-name='{{name}}' data-description='{{description}}' data-owner='{{owner.login}}' data-url='{{url}}'>
+            <a href='javascript:void(0)'>
+                <h1 class='repo-list-item-name'>{{name}}</h1> 
+                <h2>by {{owner.login}}</h2>
+                <h2>{{description}}</h2>
+            </a> 
+        </li>
+    {{/each}}
+</div>

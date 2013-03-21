@@ -234,15 +234,58 @@ function program3(depth0,data) {
 templates['followers-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  var buffer = "", stack1, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  
-  return "\r\n    <div class=\"followers-list\">\r\n        ABC\r\n    </div>\r\n";
+  var buffer = "", stack1;
+  buffer += " data-theme='";
+  if (stack1 = helpers.containerTheme) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.containerTheme; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' ";
+  return buffer;
   }
 
-  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+function program3(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n    <li class='followers-list-item' ";
+  stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">\r\n        <a href='javascript:void(0)' data-url='";
+  if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' class=\"user-link\">\r\n            <img src='";
+  if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "'/>\r\n            <h1 class='username' data-username='";
+  if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\r\n        </a>\r\n    </li>\r\n";
+  return buffer;
+  }
+function program4(depth0,data,depth2) {
+  
+  var buffer = "", stack1;
+  buffer += " data-theme='"
+    + escapeExpression(((stack1 = depth2.childTheme),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "' ";
+  return buffer;
+  }
+
+  buffer += "<ul data-role='listview' ";
+  stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " data-inset='false' class='followers-list'>\r\n";
+  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n";
   return buffer;
@@ -250,15 +293,58 @@ function program1(depth0,data) {
 templates['following-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  var buffer = "", stack1, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  
-  return "\r\n    <div class=\"following-list\">\r\n        DEF\r\n    </div>\r\n";
+  var buffer = "", stack1;
+  buffer += " data-theme='";
+  if (stack1 = helpers.containerTheme) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.containerTheme; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' ";
+  return buffer;
   }
 
-  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+function program3(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n    <li class='following-list-item' ";
+  stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">\r\n        <a href='javascript:void(0)' data-url='";
+  if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' class=\"user-link\">\r\n            <img src='";
+  if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "'/>\r\n            <h1 class='username' data-username='";
+  if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\r\n        </a>\r\n    </li>\r\n";
+  return buffer;
+  }
+function program4(depth0,data,depth2) {
+  
+  var buffer = "", stack1;
+  buffer += " data-theme='"
+    + escapeExpression(((stack1 = depth2.childTheme),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "' ";
+  return buffer;
+  }
+
+  buffer += "<ul data-role='listview' ";
+  stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " data-inset='false' class='following-list'>\r\n";
+  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n";
   return buffer;
@@ -484,20 +570,134 @@ function program12(depth0,data) {
   buffer += "\r\n</ul>\r\n";
   return buffer;
   });
-templates['pull-request-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+templates['pull-request-comments-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  var buffer = "", stack1, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  
-  return "\r\n    <div class=\"pull-request-list\">\r\n        ABC\r\n    </div>\r\n";
+  var buffer = "", stack1, stack2;
+  buffer += "\r\n    "
+    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " commented: <br/>\r\n    ";
+  if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/>\r\n    <br/><br/>\r\n";
+  return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n";
+  return buffer;
+  });
+templates['pull-request-commits-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\r\n    Commited by: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.committer),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "<br/>\r\n    Body: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.commit),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "<br/>\r\n    <a href=\"javascript:void(0)\" class=\"pull-request-commit-view\" data-user='"
+    + escapeExpression(((stack1 = ((stack1 = depth0.committer),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "' data-url='";
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "' data-role=\"button\" data-mini=\"true\">View Commit</a>\r\n    <br/><br>\r\n";
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n";
+  return buffer;
+  });
+templates['pull-request-files-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  
+
+
+  return "GHI\r\n";
+  });
+templates['pull-request-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += " data-theme='";
+  if (stack1 = helpers.containerTheme) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.containerTheme; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' ";
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\r\n        <div class=\"pull-request-list-item\">\r\n            Pull Request Initiator:<br/>\r\n            Login: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <br/>\r\n            Avatar: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <br/>\r\n                                <br/>\r\n            State: ";
+  if (stack2 = helpers.state) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.state; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/>\r\n            Title: ";
+  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/> \r\n            Body: ";
+  if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/>\r\n            <a href=\"javascript:void(0)\" class=\"pull-request-commits-button\" data-url='";
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "/commits' data-number=\"";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" data-role=\"button\" data-mini=\"true\">Show Commits</a>\r\n            <a href=\"javascript:void(0)\" class=\"pull-request-comments-button\" data-url='";
+  if (stack2 = helpers.comments_url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.comments_url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "' data-number=\"";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" data-role=\"button\" data-mini=\"true\">Show Comments</a>\r\n        </div>\r\n        <div id=\"pull-request-commits-list-";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\">\r\n        </div>\r\n        <div id=\"pull-request-comments-list-";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\">\r\n        </div>\r\n        <hr/>\r\n    ";
+  return buffer;
+  }
+
+  buffer += "<ul data-role='listview' ";
+  stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " data-inset='false' class='pull-request-list'>\r\n    ";
+  stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n</ul>\r\n";
   return buffer;
   });
 templates['radio-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -644,18 +844,52 @@ function program4(depth0,data,depth2) {
 templates['starred-repos-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  var buffer = "", stack1, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  
-  return "\r\n    <div class=\"starred-repos-list\">\r\n        ABC\r\n    </div>\r\n";
+  var buffer = "", stack1, stack2;
+  buffer += "\r\n        <li class=\"starred-repo-list-item\" data-name='";
+  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' data-description='";
+  if (stack1 = helpers.description) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "' data-owner='"
+    + escapeExpression(((stack1 = ((stack1 = depth0.owner),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "' data-url='";
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "'>\r\n            <a href='javascript:void(0)'>\r\n                <h1 class='repo-list-item-name'>";
+  if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "</h1> \r\n                <h2>by "
+    + escapeExpression(((stack1 = ((stack1 = depth0.owner),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h2>\r\n                <h2>";
+  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "</h2>\r\n            </a> \r\n        </li>\r\n    ";
+  return buffer;
   }
 
+  buffer += "<div class=\"starred-repo-list\">\r\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\r\n</div>\r\n";
   return buffer;
+  });
+templates['user-feed'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  
+
+
+  return "USER-FEED\r\n";
   });
 templates['user-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];

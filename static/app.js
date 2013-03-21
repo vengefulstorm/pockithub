@@ -19,51 +19,56 @@ var init = function init() {
         'Issues': 'issues',
         'Milestones': 'milestones',
         'Watchers': 'watchers',
-        'Repo Feed': 'repo feed',
+        'RepoFeed': 'repofeed',
         'Commits': 'commits',
         'Code': 'code',
-        'Pull Requests': 'pullrequests',
-        'User Feed': 'user feed',
+        'PullRequests': 'pullrequests',
+        'UserFeed': 'userfeed',
         'Profile': 'profile',
         'Followers': 'followers',
         'Following': 'following',
-        'User Repos': 'user repos',
-        'Starred Repos': 'starred repos'
+        'UserRepos': 'userrepos',
+        'StarredRepos': 'starredrepos'
     }
     
     window.backwardSectionMap = {
         'issues': 'Issues',
         'milestones': 'Milestones',
         'watchers': 'Watchers',
-        'repo feed': 'Repo Feed',
+        'repofeed': 'RepoFeed',
         'commits': 'Commits',
         'code': 'Code',
-        'pullrequests': 'Pull Requests',
-        'user feed': 'User Feed',
+        'pullrequests': 'PullRequests',
+        'userfeed': 'UserFeed',
         'profile': 'Profile',
         'followers': 'Followers',
         'following': 'Following',
-        'user repos': 'User Repos',
-        'starred repos': 'Starred Repos'
+        'userrepos': 'UserRepos',
+        'starredrepos': 'StarredRepos'
     }
 
     window.ctx["upDir"] = [];
-    window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
+    window.ctx["divTypeEnum"] = {"issue-view":1,
+                                "code-view":2,
+                                "pull-request-commits":3,
+                                "pull-request-comments":4,
+                                "pull-request-files":5};
+
     window.ctx["currentBranch"] = "master";
     window.ctx["sectionToContextMap"] = {
         "issues": "repo",
         "milestones": "repo",
         "watchers": "repo",
-        "repo feed": "repo",
+        "repofeed": "repo",
         "commits": "repo",
         "code": "repo",
         "pullrequests": "repo",
-        "user feed": "user",
+        "userfeed": "user",
         "profile": "user",
         "followers": "user",
         "following": "user",
-        "user repos": "repo",
-        "starred repos": "repo"
+        "userrepos": "repo",
+        "starredrepos": "repo"
     };
     
     $searchResults = $("#search-results");    
@@ -128,9 +133,8 @@ var init = function init() {
         }
     });
     
-    renderDiv();
-    switchToSection();
     setSidebarSection();
+    switchToSection();
 
 // Initialize click handlers
 $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(event) {
@@ -199,10 +203,45 @@ $("[class=repo-list-item]").live("click",function(event){
     var user = full_name.substring(0,full_name.indexOf(repo)-1);
     window.ctx["repo"] = repo;
     window.ctx["user"] = user;
-    window.ctx["section"] = "repo feed";
+    window.ctx["section"] = "repofeed";
     switchToSection();
     setSidebarSection();
 });
+
+$("[class^=pull-request-commits-button]").live("click",function(event){
+    var number = $(this).data("number");
+    var url = $(this).data("url");
+    renderDiv(url,window.ctx["divTypeEnum"]["pull-request-commits"],number);
+});
+
+$("[class^=pull-request-comments-button]").live("click",function(event){
+    var number = $(this).data("number");
+    var url = $(this).data("url");
+    renderDiv(url,window.ctx["divTypeEnum"]["pull-request-comments"],number);
+});
+
+$("[class^=pull-request-files-button]").live("click",function(event){
+    var number = $(this).data("number");
+    var url = $(this).data("url");
+    renderDiv(url,window.ctx["divTypeEnum"]["pull-request-files"],number);
+});
+
+$("[class^=pull-request-commit-view]").live("click",function(event){
+    var url = $(this).data("url");
+    window.ctx["user"] = $(this).data("user"); 
+    window.ctx["section"] = "commits";
+    switchToSection();
+    setSidebarSection(url);
+});
+
+$("[class^=starred-repo-list-item]").live("click",function(event){
+    window.ctx["repo"] = $(this).data("name");
+    window.ctx["user"] = $(this).data("owner");
+    window.ctx["section"] = "repofeed";
+    switchToSection();
+    setSidebarSection();
+});
+
 };
 
 function selectSectionRadioButton(section) {
@@ -223,16 +262,17 @@ function toggleSidebar(containerId) {
 }
 
 //given api request and id, updates the id with information
-function renderDiv(nextRQ, divType) {
+function renderDiv(nextRQ, divType, id) {
     var rq = "";
     var data = {};
     var template;
+    var divId;
     var transformer = function(data){ return data; };
     var preProcessor = null;
     if(nextRQ){
         rq = nextRQ;
     }
-    
+
     switch(divType) {
         case window.ctx["divTypeEnum"]["issue-view"]:
             preProcessor = reverseComments;
@@ -248,6 +288,18 @@ function renderDiv(nextRQ, divType) {
             var filename = extractFilenameFromRequest(nextRQ);
             var filetype = extractFiletypeFromRequest(filename);
             divId = $("#file-"+filename);
+            break;
+        case window.ctx["divTypeEnum"]["pull-request-commits"]:
+            template = Handlebars.templates["pull-request-commits-list"];
+            divId = $("#pull-request-commits-list-"+id);
+            break;
+        case window.ctx["divTypeEnum"]["pull-request-comments"]:
+            template = Handlebars.templates["pull-request-comments-list"];
+            divId = $("#pull-request-comments-list-"+id);
+            break;
+        case window.ctx["divTypeEnum"]["pull-request-files"]:
+            template = Handlebars.templates["pull-request-files-list"];
+            divId = $("#pull-request-files-list-"+id);
             break;
         default:
             return;
@@ -269,7 +321,7 @@ function switchToSection(nextRQ) {
     }
     var preProcessor = null;
     switch(section) {    
-        case 'repo feed':
+        case 'repofeed':
             template = Handlebars.templates["child-list"];
             if (!nextRQ) {
                 if (window.ctx["pageType"] == "repo") {
@@ -331,11 +383,16 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToUserProfile;
             break;
-        case 'user feed':
+        case 'userfeed':
             //pending auth tokens
             //TODO:
+            template = Handlebars.templates["user-feed"];
+            if(!nextRQ){
+                rq = getUserNotifications(window.ctx["user_token"]);
+            }
+            transformer = transformToUserFeed;
             break;
-        case 'user repos':
+        case 'userrepos':
             //pending auth tokens
             template = Handlebars.templates["user-repos"];
             if(!nextRQ){
@@ -359,9 +416,10 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToFollowing;
             break;
-        case 'starred repos':
+        case 'starredrepos':
             //TODO: take into consideration auth token
             template = Handlebars.templates["starred-repos-view"];
+            data["direction"] = "asc";
             if(!nextRQ){
                 rq = getStarredRepos(window.ctx["user"]);
             }
@@ -401,10 +459,10 @@ function setSidebarSection() {
 
 function getRepoContext() {
     return [
-        {item: "Repo Feed", idx: 0},
+        {item: "RepoFeed", idx: 0},
         {item: "Commits", idx: 1},
         {item: "Code", idx: 2},
-        {item: "Pull Requests", idx: 3},
+        {item: "PullRequests", idx: 3},
         {item: "Issues", idx: 4},
         {item: "Milestones", idx: 5},
         {item: "Watchers", idx: 6}
@@ -413,12 +471,12 @@ function getRepoContext() {
 
 function getUserContext() {
     return [
-        {item: "Profile", idx:0},
-        {item: "User Feed", idx:1},
-        {item: "User Repos", idx:2},
-        {item: "Followers", idx:3},
-        {item: "Following", idx:4},
-        {item: "Starred Repos", idx:5}
+        {item: "Profile", idx: 0},
+        {item: "UserFeed", idx: 1},
+        {item: "UserRepos", idx: 2},
+        {item: "Followers", idx: 3},
+        {item: "Following", idx: 4},
+        {item: "StarredRepos", idx: 5}
     ]
 }
 
@@ -576,6 +634,10 @@ function transformToStarredRepos(jsonItem){
 }
 
 function transformToPullRequest(jsonItem){
+    return jsonItem;
+}
+
+function transformToUserFeed(jsonItem){
     return jsonItem;
 }
 
