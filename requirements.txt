@@ -1,5 +1,8 @@
-Flask
-Jinja2
-Werkzeug
-distribute
-wsgiref
+Flask==0.9
+Jinja2==2.6
+Werkzeug==0.8.3
+distribute==0.6.24
+pyasn1==0.1.6
+pycrypto==2.6
+rsa==3.1.1
+wsgiref==0.1.2
