@@ -111,6 +111,40 @@ Handlebars.registerHelper('renderIssueComment', function(commentBody) {
     return elt;
 });
 
+Handlebars.registerHelper('generateResultLink', function(item) {
+    var link = '';
+    switch(item["type"]) {
+        case "repo":
+            link = redirectRepoFeedRequest(item["owner"], item["name"]);
+            break;
+        case "user":
+            link = redirectUserRequest(item["username"]);
+            break;
+        default:
+            break;
+    }
+    return link;
+});
+
+var gravatarPre = "https://secure.gravatar.com/avatar/";
+var gravatarPost = "?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png";
+
+Handlebars.registerHelper('renderSearchResult', function(item) {
+    var content = '';
+    switch(item["type"]) {
+        case "repo":
+            content = content + '<h3>' + item["name"] + '</h3><p>' + item['description'] + '</p>';
+            break;
+        case "user":
+            var avatar_url = gravatarPre + item["gravatar_id"] + gravatarPost;
+            content = content + '<img src="' + avatar_url + '" class="avatar" />' + '<h1 class="username">' + item["login"] + '</h1>';
+            break;
+        default:
+            break;
+    }
+    return content;
+});
+
 Handlebars.registerHelper('ifEquals', function(elt1, elt2, options) {
     if(elt1 == elt2) {
         return options.fn(this);

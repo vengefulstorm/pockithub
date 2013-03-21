@@ -4,6 +4,14 @@ function getMarkdownRequest() {
     return BASE_API_URL + "/markdown";
 }
 
+function redirectUserRequest(user) {
+    return "/" + user;
+}
+
+function redirectRepoFeedRequest(owner, repo) {
+    return "/" + owner + "/" + repo;
+}
+
 function getUserRequest(user) {
     return BASE_API_URL + "/users/" + user;
 }

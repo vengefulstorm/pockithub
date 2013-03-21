@@ -50,22 +50,84 @@ var init = function init() {
     window.ctx["upDir"] = [];
     window.ctx["divTypeEnum"] = {"issue-view":1,"code-view":2};
     window.ctx["currentBranch"] = "master";
-    window.ctx["sectionToContextMap"] = 
-        {
-            "issues": "repo",
-            "milestones": "repo",
-            "watchers": "repo",
-            "repo feed": "repo",
-            "commits": "repo",
-            "code": "repo",
-            "pullrequests": "repo",
-            "user feed": "user",
-            "profile": "user",
-            "followers": "user",
-            "following": "user",
-            "user repos": "repo",
-            "starred repos": "repo"
-        };
+    window.ctx["sectionToContextMap"] = {
+        "issues": "repo",
+        "milestones": "repo",
+        "watchers": "repo",
+        "repo feed": "repo",
+        "commits": "repo",
+        "code": "repo",
+        "pullrequests": "repo",
+        "user feed": "user",
+        "profile": "user",
+        "followers": "user",
+        "following": "user",
+        "user repos": "repo",
+        "starred repos": "repo"
+    };
+    
+    $searchResults = $("#search-results");    
+    var $repoResultsContainer = $("#repo-search-results", $searchResults);
+    var $userResultsContainer = $("#user-search-results", $searchResults);
+    $searchResults.hide();
+    $("#search-bar").change(function(event, ui) {
+        var query = $(event.target).val();
+        if (query.length > 0) {
+            var rqPre = "https://api.github.com/legacy/";
+            var rqPost = "/search/" + query;
+            var rqRepo = rqPre + "repos" + rqPost;
+            var rqUser = rqPre + "user" + rqPost;
+            
+            $repoResultsContainer.html('');
+            $userResultsContainer.html('');
+            $searchResults.show();
+            $.when($.ajax({
+                type: 'GET',
+                url: rqRepo,
+                data: {},
+                dataType: 'jsonp',
+                error: function() { 
+                    alert("Error on retrieving: " + rqRepo);
+                }
+            }),    $.ajax({
+                type: 'GET',
+                url: rqUser,
+                data: {},
+                dataType: 'jsonp',
+                error: function() { 
+                    alert("Error on retrieving: " + rqUser);
+                }
+            })).done(function(repoResults, userResults) {
+                var repoOpts = {
+                    containerTheme: window.ctx['containerTheme'],
+                    childTheme: window.ctx['childTheme'],
+                    list: repoResults[0].data.repositories,
+                    title: "Repositories"
+                }
+                var userOpts = {
+                    containerTheme: window.ctx['containerTheme'],
+                    childTheme: window.ctx['childTheme'],
+                    list: userResults[0].data.users,
+                    title: "Users"
+                }
+
+                $("#sidepanel-subheader, #sidepanel-content").hide();
+                var template = Handlebars.templates["search-results-list"];
+                var repoResultsTemplated = template(repoOpts);
+                $repoResultsContainer.html(repoResultsTemplated).trigger("create");
+                
+                var userResultsTemplated = template(userOpts);
+                $userResultsContainer.html(userResultsTemplated).trigger("create");
+                $searchResults.collapsibleset("refresh");
+            });
+        } else {
+            $("#sidepanel-subheader, #sidepanel-content").show();
+            $searchResults.hide();
+            $repoResultsContainer.html('');
+            $userResultsContainer.html('');
+        }
+    });
+    
     renderDiv();
     switchToSection();
     setSidebarSection();
@@ -263,7 +325,6 @@ function switchToSection(nextRQ) {
             transformer = transformToPullRequest;
             break;
         case 'profile':
-            alert(window.ctx["user"]);
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
               rq = getUserRequest(window.ctx["user"]);
@@ -309,7 +370,7 @@ function switchToSection(nextRQ) {
         default:
             return;
     }
-    $("#main-content").html(backwardSectionMap[section]);
+    $("#main-header .subheader").html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
     window.ctx["pageType"] = window.ctx["sectionToContextMap"][section];
     selectSectionRadioButton(window.ctx["section"]);
@@ -393,8 +454,6 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
             }
             var templated = template(opts);
             templateToFill.html(templated).trigger("create").scrollTop(0);
-            console.log(templated);
-            console.log(templateToFill)
         },
         error: function() { 
             alert("Error on retrieving: " + rq);

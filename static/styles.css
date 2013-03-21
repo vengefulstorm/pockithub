@@ -157,11 +157,6 @@ a {
     border-bottom: 0;
 }
 
-.sidebar .ui-input-search {
-    margin-left: 38px;
-    margin-right: 6px;
-}
-
 .sidebar .ui-select {
     margin-top: 0;
     margin-bottom: 0;
@@ -257,6 +252,19 @@ a {
 }
 
 /***** List styling *****/
+#search-results {
+    max-height: 100%;
+}
+
+#search-results .collapsible-header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#user-search-results .search-results-list-item {
+    height: 80px;
+}
+
 .child-list, .issue-list, .commit-list {
 
 }
