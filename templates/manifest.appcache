@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2013-03-20
+# {{date}}
 
 styles.css
 jquery-1.7.2.min.js
@@ -11,7 +11,7 @@ handlebars_helpers.js
 requests_helpers.js
 templates.js
 app.js
-
+{{origin_url}}
 
 NETWORK:
 

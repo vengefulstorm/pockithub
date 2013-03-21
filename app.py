@@ -3,20 +3,21 @@ import urllib2
 import json
 import base64
 import PH_common
-#import AES
+import datetime
+import AES
 
-from flask import Flask, url_for, send_from_directory, render_template, request
+from flask import Flask, url_for, send_from_directory, render_template, request, jsonify, abort
 from render_section import render_section
 
 
 app = Flask(__name__);
 app.register_blueprint(render_section);
-
+    
 
 #LANDING PAGE
 @app.route('/', methods=['GET'])
 def serveLanding():
-    return render_template('index.html', user='vengefulstorm', repo='pockithub', public_token=PH_common.PAT);
+    return render_template('index.html', user='vengefulstorm', repo='pockithub', public_token=PH_common.PAT, gen_url='/');
 
 
 #FAVICON
@@ -27,13 +28,16 @@ def favicon():
 
 #MANIFEST
 @app.route('/manifest.appcache')
+# TODO:
+# -- @PH_common.add_response_headers({'Content-Type': 'text/cache-manifest'})
+#   -- Right now this response has header type 'text/html', we should find a way to get it to text/cache-manifest
 def manifest():
-    curr_url = request.url
-    
-    resp = make_response(render_template('manifest.appcache'));
-    resp.headers['Content-Type'] = 'text/cache-manifest';
-    return resp;
-    #return render(os.path.join(app.root_path, 'static'), 'manifest.appcache', mimetype='text/cache-manifest')
+    origin = request.args.get('source');
+    origin = '..' + origin;
+    datestr = str(datetime.datetime.today());
+    return render_template('manifest.appcache', origin_url=origin, date=datestr);
+
+
 
 
 #OAUTH SETUP
@@ -66,18 +70,45 @@ def handleAuth():
     return redirect(url_for('/' + usrName, user_token=tok));
 
 
-#HELPER END POINT
-#@app.route('/helper/encrypt', methods=['POST'])
-#def encrypt():
-#    injson = None;
-#    if request.headers['Content-Type'] == 'application/json':
-#        injson = json.dumps(request.json);
 
-#    data = injson['data'];
-#    data = b64decode(data);
+
+
+#HELPER END POINTS -------------------------------------------
+
+#Encryption
+@app.route('/helper/encrypt', methods=['POST'])
+def encrypt():
+    injson = None;
+    if (request.headers['Content-Type'] == 'application/json'):
+        injson = json.dumps(request.json);
+        injson = json.loads(injson);
+    else:
+        return abort(415);
+
+    data = injson['data'];
+    #data = b64decode(data);
     
-#    resp = make_response(...)
-# jsonify ...
+    encrypted_data = AES.encrypt(data);
+    return jsonify(data=encrypted_data);
+
+
+#Decryption
+@app.route('/helper/decrypt', methods=['POST'])
+def decrypt():
+    injson = None;
+    if (request.headers['Content-Type'] == 'application/json'):
+        injson = json.dumps(request.json);
+        injson = json.loads(injson);
+    else:
+        return abort(415);
+
+    data = injson['data'];
+
+    decrypted_data = AES.decrypt(data);
+    return decrypted_data
+    return jsonify(data=decrypted_data);
+
+#-------------------------------------------------------------
 
 
 if __name__ == '__main__':

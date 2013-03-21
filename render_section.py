@@ -12,7 +12,14 @@ render_section = Blueprint('render_section', __name__, template_folder='template
 #@render_section.route('/<user>/<repo>/<section>/<item_id>', methods=['GET']) 
 def show(user=None, repo=None, section=None):
         try:
-            return render_template('index.html', user=user, repo=repo, section=section, public_token=PH_common.PAT)
+            temp_url = '/'
+	    if (user != None):
+                temp_url = temp_url + user;
+	    if (repo != None):
+                temp_url = temp_url + '/' + repo;
+	    if (section != None):
+                temp_url = temp_url + '/' + section;
+            return render_template('index.html', user=user, repo=repo, section=section, public_token=PH_common.PAT, gen_url=temp_url)
         except TemplateNotFound:
             abort(404)
 
@@ -20,6 +27,12 @@ def show(user=None, repo=None, section=None):
 @render_section.route('/<user>/<repo>/issues/milestones', methods=['GET'])
 def show_milestones(user=None, repo=None):
         try:
-            return render_template('index.html', user=user, repo=repo, section='milestones', public_token=PH_common.PAT)
+            temp_url = '/'
+	    if (user != None):
+                temp_url = temp_url + user;
+	    if (repo != None):
+                temp_url = temp_url + '/' + repo;
+	    temp_url += '/issues/milestones';
+            return render_template('index.html', user=user, repo=repo, section='milestones', public_token=PH_common.PAT, gen_url=temp_url)
         except TemplateNotFound:
             abort(404)
