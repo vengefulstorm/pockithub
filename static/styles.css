@@ -106,6 +106,18 @@
 }
 
 /***** Generic styling *****/
+/*
+.collapsible-content {
+		height: 104px;
+}
+
+.issue-comments-list-item {
+		top: 16px;
+}
+*/
+.main-logo-img {
+		height: 37px;
+}
 
 .directory-list-item .ui-li-thumb {
 		margin-left: 20px;
@@ -123,17 +135,17 @@
 }
 
 .ui-mobile a img .hoverZoomLink {
-		-moz-border-radius: 50%;
-		-webkit-border-radius: 50%;
-		-ms-border-radius: 50%;
-		border-radius: 50%;
+		border-radius: 10% 38% 10%;
+		-moz-border-radius: 10% 38% 10%;
+		-webkit-border-radius: 10% 38% 10%;
+		-khtml-border-radius: 10% 38% 10%;
 }
 
 .hoverZoomLink {
-		-moz-border-radius: 50%;
-		-webkit-border-radius: 50%;
-		-ms-border-radius: 50%;
-		border-radius: 50%;
+		border-radius: 10% 38% 10%;
+		-moz-border-radius: 10% 38% 10%;
+		-webkit-border-radius: 10% 38% 10%;
+		-khtml-border-radius: 10% 38% 10%;
 }
 
 .horizontal-list li{

@@ -8,18 +8,23 @@ render_section = Blueprint('render_section', __name__, template_folder='template
 
 @render_section.route('/<user>', methods=['GET'])
 @render_section.route('/<user>/<repo>', methods=['GET']) #route to code section by default
+@render_section.route('/<user>/<repo>/tree/<branch>', methods=['GET'])
 @render_section.route('/<user>/<repo>/<section>', methods=['GET'])
 #@render_section.route('/<user>/<repo>/<section>/<item_id>', methods=['GET']) 
-def show(user=None, repo=None, section=None):
+def show(user=None, repo=None, section=None, branch=None):
         try:
             temp_url = '/'
 	    if (user != None):
                 temp_url = temp_url + user;
 	    if (repo != None):
                 temp_url = temp_url + '/' + repo;
+	    if (branch != None):
+                temp_url = temp_url + '/tree/' + branch;
+	    else:
+                branch = 'master';
 	    if (section != None):
                 temp_url = temp_url + '/' + section;
-            return render_template('index.html', user=user, repo=repo, section=section, public_token=PH_common.PAT, gen_url=temp_url)
+            return render_template('index.html', user=user, repo=repo, section=section, branch=branch, public_token=PH_common.PAT, gen_url=temp_url)
         except TemplateNotFound:
             abort(404)
 

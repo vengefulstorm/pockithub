@@ -33,6 +33,7 @@
                     {% if repo %}repo: "{{repo}}",{% endif %}
                     {% if section %}section: "{{section}}",{% else %}section: "code",{% endif %}
                     subSection: "",
+                    {% if branch %}branch: "{{branch}}",{% endif %}
                     {% if public_token %}public_token: "{{public_token}}",{% endif %}
                     {% if user_token %}user_token: "{{user_token}}",{% endif %}
                     contentWrapper: "#main-wrapper",
@@ -79,7 +80,7 @@
             <div id="main-header" class="header" data-role="header" data-id="topbar-main">
                 <div data-role="header">
                     <a href="#sidepanel" data-icon="app-sidebar" data-iconpos="notext" data-corners="false">Side</a>
-                    <div class="mainheader">pockithub</div>
+                    <div class="mainheader"><img class="main-logo-img" src="/static/logo_big.png"></img></div>
                 </div>
                 <div class="subheader" data-role="header">
                     Watchers
