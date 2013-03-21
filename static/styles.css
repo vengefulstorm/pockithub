@@ -251,7 +251,7 @@ a {
 }
 
 /***** List styling *****/
-.child-list, .issue-list {
+.child-list, .issue-list, .commit-list {
 
 }
 
@@ -291,7 +291,7 @@ a {
 .user-list-item  .username, .issue-list-item .username {
 }
 
-.child-list-item  .user, .issue-list-item .user {
+.child-list-item  .user, .issue-list-item .user, .commit-list-item .user {
     display: inline-block;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
@@ -300,17 +300,17 @@ a {
     margin-right: 8px;
 }
 
-.child-list-item .user a, .issue-list-item .user a {
+.child-list-item .user a, .issue-list-item .user a, .commit-list-item .user a {
     text-decoration: none;
 }
 
-.child-list-item .user .username, .issue-list-item .user .username {
+.child-list-item .user .username, .issue-list-item .user .username, .commit-list-item .user .username {
     font-size: 0.8em;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.child-list-item .item-content a, .issue-list-item .item-content a{
+.child-list-item .item-content a, .issue-list-item .item-content a, .commit-list.item .item-content a{
     display: block;
     padding-right: 8px;
     width: 100%;
@@ -322,13 +322,13 @@ a {
     text-decoration: none;
 }
 
-.child-list-item .item-content a *, .issue-list-item .item-content a * {
+.child-list-item .item-content a *, .issue-list-item .item-content a * , .commit-list-item .item-content a *{
     overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: normal;
 }
 
-.child-list-item .item-content , .issue-list-item .item-content{
+.child-list-item .item-content , .issue-list-item .item-content, .commit-list-item .item-content{
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;

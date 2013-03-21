@@ -232,7 +232,7 @@ function switchToSection(nextRQ) {
             transformer = transformToDirectoryItem;
             break;
         case 'commits':
-            template = Handlebars.templates["child-list"];
+            template = Handlebars.templates["commit-list"];
             if (!nextRQ) {
                 rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"]);
             }
@@ -260,6 +260,7 @@ function switchToSection(nextRQ) {
             transformer = transformToPullRequest;
             break;
         case 'profile':
+            alert(window.ctx["user"]);
             template = Handlebars.templates["user-profile"];
             if(!nextRQ){
               rq = getUserRequest(window.ctx["user"]);
@@ -424,7 +425,7 @@ function transformToWatcherChild(jsonItem) {
 function transformToCommitChild(jsonItem) {
     var child = {
         "type": "commit",
-        "content": jsonItem["commit"]
+        "content": jsonItem//jsonItem["commit"]
     };
     return transformToChild(jsonItem["author"], child);
 }
