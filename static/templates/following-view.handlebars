@@ -1,5 +1,9 @@
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='following-list'>
 {{#each list}}
-    <div class="following-list">
-        DEF
-    </div>
+    <li class='following-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+        <a href='javascript:void(0)' data-url='{{url}}' class="user-link">
+            <img src='{{avatar_url}}'/>
+            <h1 class='username' data-username='{{login}}'>{{login}}</h1>
+        </a>
+    </li>
 {{/each}}

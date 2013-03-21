@@ -1,0 +1,6 @@
+{{#each list}}
+    Commited by: {{committer.login}}<br/>
+    Body: {{commit.message}}<br/>
+    <a href="javascript:void(0)" class="pull-request-commit-view" data-user='{{committer.login}}' data-url='{{url}}' data-role="button" data-mini="true">View Commit</a>
+    <br/><br>
+{{/each}}
