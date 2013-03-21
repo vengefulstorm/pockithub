@@ -107,6 +107,11 @@
 
 /***** Generic styling *****/
 
+.directory-list-item .ui-li-thumb {
+		margin-left: 20px;
+		margin-top: 20px;
+}
+
 .sidebar .ui-input-search {
 		margin-left: 6px;
 		margin-right: 6px;
@@ -118,6 +123,13 @@
 }
 
 .ui-mobile a img .hoverZoomLink {
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		-ms-border-radius: 50%;
+		border-radius: 50%;
+}
+
+.hoverZoomLink {
 		-moz-border-radius: 50%;
 		-webkit-border-radius: 50%;
 		-ms-border-radius: 50%;
