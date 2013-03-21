@@ -315,7 +315,8 @@ function switchToSection(nextRQ) {
     var rq2;
     var template;
     var data = {};
-    var templateToFill = $("#main-content");
+    //var templateToFill = $("#main-content");
+    var templateToFill = null;
     var transformer = function(data){ return data; }; // initialize to dummy transformer function
     var section = window.ctx["section"];
     if (nextRQ) {
@@ -501,6 +502,26 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
         url: rq,
         data: data,
         dataType: 'jsonp',
+        beforeSend: function() { 
+            var optionsHash = {message:"<img src='/static/ajax-loader.gif'/>" ,css: { 
+                                border: 'none', 
+                                padding: '0px', 
+                                backgroundColor: '#000', 
+                                '-webkit-border-radius': '10px', 
+                                '-moz-border-radius': '10px', 
+                                opacity: .5, 
+                                color: '#fff',
+                                fadeIn: 100,
+                                fadeOut: 300
+                            } };
+            if (templateToFill == null){
+                $.blockUI(optionsHash);
+                templateToFill = $("#main-content");
+            }else{
+                templateToFill.block(optionsHash);
+            }
+        },
+        complete: function() { $.unblockUI();/*templateToFill.unblock()*/},
         success: function(data) {
             var opts = {
                 containerTheme: window.ctx['containerTheme'],
@@ -513,8 +534,7 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
               opts["list"] = [data.data];
             }
 
-            if (preProcessor) {
-                opts = preProcessor(opts);
+            if (preProcessor) { opts = preProcessor(opts);
             }
             var templated = template(opts);
             templateToFill.html(templated).trigger("create").scrollTop(0);
