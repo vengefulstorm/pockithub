@@ -20,8 +20,8 @@
         <script src="/static/templates.js"></script>
         <script src="/static/app.js"></script>
 
-				<!-- set window context -->
-				<script>
+        <!-- set window context -->
+        <script>
             $(function() {
                 window.ctx = {
                     {% if user and not (repo and section and item_id) %}pageType: "user",{% else %}pageType: "repo",{% endif %}
@@ -38,7 +38,7 @@
                 }
                 init();
             });
-				</script>
+        </script>
 
     </head>
     <body>
