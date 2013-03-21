@@ -795,14 +795,14 @@ a.ui-link-inherit {
 -----------------------------------------------------------------------------------------------------------*/
 .ui-icon,
 .ui-icon-searchfield:after {
-	background-image: url(images/icons-18-black.png) /*{global-icon-set}*/;
+	background-image: url(icons-18-black.png) /*{global-icon-set}*/;
 }
 /* Alt icon color
 -----------------------------------------------------------------------------------------------------------*/
 .ui-icon-alt {
 	background: 						#fff;
 	background: 						rgba(255,255,255,.3);
-	background-image: url(images/icons-18-black.png);
+	background-image: url(icons-18-black.png);
 	background-repeat: no-repeat;
 }
 /* HD/"retina" sprite
@@ -816,14 +816,14 @@ a.ui-link-inherit {
 	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
 	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, .ui-icon-searchfield:after, 
 	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
-		background-image: url(images/icons-36-black.png);
+		background-image: url(icons-36-black.png);
 		-moz-background-size: 776px 18px;
 		-o-background-size: 776px 18px;
 		-webkit-background-size: 776px 18px;
 		background-size: 776px 18px;
 	}
 	.ui-icon-alt {
-		background-image: url(images/icons-36-black.png);
+		background-image: url(icons-36-black.png);
 	}
 }
 /* plus minus */
@@ -919,7 +919,7 @@ a.ui-link-inherit {
 }
 /* loading icon */
 .ui-icon-loading {
-	background: url(images/ajax-loader.gif);
+	background: url(ajax-loader.gif);
 	background-size: 46px 46px;
 }
 /* Button corner classes
@@ -2301,19 +2301,19 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 
 /** Custom additions **/
 .ui-btn-active .ui-icon {
-	background-image: url(images/icons-18-white.png) /*{global-icon-set}*/;
+	background-image: url(icons-18-white.png) /*{global-icon-set}*/;
 }
 .ui-btn-hover-a .ui-icon {
-	background-image: url(images/icons-18-white.png) /*{global-icon-set}*/;
+	background-image: url(icons-18-white.png) /*{global-icon-set}*/;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (min--moz-device-pixel-ratio: 1.5),
        only screen and (min-resolution: 240dpi) {
   .ui-btn-active .ui-icon {
-    background-image: url(images/icons-36-white.png) /*{global-icon-set}*/;
+    background-image: url(icons-36-white.png) /*{global-icon-set}*/;
   }
   .ui-btn-hover-a .ui-icon {
-    background-image: url(images/icons-36-white.png) /*{global-icon-set}*/;
+    background-image: url(icons-36-white.png) /*{global-icon-set}*/;
   }
 }
 
@@ -2372,10 +2372,10 @@ a.ui-btn.ui-slider-handle.ui-btn-hover-c {
   border-top-right-radius: 0.6em;
 }
 .ui-navbar .ui-icon {
-  background-image: url(images/icons-18-white.png);
+  background-image: url(icons-18-white.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
      only screen and (min--moz-device-pixel-ratio: 1.5),
      only screen and (min-resolution: 240dpi) {
-  background-image: url(images/icons-36-white.png);
+  background-image: url(icons-36-white.png);
 }
