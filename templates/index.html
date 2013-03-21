@@ -2,8 +2,9 @@
 <html><!-- lang="en" manifest="/manifest.appcache?source={{gen_url}}"> -->
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"> 
-
+        <meta name="HandheldFriendly" content="True">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1 user-scalable=0;"> 
+        <meta name="viewport" content="width=device-width">
 				<link rel="shortcut icon" href="/static/favicon.ico">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
@@ -21,22 +22,22 @@
 
 				<!-- set window context -->
 				<script>
-					$(function() {
-					    window.ctx = {
-					        pageType: "repo",
-					        {% if user %}user: "{{user}}",{% endif %}
-					        {% if repo %}repo: "{{repo}}",{% endif %}
-					        {% if section %}section: "{{section}}",{% else %}section: "code",{% endif %}
-                  subSection: "",
-					        {% if public_token %}public_token: "{{public_token}}",{% endif %}
-					        {% if user_token %}user_token: "{{user_token}}",{% endif %}
-                  contentWrapper: "#main-wrapper",
-                  containerTheme: "c",
-                  childTheme: "c",
-                  childSelectedTheme: "c"
-					    }
-					    init();
-					});
+            $(function() {
+                window.ctx = {
+                    {% if user and not (repo and section and item_id) %}pageType: "user",{% else %}pageType: "repo",{% endif %}
+                    {% if user %}user: "{{user}}",{% endif %}
+                    {% if repo %}repo: "{{repo}}",{% endif %}
+                    {% if section %}section: "{{section}}",{% else %}section: "code",{% endif %}
+                    subSection: "",
+                    {% if public_token %}public_token: "{{public_token}}",{% endif %}
+                    {% if user_token %}user_token: "{{user_token}}",{% endif %}
+                    contentWrapper: "#main-wrapper",
+                    containerTheme: "c",
+                    childTheme: "c",
+                    childSelectedTheme: "c"
+                }
+                init();
+            });
 				</script>
 
     </head>
