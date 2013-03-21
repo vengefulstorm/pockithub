@@ -1,11 +1,11 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='issues-list'>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='issue-list'>
     {{#each list}}
-        <li data-role='collapsible' data-inset='false' class='issues-list-item' data-url='{{children_url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+        <li data-role='collapsible' data-inset='false' class='issue-list-item' data-url='{{children_url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
             <h3 class='collapsible-header' data-inset='false'>
                 {{#if avatar_url}}
                 <div class='user'>
                     <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
-                        <img src='{{avatar_url}}' class='avatar'/>
+                        <img src='{{avatar_url}}'/>
                         <h1 class='username'>{{user_name}}</h1>
                     </a>
                 </div>
@@ -20,19 +20,23 @@
                 {{#with content}}
                 <ul class='user-list' data-role='listview'>
                     {{#if assignee}}
+                    {{#with assignee}}
                     <li class='user-list-item'>
-                        <a href='javascript:void(0)'>
-                            <img class='thumbnail-small ui-li-icon' src='{{assignee.avatar_url}}' />
-                            <h3>Assigned to: {{assignee.login}}</h3>
+                        <a href='javascript:void(0)' data-url='{{user_url}}' class='user-link'>
+                            <img class='thumbnail-small ui-li-icon' src='{{avatar_url}}' />
+                            <h3 class="username" data-username="{{login}}">Assigned to: {{login}}</h3>
                         </a>
                     </li>
+                    {{/with}}
                     {{/if}}
+                    {{#with user}}
                     <li class='user-list-item'>
-                        <a href='javascript:void(0)'>
-                            <img class='thumbnail-small ui-li-icon' src='{{user.avatar_url}}' />
-                            <h3>Opened by: {{user.login}}</h3>
+                        <a href='javascript:void(0)' data-url='{{user_url}}' class='user-link'>
+                            <img class='thumbnail-small ui-li-icon' src='{{avatar_url}}' />
+                            <h3 class="username" data-username="{{login}}">Opened by: {{login}}</h3>
                         </a>
                     </li>
+                    {{/with}}
                 </ul>
                 <div id='issues-comments-list-{{number}}' class='child-content'>
                 </div>                

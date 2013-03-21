@@ -34,6 +34,13 @@
 	background: url(ajax-loader.gif);
 }																								 
 
+.ui-panel-inner{
+  background-color: black;
+  padding: 0 !important;
+  margin-top: -10px !important;
+  top:0;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (min--moz-device-pixel-ratio: 1.5),
        only screen and (min-resolution: 240dpi) {
@@ -114,10 +121,20 @@ li.label-element {
     padding-right: 3px;
 }
 
+a {
+    outline: 0;
+}
+
 .thumbnail-small {
     max-height: 36px !important;
     max-width: 36px !important;
     top: 0.1em !important;;
+}
+
+.thumbnail-med {
+    max-height: 44px !important;
+    max-width: 44px !important;
+    top: 0.1em !important;
 }
 
 .content .ui-li-aside {
@@ -174,7 +191,6 @@ li.label-element {
 }
 
 .sidebar  select {
-    width: 100%;
 }
 
 /***** Viewport styling *****/
@@ -241,7 +257,7 @@ li.label-element {
 }
 
 /***** List styling *****/
-.child-list, .issues-list {
+.child-list, .issue-list, .commit-list {
 
 }
 
@@ -257,12 +273,16 @@ li.label-element {
     width: 99%;
 }
 
+.collapsible-content .issue-comments-list {
+    width: 99%;
+}
+
 .issue-comments-list-item  .item-content {
     height: auto !important;
     width: 80%;
 }
 
-.issues-list .issues-list-item {
+.issue-list .issue-list-item {
     margin: 0;
     padding: 0;
 }
@@ -271,18 +291,13 @@ li.label-element {
     padding-left: 1em;
 }
 
-.user-list-item  .avatar, .issues-list-item .avatar {
+.user-list-item  .avatar, .issue-list-item .avatar {
 }
 
-.user-list-item  .username, .issues-list-item .username {
+.user-list-item  .username, .issue-list-item .username {
 }
 
-.child-list-item  .avatar, .issues-list-item .avatar {
-    width: 75px;
-    height: 75px;
-}
-
-.child-list-item  .user, .issues-list-item .user {
+.child-list-item  .user, .issue-list-item .user, .commit-list-item .user {
     display: inline-block;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
@@ -291,22 +306,17 @@ li.label-element {
     margin-right: 8px;
 }
 
-.child-list-item .user a, .issues-list-item .user a {
+.child-list-item .user a, .issue-list-item .user a, .commit-list-item .user a {
     text-decoration: none;
 }
 
-.child-list-item .user .username, .issues-list-item .user .username {
+.child-list-item .user .username, .issue-list-item .user .username, .commit-list-item .user .username {
     font-size: 0.8em;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.child-list-item , .issue-list-item {
-    padding-top: 2px !important;
-    padding-bottom: 2px !important;
-}
-
-.child-list-item .item-content a, .issues-list-item .item-content a{
+.child-list-item .item-content a, .issue-list-item .item-content a, .commit-list.item .item-content a{
     display: block;
     padding-right: 8px;
     width: 100%;
@@ -318,13 +328,13 @@ li.label-element {
     text-decoration: none;
 }
 
-.child-list-item .item-content a *, .issues-list-item .item-content a * {
+.child-list-item .item-content a *, .issue-list-item .item-content a * , .commit-list-item .item-content a *{
     overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: normal;
 }
 
-.child-list-item .item-content , .issues-list-item .item-content{
+.child-list-item .item-content , .issue-list-item .item-content, .commit-list-item .item-content{
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;

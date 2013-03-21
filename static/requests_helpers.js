@@ -134,3 +134,43 @@ function getFeedRequest(user, publicOnly) {
     }
     return rq;
 }
+
+function getUserNotificationsWithAuth() {
+    return BASE_API_URL + "/notifications";
+}
+
+function getUserRepos(username) {
+    return BASE_API_URL + "/users/" + username + "/repos";
+}
+
+function getUserReposWithAuth() {
+    return BASE_API_URL + "/user";
+}
+
+function getFollowers(username){
+    return BASE_API_URL + "/users/" + username + "/followers";
+}
+
+function getFollowersWithAuth() {
+    return BASE_API_URL + "/user/followers";
+}
+
+function getFollowing(username){
+    return BASE_API_URL + "/users/" + username + "/following";
+}
+
+function getFollowingWithAuth() {
+    return BASE_API_URL + "/user/following";
+}
+
+function getStarredRepos(username){
+    return BASE_API_URL + "/users/" + username + "/starred";
+}
+
+function getStarredReposWithAuth() {
+    return BASE_API_URL + "/user/starred";
+}
+
+function getPullRequestRequest(username, repo){
+    return BASE_API_URL + "/repos/" + username + "/" + repo + "/pulls";
+}

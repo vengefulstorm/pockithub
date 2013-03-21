@@ -6,8 +6,8 @@
     {{else}}
         {{#each list}}
             <li class='issue-comments-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
-                <img src='{{user.avatar_url}}'/>            
-                <span class='ui-li-aside'>{{created_at}}</span>
+                <img class="thumbnail-med" src='{{user.avatar_url}}'/>            
+                <span class='ui-li-aside'>{{formatRelativeDate created_at}}</span>
                 <div class='item-content'>
                     {{body}}
                 </div>
