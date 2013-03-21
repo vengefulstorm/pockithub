@@ -15,6 +15,8 @@ var init = function init() {
         }, false);
     }, false);
 
+        $("#sidepanel-subheader, #sidebar-select").show();
+
     window.forwardSectionMap = {
         'Issues': 'issues',
         'Milestones': 'milestones',
@@ -436,13 +438,17 @@ function switchToSection(nextRQ) {
 
 function setSidebarSection() {
     var list;
+    var sidebarTitle;
     switch(window.ctx["pageType"]) {
         case 'user':
             list = getUserContext();
+            sidebarTitle = window.ctx["user"];
             break;
         default:
             list = getRepoContext();
+            sidebarTitle = window.ctx["user"] + "/" + window.ctx["repo"];
     };
+    updateSidebarHeader(sidebarTitle);
     var selectedSection = window.ctx["section"];
     var RadioList = Handlebars.templates["radio-list"];
     var opts = {
@@ -701,4 +707,9 @@ function updateUpDirContext(name,link){
     var index = link.indexOf(name);
     var upDir = link.substring(0,index-1);
     window.ctx["upDir"].push(upDir);
+}
+
+function updateSidebarHeader(name){
+    $("#sidepanel-subheader, .ui-select").find("select").find("option").attr("value",name).html(name);
+    $("sidepanel-subheader, .ui-select").find(".ui-btn-text").find("span").html(name);
 }
