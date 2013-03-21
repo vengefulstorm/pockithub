@@ -45,49 +45,14 @@
     </head>
     <body>
 
-        <div data-role="page">
-
-
-            <div data-role="panel" id="sidepanel" class="sidebar" data-position="left" data-display="reveal" data-position-fixed="true">                    
-                <div class="header" data-role="header" data-id="topbar-side">
-                    <div data-role="header">
-
-                        <input id="search-bar" class="ui-input-search ui-shadow-inset" type="search" placeholder="Search..." value=""/>
-                        <div id="search-results" class="search-results-wrapper overthrow" data-role="collapsible-set" data-inset="false">
-                            <div id="repo-search-results" data-role="collapsible" data-collapsed="false" data-inset="false">
-                            </div>
-                            <div id="user-search-results" data-role="collapsible" data-inset="false">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="sidepanel-subheader" class="ui-bar ui-bar-a short-header" data-role="header" data-mini="true">
-                    <label for="item-selector" class="header-label" data-mini="true">Select an item:</label>
-                    <select name="item-selector" data-mini="true" data-theme="a">
-                        <!-- Fixme: populate with items -->
-                        <option value="pockithub">pockithub</option>
-                    </select>
-                </div>
-
-                <div data-role="content" id="sidepanel-content" class="content overthrow">
-                </div>
-            </div> <!-- /panel-->
-
-
-            <div id="main-header" class="header" data-role="header" data-id="topbar-main">
-                <div data-role="header">
-                    <a href="#sidepanel" data-icon="app-sidebar" data-iconpos="notext" data-corners="false">Side</a>
-                    <div class="mainheader">pockithub</div>
-                </div>
-                <div class="subheader" data-role="header">
-                    Watchers
-                </div>
-            </div>
-            <div data-role="content" id="main-content" class="content overthrow">
-            </div>
-
+        <input id="search-bar" class="ui-input-search ui-shadow-inset" type="search" placeholder="Search..." value=""/>
+        <div id="search-results" class="search-results-wrapper overthrow" data-role="collapsible-set" data-inset="false">
+          <div id="repo-search-results" data-role="collapsible" data-collapsed="false" data-inset="false">
+          </div>
+          <div id="user-search-results" data-role="collapsible" data-inset="false">
+          </div>
         </div>
+
     </body>
 </html>
 

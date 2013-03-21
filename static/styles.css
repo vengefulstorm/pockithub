@@ -107,6 +107,16 @@
 
 /***** Generic styling *****/
 
+.sidebar .ui-input-search {
+		margin-left: 6px;
+		margin-right: 6px;
+		top: 7px;
+}
+
+.sidebar #search-bar {
+		top: 0px;
+}
+
 .hoverZoomLink {
 		-moz-border-radius: 50%;
 		-webkit-border-radius: 50%;

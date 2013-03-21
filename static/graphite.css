@@ -17,6 +17,7 @@
 	background: 			#222222 /*{a-bar-background-color}*/;
 	color: 					#fff /*{a-bar-color}*/;
 	font-weight: bold;
+	height: 50px;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #222222 /*{a-bar-background-start}*/), to( #222222 /*{a-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #222222 /*{a-bar-background-start}*/, #222222 /*{a-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient( #222222 /*{a-bar-background-start}*/, #222222 /*{a-bar-background-end}*/); /* FF3.6 */
@@ -2224,7 +2225,7 @@ ol.ui-listview .ui-li-jsnumbering:before { content: "" !important; } /* to avoid
 .ui-collapsible-content > .ui-listview:not(.ui-listview-inset),
 .ui-collapsible-content > .ui-listview:not(.ui-listview-inset) .ui-li-last { -webkit-border-bottom-left-radius: inherit; -webkit-border-bottom-right-radius: inherit; border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
 .ui-collapsible-content > .ui-listview:not(.ui-listview-inset) .ui-li-last .ui-li-link-alt { -webkit-border-bottom-right-radius: inherit; border-bottom-right-radius: inherit; }
-.ui-li>.ui-btn-inner { display: block; position: relative; padding: 0; }
+.ui-li>.ui-btn-inner { display: block; position: relative; padding: 0; padding-right: 35px; }
 .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li { padding: .7em 15px; display: block; }
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb  { min-height: 60px; padding-left: 100px; }
 .ui-li-has-icon .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-icon { min-height: 20px; padding-left: 40px; }
