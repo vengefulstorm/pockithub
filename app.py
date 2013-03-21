@@ -5,8 +5,9 @@ import base64
 import PH_common
 import datetime
 import AES
+import markdown
 
-from flask import Flask, url_for, send_from_directory, render_template, request, jsonify, abort
+from flask import Flask, url_for, send_from_directory, render_template, request, jsonify, abort, Markup
 from render_section import render_section
 
 
@@ -86,7 +87,7 @@ def encrypt():
         return abort(415);
 
     data = injson['data'];
-    #data = b64decode(data);
+    data = b64decode(data);
     
     encrypted_data = AES.encrypt(data);
     return jsonify(data=encrypted_data);
@@ -105,8 +106,23 @@ def decrypt():
     data = injson['data'];
 
     decrypted_data = AES.decrypt(data);
-    return decrypted_data
     return jsonify(data=decrypted_data);
+
+
+#Markdown Rendering
+@app.route('/helper/markdown', methods=['POST'])
+def markdown():
+    injson = None;
+    if (request.headers['Content-Type'] == 'application/json'):
+        injson = json.dumps(request.json);
+        injson = json.loads(injson);
+    else:
+        return abort(415);
+
+    content = injson['data'];
+    content = Markup(markdown.markdown(content))
+
+    return jsonify(data=content);
 
 #-------------------------------------------------------------
 

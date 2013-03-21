@@ -107,6 +107,13 @@
 
 /***** Generic styling *****/
 
+.hoverZoomLink {
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		-ms-border-radius: 50%;
+		border-radius: 50%;
+}
+
 .horizontal-list li{
     display: inline-block;
     margin-left: 5px;
