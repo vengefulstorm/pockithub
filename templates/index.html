@@ -24,10 +24,10 @@
             $(function() {
                 window.ctx = {
                     //TODO this will be passed in
-                    pageType: "user",
+                    pageType: "repo",
                     {% if user %}user: "{{ user }}",{% endif %}
                     {% if repo %}repo: "{{ repo }}",{% endif %}
-                    {% if section %}section: "{{ section }}",{% else %}section: "user repos",{% endif %}
+                    {% if section %}section: "{{ section }}",{% else %}section: "commits",{% endif %}
                     subSection: "",
                     {% if public_token %}public_token: "{{ public_token }}",{% endif %}
                     {% if user_token %}user_token: "{{ user_token }}",{% endif %}

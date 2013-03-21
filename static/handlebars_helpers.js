@@ -99,6 +99,13 @@ Handlebars.registerHelper('renderIssue', function(item) {
     return elt;
 });
 
+Handlebars.registerHelper('renderCommit',function(item){
+    var elt = '<a href="javascript:void(0)" ';
+    elt = elt + '<h1 style="display:inline;">' + item["commit"]["message"] + '</h1>';
+    elt = elt + '</a>';
+    return elt;
+});
+
 Handlebars.registerHelper('renderIssueComment', function(commentBody) {
     var elt = '<br/>' + commentBody;
     return elt;
