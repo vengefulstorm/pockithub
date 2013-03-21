@@ -1,4 +1,4 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='followers-list'>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='followers-list'>
 {{#each list}}
     <li class='followers-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
         <a href='javascript:void(0)' data-url='{{url}}' class="user-link">

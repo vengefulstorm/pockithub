@@ -19,17 +19,17 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n        <li class='child-list-item' ";
+  buffer += "\n        <li class='child-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n            ";
+  buffer += ">\n            ";
   stack1 = helpers['if'].call(depth0, depth0.avatar_url, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n            <div class='item-content'>\r\n                ";
+  buffer += "\n            <div class='item-content'>\n                ";
   options = {hash:{},data:data};
   stack2 = ((stack1 = helpers.render),stack1 ? stack1.call(depth0, depth0.content, depth0.type, options) : helperMissing.call(depth0, "render", depth0.content, depth0.type, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n            </div>\r\n        </li>\r\n    ";
+  buffer += "\n            </div>\n        </li>\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -44,15 +44,15 @@ function program4(depth0,data,depth2) {
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n            <div class='user'>\r\n                <a href='javascript:void(0)' data-url='";
+  buffer += "\n            <div class='user'>\n                <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"user-link\">\r\n                    <img src='";
+    + "' class=\"user-link\">\n                    <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\r\n                    <h1 class='username' data-username=\"";
+    + "'/>\n                    <h1 class='username' data-username=\"";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -60,17 +60,17 @@ function program6(depth0,data) {
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n                </a>\r\n            </div>\r\n            ";
+    + "</h1>\n                </a>\n            </div>\n            ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='child-list'>\r\n    ";
+  buffer += " data-inset='true' class='child-list'>\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>\r\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 templates['code-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -81,17 +81,17 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n    ";
+  buffer += "\n    ";
   if (stack1 = helpers.content) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.content; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n";
+    + "\n";
   return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['commit-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -113,19 +113,19 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n        <li data-role='collapsible' data-inset='false' class='commit-list-item' data-url='"
+  buffer += "\n        <li data-role='collapsible' data-inset='true' class='commit-list-item' data-url='"
     + escapeExpression(((stack1 = ((stack1 = depth0.content),stack1 == null || stack1 === false ? stack1 : stack1.url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "' ";
   stack2 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += ">\r\n            <h3 class='collapsible-header' data-inset='false'>\r\n                ";
+  buffer += ">\n            <h3 class='collapsible-header' data-inset='true'>\n                ";
   stack2 = helpers['if'].call(depth0, depth0.avatar_url, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n                <div class='item-content'>\r\n                    ";
+  buffer += "\n                <div class='item-content'>\n                    ";
   options = {hash:{},data:data};
   stack2 = ((stack1 = helpers.renderCommit),stack1 ? stack1.call(depth0, depth0.content, options) : helperMissing.call(depth0, "renderCommit", depth0.content, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n                </div>\r\n            </h3>\r\n        </li>\r\n    ";
+  buffer += "\n                </div>\n            </h3>\n        </li>\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -140,15 +140,15 @@ function program4(depth0,data,depth2) {
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                <div class='user'>\r\n                    <a href='javascript:void(0)' data-url='";
+  buffer += "\n                <div class='user'>\n                    <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"user-link\">\r\n                        <img src='";
+    + "' class=\"user-link\">\n                        <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\r\n                        <h1 class='username' data-username=\"";
+    + "'/>\n                        <h1 class='username' data-username=\"";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -156,17 +156,17 @@ function program6(depth0,data) {
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n                    </a>\r\n                </div>\r\n                ";
+    + "</h1>\n                    </a>\n                </div>\n                ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='commit-list'>\r\n    ";
+  buffer += " data-inset='true' class='commit-list'>\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>\r\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 templates['directory-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -188,7 +188,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n    <li class='directory-list-item' data-name='";
+  buffer += "\n    <li class='directory-list-item' data-name='";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -204,31 +204,31 @@ function program3(depth0,data) {
   if (stack1 = helpers.path) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.path; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'>\r\n        <a href='javascript:void(0)'>\r\n            <img src='";
+    + "'>\n        <a href='javascript:void(0)'>\n            <img src='";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.getItemIcon),stack1 ? stack1.call(depth0, depth0.type, options) : helperMissing.call(depth0, "getItemIcon", depth0.type, options)))
-    + "'/>\r\n            <h1 class='itemName'>";
+    + "'/>\n            <h1 class='itemName'>";
   if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "</h1>\r\n        </a>\r\n        <div id='file-";
+    + "</h1>\n        </a>\n        <div id='file-";
   if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "'>\r\n        </div>\r\n    </li>\r\n    ";
+    + "'>\n        </div>\n    </li>\n    ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false'>\r\n    <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id=\"upDir\">\r\n        <a href='javascript:void(0)'>\r\n            <img src='";
+  buffer += " data-inset='true'>\n    <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id=\"upDir\">\n        <a href='javascript:void(0)'>\n            <img src='";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.getItemIcon),stack1 ? stack1.call(depth0, "dir", options) : helperMissing.call(depth0, "getItemIcon", "dir", options)))
-    + "'/>\r\n            <h1 class='itemName'>..</h1>\r\n        </a>\r\n    </li>\r\n    ";
+    + "'/>\n            <h1 class='itemName'>..</h1>\n        </a>\n    </li>\n    ";
   stack2 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n</ul>\r\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 templates['followers-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -250,18 +250,18 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\r\n    <li class='followers-list-item' ";
+  buffer += "\n    <li class='followers-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n        <a href='javascript:void(0)' data-url='";
+  buffer += ">\n        <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"user-link\">\r\n            <img src='";
+    + "' class=\"user-link\">\n            <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\r\n            <h1 class='username' data-username='";
+    + "'/>\n            <h1 class='username' data-username='";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -269,7 +269,7 @@ function program3(depth0,data,depth1) {
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n        </a>\r\n    </li>\r\n";
+    + "</h1>\n        </a>\n    </li>\n";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -284,10 +284,10 @@ function program4(depth0,data,depth2) {
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='followers-list'>\r\n";
+  buffer += " data-inset='true' class='followers-list'>\n";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['following-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -309,18 +309,18 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\r\n    <li class='following-list-item' ";
+  buffer += "\n    <li class='following-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n        <a href='javascript:void(0)' data-url='";
+  buffer += ">\n        <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"user-link\">\r\n            <img src='";
+    + "' class=\"user-link\">\n            <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\r\n            <h1 class='username' data-username='";
+    + "'/>\n            <h1 class='username' data-username='";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -328,7 +328,7 @@ function program3(depth0,data,depth1) {
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n        </a>\r\n    </li>\r\n";
+    + "</h1>\n        </a>\n    </li>\n";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -343,10 +343,10 @@ function program4(depth0,data,depth2) {
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='following-list'>\r\n";
+  buffer += " data-inset='true' class='following-list'>\n";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['issue-comments-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -368,10 +368,10 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\r\n        <li class='issue-comments-list-item' ";
+  buffer += "\n        <li class='issue-comments-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n            <div class='item-content'>No Comments</div>\r\n        </li>\r\n    ";
+  buffer += ">\n            <div class='item-content'>No Comments</div>\n        </li>\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -386,39 +386,39 @@ function program4(depth0,data,depth2) {
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n        ";
+  buffer += "\n        ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program7, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n    ";
+  buffer += "\n    ";
   return buffer;
   }
 function program7(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n            <li class='issue-comments-list-item' ";
+  buffer += "\n            <li class='issue-comments-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n                <img class=\"thumbnail-med\" src='"
+  buffer += ">\n                <img class=\"thumbnail-med\" src='"
     + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "'/>            \r\n                <span class='ui-li-aside'>";
+    + "'/>            \n                <span class='ui-li-aside'>";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.formatRelativeDate),stack1 ? stack1.call(depth0, depth0.created_at, options) : helperMissing.call(depth0, "formatRelativeDate", depth0.created_at, options)))
-    + "</span>\r\n                <div class='item-content'>\r\n                    ";
+    + "</span>\n                <div class='item-content'>\n                    ";
   if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\r\n                </div>\r\n            </li>\r\n        ";
+    + "\n                </div>\n            </li>\n        ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='true' class='issue-comments-list'>\r\n    ";
+  buffer += " data-inset='true' class='issue-comments-list'>\n    ";
   options = {hash:{},inverse:self.program(6, program6, data),fn:self.programWithDepth(program3, data, depth0),data:data};
   stack2 = ((stack1 = helpers.isEmpty),stack1 ? stack1.call(depth0, depth0.list, options) : helperMissing.call(depth0, "isEmpty", depth0.list, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n</ul>";
+  buffer += "\n</ul>";
   return buffer;
   });
 templates['issue-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -440,26 +440,26 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n        <li data-role='collapsible' data-inset='false' class='issue-list-item' data-url='";
+  buffer += "\n        <li data-role='collapsible' data-inset='true' class='issue-list-item' data-url='";
   if (stack1 = helpers.children_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.children_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n            <h3 class='collapsible-header' data-inset='false'>\r\n                ";
+  buffer += ">\n            <h3 class='collapsible-header' data-inset='true'>\n                ";
   stack1 = helpers['if'].call(depth0, depth0.avatar_url, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n\r\n                <div class='item-content'>\r\n                    <span class='ui-li-aside'>#"
+  buffer += "\n\n                <div class='item-content'>\n                    <span class='ui-li-aside'>#"
     + escapeExpression(((stack1 = ((stack1 = depth0.content),stack1 == null || stack1 === false ? stack1 : stack1.number)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\r\n                    ";
+    + "</span>\n                    ";
   options = {hash:{},data:data};
   stack2 = ((stack1 = helpers.renderIssue),stack1 ? stack1.call(depth0, depth0.content, options) : helperMissing.call(depth0, "renderIssue", depth0.content, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n                </div>\r\n            </h3>\r\n            <div class='collapsible-content'>\r\n                ";
+  buffer += "\n                </div>\n            </h3>\n            <div class='collapsible-content'>\n                ";
   stack2 = helpers['with'].call(depth0, depth0.content, {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n            </div>\r\n         </li>\r\n    ";
+  buffer += "\n            </div>\n         </li>\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -474,59 +474,59 @@ function program4(depth0,data,depth2) {
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                <div class='user'>\r\n                    <a href='javascript:void(0)' data-url='";
+  buffer += "\n                <div class='user'>\n                    <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"user-link\">\r\n                        <img src='";
+    + "' class=\"user-link\">\n                        <img src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\r\n                        <h1 class='username'>";
+    + "'/>\n                        <h1 class='username'>";
   if (stack1 = helpers.user_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n                    </a>\r\n                </div>\r\n                ";
+    + "</h1>\n                    </a>\n                </div>\n                ";
   return buffer;
   }
 
 function program8(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                <ul class='user-list' data-role='listview'>\r\n                    ";
+  buffer += "\n                <ul class='user-list' data-role='listview' data-inset='true' >\n                    ";
   stack1 = helpers['if'].call(depth0, depth0.assignee, {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    ";
+  buffer += "\n                    ";
   stack1 = helpers['with'].call(depth0, depth0.user, {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                </ul>\r\n                <div id='issues-comments-list-";
+  buffer += "\n                </ul>\n                <div id='issues-comments-list-";
   if (stack1 = helpers.number) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.number; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='child-content'>\r\n                </div>                \r\n                ";
+    + "' class='child-content'>\n                </div>                \n                ";
   return buffer;
   }
 function program9(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                    ";
+  buffer += "\n                    ";
   stack1 = helpers['with'].call(depth0, depth0.assignee, {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    ";
+  buffer += "\n                    ";
   return buffer;
   }
 function program10(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                    <li class='user-list-item'>\r\n                        <a href='javascript:void(0)' data-url='";
+  buffer += "\n                    <li class='user-list-item'>\n                        <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='user-link'>\r\n                            <img class='thumbnail-small ui-li-icon' src='";
+    + "' class='user-link'>\n                            <img class='thumbnail-small ui-li-icon' src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' />\r\n                            <h3 class=\"username\" data-username=\"";
+    + "' />\n                            <h3 class=\"username\" data-username=\"";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -534,22 +534,22 @@ function program10(depth0,data) {
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h3>\r\n                        </a>\r\n                    </li>\r\n                    ";
+    + "</h3>\n                        </a>\n                    </li>\n                    ";
   return buffer;
   }
 
 function program12(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                    <li class='user-list-item'>\r\n                        <a href='javascript:void(0)' data-url='";
+  buffer += "\n                    <li class='user-list-item'>\n                        <a href='javascript:void(0)' data-url='";
   if (stack1 = helpers.user_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.user_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class='user-link'>\r\n                            <img class='thumbnail-small ui-li-icon' src='";
+    + "' class='user-link'>\n                            <img class='thumbnail-small ui-li-icon' src='";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' />\r\n                            <h3 class=\"username\" data-username=\"";
+    + "' />\n                            <h3 class=\"username\" data-username=\"";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -557,17 +557,17 @@ function program12(depth0,data) {
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h3>\r\n                        </a>\r\n                    </li>\r\n                    ";
+    + "</h3>\n                        </a>\n                    </li>\n                    ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='issue-list'>\r\n    ";
+  buffer += " data-inset='true' class='issue-list'>\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>\r\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 templates['pull-request-comments-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -578,19 +578,19 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\r\n    "
+  buffer += "\n    "
     + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " commented: <br/>\r\n    ";
+    + " commented: <br/>\n    ";
   if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "<br/>\r\n    <br/><br/>\r\n";
+    + "<br/>\n    <br/><br/>\n";
   return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['pull-request-commits-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -601,23 +601,23 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\r\n    Commited by: "
+  buffer += "\n    Commited by: "
     + escapeExpression(((stack1 = ((stack1 = depth0.committer),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "<br/>\r\n    Body: "
+    + "<br/>\n    Body: "
     + escapeExpression(((stack1 = ((stack1 = depth0.commit),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "<br/>\r\n    <a href=\"javascript:void(0)\" class=\"pull-request-commit-view\" data-user='"
+    + "<br/>\n    <a href=\"javascript:void(0)\" class=\"pull-request-commit-view\" data-user='"
     + escapeExpression(((stack1 = ((stack1 = depth0.committer),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "' data-url='";
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "' data-role=\"button\" data-mini=\"true\">View Commit</a>\r\n    <br/><br>\r\n";
+    + "' data-role=\"button\" data-mini=\"true\">View Commit</a>\n    <br/><br>\n";
   return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['pull-request-files-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -626,7 +626,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "GHI\r\n";
+  return "GHI\n";
   });
 templates['pull-request-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
@@ -647,23 +647,23 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\r\n        <div class=\"pull-request-list-item\">\r\n            Pull Request Initiator:<br/>\r\n            Login: "
+  buffer += "\n        <div class=\"pull-request-list-item\">\n            Pull Request Initiator:<br/>\n            Login: "
     + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <br/>\r\n            Avatar: "
+    + " <br/>\n            Avatar: "
     + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <br/>\r\n                                <br/>\r\n            State: ";
+    + " <br/>\n                                <br/>\n            State: ";
   if (stack2 = helpers.state) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.state; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "<br/>\r\n            Title: ";
+    + "<br/>\n            Title: ";
   if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "<br/> \r\n            Body: ";
+    + "<br/> \n            Body: ";
   if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "<br/>\r\n            <a href=\"javascript:void(0)\" class=\"pull-request-commits-button\" data-url='";
+    + "<br/>\n            <a href=\"javascript:void(0)\" class=\"pull-request-commits-button\" data-url='";
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -671,7 +671,7 @@ function program3(depth0,data) {
   if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" data-role=\"button\" data-mini=\"true\">Show Commits</a>\r\n            <a href=\"javascript:void(0)\" class=\"pull-request-comments-button\" data-url='";
+    + "\" data-role=\"button\" data-mini=\"true\">Show Commits</a>\n            <a href=\"javascript:void(0)\" class=\"pull-request-comments-button\" data-url='";
   if (stack2 = helpers.comments_url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.comments_url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -679,25 +679,25 @@ function program3(depth0,data) {
   if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" data-role=\"button\" data-mini=\"true\">Show Comments</a>\r\n        </div>\r\n        <div id=\"pull-request-commits-list-";
+    + "\" data-role=\"button\" data-mini=\"true\">Show Comments</a>\n        </div>\n        <div id=\"pull-request-commits-list-";
   if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\">\r\n        </div>\r\n        <div id=\"pull-request-comments-list-";
+    + "\">\n        </div>\n        <div id=\"pull-request-comments-list-";
   if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\">\r\n        </div>\r\n        <hr/>\r\n    ";
+    + "\">\n        </div>\n        <hr/>\n    ";
   return buffer;
   }
 
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='pull-request-list'>\r\n    ";
+  buffer += " data-inset='true' class='pull-request-list'>\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>\r\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 templates['radio-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -806,17 +806,17 @@ function program1(depth0,data) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n        <li class='search-results-list-item' ";
+  buffer += "\n        <li class='search-results-list-item' ";
   stack1 = helpers['if'].call(depth0, depth1.childTheme, {hash:{},inverse:self.noop,fn:self.programWithDepth(program4, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\r\n            <a href='";
+  buffer += ">\n            <a href='";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.generateResultLink),stack1 ? stack1.call(depth0, depth0, options) : helperMissing.call(depth0, "generateResultLink", depth0, options)))
-    + "' class=\"search-result-link\">\r\n                ";
+    + "' class=\"search-result-link\">\n                ";
   options = {hash:{},data:data};
   stack2 = ((stack1 = helpers.renderSearchResult),stack1 ? stack1.call(depth0, depth0, options) : helperMissing.call(depth0, "renderSearchResult", depth0, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\r\n            </a>\r\n        </li>\r\n    ";
+  buffer += "\n            </a>\n        </li>\n    ";
   return buffer;
   }
 function program4(depth0,data,depth2) {
@@ -832,13 +832,13 @@ function program4(depth0,data,depth2) {
   if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h3>\r\n<ul data-role='listview' ";
+    + "</h3>\n<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='search-results-list'>\r\n    ";
+  buffer += " data-inset='true' class='search-results-list'>\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</ul>";
+  buffer += "\n</ul>";
   return buffer;
   });
 templates['starred-repos-view'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -849,7 +849,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\r\n        <li class=\"starred-repo-list-item\" data-name='";
+  buffer += "\n        <li class=\"starred-repo-list-item\" data-name='";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -863,24 +863,24 @@ function program1(depth0,data) {
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "'>\r\n            <a href='javascript:void(0)'>\r\n                <h1 class='repo-list-item-name'>";
+    + "'>\n            <a href='javascript:void(0)'>\n                <h1 class='repo-list-item-name'>";
   if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "</h1> \r\n                <h2>by "
+    + "</h1> \n                <h2>by "
     + escapeExpression(((stack1 = ((stack1 = depth0.owner),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h2>\r\n                <h2>";
+    + "</h2>\n                <h2>";
   if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "</h2>\r\n            </a> \r\n        </li>\r\n    ";
+    + "</h2>\n            </a> \n        </li>\n    ";
   return buffer;
   }
 
-  buffer += "<div class=\"starred-repo-list\">\r\n    ";
+  buffer += "<div class=\"starred-repo-list\">\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n</div>\r\n";
+  buffer += "\n</div>\n";
   return buffer;
   });
 templates['user-feed'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -889,7 +889,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "USER-FEED\r\n";
+  return "USER-FEED\n";
   });
 templates['user-list'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
@@ -944,7 +944,7 @@ function program4(depth0,data,depth2) {
   buffer += "<ul data-role='listview' ";
   stack1 = helpers['if'].call(depth0, depth0.containerTheme, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-inset='false' class='user-list'>\r\n    ";
+  buffer += " data-inset='true' class='user-list'>\r\n    ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.programWithDepth(program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n</ul>\r\n";
@@ -958,85 +958,85 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n  <h2>";
+  buffer += "\n  <h2>";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h2>\r\n  <img src=\"";
+    + "</h2>\n  <img src=\"";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"></img>\r\n  ";
+    + "\"></img>\n  ";
   if (stack1 = helpers.gravatar_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.gravatar_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.company) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.company; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.blog) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.blog; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.location) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.location; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.email; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.hireable) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.hireable; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.bio) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.bio; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.public_repos) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.public_repos; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.public_gists) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.public_gists; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.followers) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.followers; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.following) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.following; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.html_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.html_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.created_at) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.created_at; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n  ";
+    + "\n  ";
   if (stack1 = helpers.type) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\r\n";
+    + "\n";
   return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 templates['user-repos'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1047,7 +1047,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n    <li class=\"repo-list-item\" data-name=\"";
+  buffer += "\n    <li class=\"repo-list-item\" data-name=\"";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -1055,17 +1055,17 @@ function program1(depth0,data) {
   if (stack1 = helpers.full_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.full_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\r\n        <a href='javascript:void(0)'>\r\n            <h1 class='repo-list-item-name'>";
+    + "\">\n        <a href='javascript:void(0)'>\n            <h1 class='repo-list-item-name'>";
   if (stack1 = helpers.full_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.full_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\r\n        </a>\r\n    </li>\r\n";
+    + "</h1>\n        </a>\n    </li>\n";
   return buffer;
   }
 
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n";
+  buffer += "\n";
   return buffer;
   });
 })();
