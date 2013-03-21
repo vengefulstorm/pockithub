@@ -76,7 +76,9 @@ $(".view .header .ui-btn-left", window.ctx["contentWrapper"]).click(function(eve
     toggleSidebar("main-wrapper");
 });
 
-$sidebarWrapper = $(".sidebar .content");
+$("#sidepanel").panel("option", "classes.panelInner", "custom-ui-panel-inner");
+
+$sidebarWrapper = $("#sidepanel-content");
 $sidebarWrapper.delegate(".radio-list .ui-radio label", "click",function(event) {
     event.stopPropagation();
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
@@ -143,18 +145,19 @@ $("[class=repo-list-item]").live("click",function(event){
 
 function selectSectionRadioButton(section) {
     var radioBtnText = window.backwardSectionMap[section];
-    $('.sidebar .content .radio-list .ui-radio input:radio[value=' + radioBtnText + ']').attr('checked', 'checked').checkboxradio("refresh");
+    // $('#sidepanel-content .radio-list .ui-radio input:radio[value=' + radioBtnText + ']').attr('checked', 'checked').checkboxradio("refresh");
 }
 
-function toggleSidebar(containerId) {
-    var $container = $("#" + containerId);
-    var $sidebar = $(".sidebar", "#" + containerId);
-    var containerLeftAnchor = parseFloat($container.css('left'));
-    if (containerLeftAnchor == 0) {
-        $("#" + containerId).animate({left: -$sidebar.width()}, 500);
-    } else {
-        $("#" + containerId).animate({left: 0}, 500);
+$( document ).on( "swiperight", function( e ) {
+    if ( e.type === "swiperight" ) {
+        $( "#sidepanel" ).panel( "open" );
     }
+});
+
+function toggleSidebar(containerId) {
+    
+    $("#sidepanel").panel("toggle");
+    
 }
 
 //given api request and id, updates the id with information
@@ -196,7 +199,7 @@ function switchToSection(nextRQ) {
     var rq2;
     var template;
     var data = {};
-    var templateToFill = $(".view .content", window.ctx["contentWrapper"]);
+    var templateToFill = $("#main-content");
     var transformer = function(data){ return data; }; // initialize to dummy transformer function
     var section = window.ctx["section"];
     if (nextRQ) {
@@ -305,7 +308,7 @@ function switchToSection(nextRQ) {
         default:
             return;
     }
-    $(".view .subheader", window.ctx["contentWrapper"]).html(backwardSectionMap[section]);
+    $("#main-content").html(backwardSectionMap[section]);
     loadTemplatedContent(rq, template, transformer, data, preProcessor, templateToFill);
     window.ctx["pageType"] = window.ctx["sectionToContextMap"][section];
     selectSectionRadioButton(window.ctx["section"]);
@@ -330,7 +333,7 @@ function setSidebarSection() {
         childSelectedTheme: window.ctx['childSelectedTheme']
     }
     var templated = RadioList(opts);
-    $(".sidebar .content", window.ctx["contentWrapper"]).html(templated).trigger("create");    
+    $("#sidepanel-content").html(templated).trigger("create");    
     selectSectionRadioButton(window.ctx["section"]);
 }
 
@@ -389,6 +392,8 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
             }
             var templated = template(opts);
             templateToFill.html(templated).trigger("create").scrollTop(0);
+            console.log(templated);
+            console.log(templateToFill)
         },
         error: function() { 
             alert("Error on retrieving: " + rq);

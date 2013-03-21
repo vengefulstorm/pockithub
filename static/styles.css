@@ -34,6 +34,13 @@
 	background: url(ajax-loader.gif);
 }																								 
 
+.ui-panel-inner{
+  background-color: black;
+  padding: 0 !important;
+  margin-top: -10px !important;
+  top:0;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (min--moz-device-pixel-ratio: 1.5),
        only screen and (min-resolution: 240dpi) {
@@ -184,7 +191,6 @@ a {
 }
 
 .sidebar  select {
-    width: 100%;
 }
 
 /***** Viewport styling *****/
