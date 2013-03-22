@@ -218,16 +218,24 @@ Handlebars.registerHelper('formatRelativeDate', function(isoDate) {
     var diff = (now-date);
     
     var diff = Math.round(diff/1000);
-    if (diff < 60) return diff + ' seconds ago';
+    if (diff < 60)  {
+        return diff + ' second' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/60);
-    if (diff < 60) return diff + ' minutes ago';
+    if (diff < 60) {
+        return diff + ' minute' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/60);
-    if (diff < 24) return diff + ' hours ago';
+    if (diff < 24) {
+        return diff + ' hour' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/24);
-    if (diff < 365) return diff + ' days ago';
+    if (diff < 365) {
+        return diff + ' day' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/365);
     return diff + ' years ago';

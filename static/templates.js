@@ -25,7 +25,10 @@ function program3(depth0,data,depth1) {
   buffer += ">\r\n            ";
   stack1 = helpers['if'].call(depth0, depth0.avatar_url, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n            <div class='item-content'>\r\n                ";
+  buffer += "\r\n            <span class='ui-li-aside'>";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.formatRelativeDate),stack1 ? stack1.call(depth0, depth0.created_at, options) : helperMissing.call(depth0, "formatRelativeDate", depth0.created_at, options)))
+    + "</span>\r\n            <div class='item-content'>\r\n                ";
   options = {hash:{},data:data};
   stack2 = ((stack1 = helpers.render),stack1 ? stack1.call(depth0, depth0.content, depth0.type, options) : helperMissing.call(depth0, "render", depth0.content, depth0.type, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
@@ -488,7 +491,7 @@ function program7(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += ">\r\n                <img class=\"thumbnail-med\" src='"
     + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "'/>            \r\n                <span class='ui-li-aside'>";
+    + "'/>\r\n                <span class='ui-li-aside'>";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.formatRelativeDate),stack1 ? stack1.call(depth0, depth0.created_at, options) : helperMissing.call(depth0, "formatRelativeDate", depth0.created_at, options)))
     + "</span>\r\n                <div class='item-content'>\r\n                    ";
