@@ -82,29 +82,44 @@ Handlebars.registerHelper('render', function(item, type) {
     return elt;
 });
 
-Handlebars.registerHelper('renderMarkup', function(item, renderType, rawUrl) {
-    var selector = "#file-" + item["name"];
+var MARKDOWN_EXT = 'md';
+Handlebars.registerHelper('renderMarkup', function(item) {
+    var fileItem = item["content"];
+    var renderType = item["render_type"];
+    var rawUrl = item["raw_url"];
+    var ext = item["ext"];
+    
+    var selector = "#file-" + fileItem["name"];
     var elt = '';
     switch(renderType) {
         case "image":
             elt = elt + '<img src="' + rawUrl + '" />';
             break;
         case "markdown":
-            var rq = "/helper/markdown64";
             var data = {
-                data: item["content"]
+                data: fileItem["content"]
             };
+            var rq = "/helper/syntax";
+            if (ext == MARKDOWN_EXT) {
+                rq = "/helper/markdown64";
+            } else {
+                var lang = window.languageExtensionMap[ext];
+                if (typeof lang === 'undefined') {
+                    lang = '';
+                }
+                data["lang"] = lang;
+            }
             $.ajax({
                 type: 'POST',
                 url: rq,
                 data: data,
                 success: function(data) {
-                    $("#file-" + item["name"]).html(data);
+                    $("#file-" + fileItem["name"].replace(".","\\.")).html(data);
                 }
             });
-            return item;
+            return;
         default:
-            return item;
+            return fileItem["content"];
     }
     return elt;
 });
@@ -127,7 +142,8 @@ Handlebars.registerHelper('renderIssue', function(item) {
 });
 
 Handlebars.registerHelper('renderCommit',function(item){
-    var elt = '<a href="javascript:void(0)" ';
+    var elt = '<a class="commit-link" href="javascript:void(0)" data-url="' + item["url"] + '" ';
+    elt = elt + 'data-comments="' + item["comments_url"] + '" ';
     elt = elt + '<h1 style="display:inline;">' + item["commit"]["message"] + '</h1>';
     elt = elt + '</a>';
     return elt;
@@ -196,22 +212,36 @@ Handlebars.registerHelper('getItemIcon', function(type) {
     }
 });
 
+Handlebars.registerHelper('isRoot', function(isRoot, block){
+    if (!isRoot){
+        return block.fn(this);
+    }
+});
+
 Handlebars.registerHelper('formatRelativeDate', function(isoDate) {
     var date = new Date(isoDate);
     var now = new Date();
     var diff = (now-date);
     
     var diff = Math.round(diff/1000);
-    if (diff < 60) return diff + ' seconds ago';
+    if (diff < 60)  {
+        return diff + ' second' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/60);
-    if (diff < 60) return diff + ' minutes ago';
+    if (diff < 60) {
+        return diff + ' minute' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/60);
-    if (diff < 24) return diff + ' hours ago';
+    if (diff < 24) {
+        return diff + ' hour' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/24);
-    if (diff < 365) return diff + ' days ago';
+    if (diff < 365) {
+        return diff + ' day' + (diff > 1? 's': '') + ' ago';
+    }
     
     var diff = Math.round(diff/365);
     return diff + ' years ago';

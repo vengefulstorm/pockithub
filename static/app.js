@@ -16,6 +16,58 @@ var init = function init() {
     }, false);
 
         $("#sidepanel-subheader, #sidebar-select").show();
+        
+    window.languageExtensionMap = {
+        'as': 'actionscript',
+        'ada': 'ada',
+        'asm': 'asm',
+        'c': 'c',
+        'h': 'c',
+        'cpp': 'c++',
+        'hpp': 'c++',
+        'cs': 'c#',
+        'clj': 'closure',
+        'coffee': 'coffeescript',
+        'litcoffee': 'coffeescript',
+        'cfm': 'coldfusion',
+        'lisp': 'lisp',
+        'pas': 'delphi',
+        'dfm': 'delphi',
+        'di': 'd',
+        'd': 'd',
+        'dart': 'dart',
+        'erl': 'erlang',
+        'f90': 'fortran',
+        'f95': 'fortran',
+        'f03': 'fortran',
+        'f': 'fortran',
+        'for': 'fortran',
+        'fs': 'f#',
+        'hs': 'haskell',
+        'java': 'java',
+        'js': 'javascript',
+        'lua': 'lua',
+        'm': 'objectivec',
+        'php': 'php',
+        'phtml': 'php',
+        'php4': 'php',
+        'php3': 'php',
+        'php5': 'php',
+        'phps': 'php',
+        'pl': 'perl',
+        'pm': 'perl',
+        'ps': 'postscript',
+        'py': 'python',
+        'rb': 'ruby',
+        'rc': 'rust',
+        'rs': 'rust',
+        'scala': 'scala',
+        'ss': 'scheme',
+        'scm': 'scheme',
+        'tcl': 'tcl',
+        'v': 'verilog',
+        'vb': 'visualbasic',
+    }
 
     window.forwardSectionMap = {
         'Issues': 'issues',
@@ -30,7 +82,7 @@ var init = function init() {
         'Followers': 'followers',
         'Following': 'following',
         'UserRepos': 'userrepos',
-        'StarredRepos': 'starredrepos'
+        'Starred': 'starred'
     }
     
     window.backwardSectionMap = {
@@ -46,7 +98,7 @@ var init = function init() {
         'followers': 'Followers',
         'following': 'Following',
         'userrepos': 'UserRepos',
-        'starredrepos': 'StarredRepos'
+        'starred': 'Starred'
     }
 
     window.ctx["upDir"] = [];
@@ -70,7 +122,7 @@ var init = function init() {
         "followers": "user",
         "following": "user",
         "userrepos": "repo",
-        "starredrepos": "repo"
+        "starred": "repo"
     };
     
     $searchResults = $("#search-results");    
@@ -170,15 +222,17 @@ $sidebarWrapper.delegate(".radio-list .ui-radio label", "click",function(event) 
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
     toggleSidebar("main-wrapper");
+    closeSidebar();
 });
 
 $sidebarWrapper.delegate(".radio-list .ui-radio label", "touchstart", function(event) {
     event.stopPropagation();
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
+    closeSidebar();
 });
 
-$(".directory-list-item .collapsible-header").live("expand", function(event) {
+$(".directory-list-item").live("expand", function(event) {
     var itemLink = $(this).attr('data-link');
     renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
 });
@@ -236,6 +290,7 @@ $("[class=repo-list-item]").live("click",function(event){
 $("[class^=pull-request-commits-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
+    //window.ctx["section"] = "commit";
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-commits"],number);
 });
 
@@ -254,9 +309,9 @@ $("[class^=pull-request-files-button]").live("click",function(event){
 $("[class^=pull-request-commit-view]").live("click",function(event){
     var url = $(this).data("url");
     window.ctx["user"] = $(this).data("user"); 
-    window.ctx["section"] = "commits";
-    switchToSection();
-    setSidebarSection(url);
+    window.ctx["section"] = "commit";
+    switchToSection(url);
+    setSidebarSection();
 });
 
 $("[class^=starred-repo-list-item]").live("click",function(event){
@@ -267,6 +322,12 @@ $("[class^=starred-repo-list-item]").live("click",function(event){
     setSidebarSection();
 });
 
+$("[class^=commit-link]").live("click",function(event){
+    var url = $(this).data("url");
+    window.ctx["section"] = "commit";
+    switchToSection(url);
+    setSidebarSection();
+});
 };
 
 function selectSectionRadioButton(section) {
@@ -280,10 +341,13 @@ $( document ).on( "swiperight", function( e ) {
     }
 });
 
-function toggleSidebar(containerId) {
-    
+function toggleSidebar() {
     $("#sidepanel").panel("toggle");
     
+}
+
+function closeSidebar() {
+    $("#sidepanel").panel("close");
 }
 
 //given api request and id, updates the id with information
@@ -381,6 +445,13 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToCommitChild;
             break;
+        case 'commit':
+            template = Handlebars.templates["commit-view"];
+            if (!nextRQ){
+                rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"], window.ctx["item_id"]);
+            }
+            transformer = transformToCommitViewChild;
+            break;
         case 'issues':
             template = Handlebars.templates["issue-list"];
             if (!nextRQ) {
@@ -414,7 +485,7 @@ function switchToSection(nextRQ) {
             //TODO:
             template = Handlebars.templates["user-feed"];
             if(!nextRQ){
-                rq = getUserNotifications(window.ctx["user_token"]);
+                rq = getUserNotifications();
             }
             transformer = transformToUserFeed;
             break;
@@ -442,7 +513,7 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToFollowing;
             break;
-        case 'starredrepos':
+        case 'starred':
             //TODO: take into consideration auth token
             template = Handlebars.templates["starred-repos-view"];
             data["direction"] = "asc";
@@ -506,7 +577,7 @@ function getUserContext() {
         {item: "UserRepos", idx: 2},
         {item: "Followers", idx: 3},
         {item: "Following", idx: 4},
-        {item: "StarredRepos", idx: 5}
+        {item: "Starred", idx: 5}
     ]
 }
 
@@ -544,7 +615,6 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 templateToFill.block(optionsHash);
             }
         },
-        complete: function() { $.unblockUI();/*templateToFill.unblock()*/},
         success: function(data) {
             if ([400,404,422].indexOf(data.meta.status) > -1) {
                 // Error redirection
@@ -562,8 +632,9 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 if (data.data.length) {
                   opts["list"] = $.map(data.data, transformer);
                 }else{
-                  opts["list"] = [data.data];
+                  opts["list"] = [transformer(data.data)];
                 }
+                $.unblockUI();
 
                 if (preProcessor) {
                     opts = preProcessor(opts);
@@ -615,7 +686,8 @@ function transformToFeedChild(jsonItem) {
     var child = {
         "type": jsonItem["type"],
         "content": jsonItem["payload"],
-        "target": jsonItem["repo"]
+        "target": jsonItem["repo"],
+        "created_at": jsonItem["created_at"]
     };
     return transformToChild(jsonItem["actor"], child);
 }
@@ -675,13 +747,17 @@ function transformToCode(fileInfo){
     // TODO: generate file raw url and render
     var filename = fileInfo["name"];
     var isImage = /\.(jpg|jpeg|png|gif|ico)$/i.test(filename);
-    var rawUrl = fileInfo["url"].replace(/^https:\/\/api.github.com\/repos/,"https://raw.github.com").replace(/^(https:\/\/[^\/]+\/[^\/]+\/[^\/]+\/)contents(\/.*)/,"$1s" + window.ctx["branch"] + "$2");
+    var branch = typeof window.ctx["branch"] === 'undefined'? 'master': window.ctx["branch"];
+    var rawUrl = fileInfo["url"].replace(/^https:\/\/api.github.com\/repos/,"https://raw.github.com").replace(/^(https:\/\/[^\/]+\/[^\/]+\/[^\/]+\/)contents(\/.*)/,"$1" + branch + "$2");
+    var extIdx = filename.lastIndexOf('.');
+    var ext = extIdx < 0 || extIdx == filename.length-1? '': filename.substr(extIdx+1);
     var info = {
         content: fileInfo,
         render_type: isImage? 'image': 'markdown',
-        raw_url: rawUrl
+        raw_url: rawUrl,
+        file_ext: ext
     }
-    return fileInfo;
+    return info;
 }
 
 function transformToUserRepos(jsonItem){
@@ -708,9 +784,18 @@ function transformToUserFeed(jsonItem){
     return jsonItem;
 }
 
+function transformToCommitViewChild(jsonItem){
+    return jsonItem;
+}
+
 function sortDirectory(opts) {
     var dir = opts.list;
     dir.sort(sortByName).sort(sortByType);
+    if (opts.list[0]["path"].indexOf("/") == -1){
+        opts["isRoot"] = true;
+    }else{
+        opts["isRoot"] = false;
+    }
     return opts;
 }
 

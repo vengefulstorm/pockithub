@@ -1,20 +1,18 @@
 {{#each list}}
-  <h2>{{login}}</h2>
-  <img src="{{avatar_url}}"></img>
-  {{gravatar_id}}
-  {{url}}
-  {{name}}
-  {{company}}
-  {{blog}}
-  {{location}}
-  {{email}}
-  {{hireable}}
-  {{bio}}
-  {{public_repos}}
-  {{public_gists}}
-  {{followers}}
-  {{following}}
-  {{html_url}}
-  {{created_at}}
-  {{type}}
+    <div id="profile-login">{{login}}</div>
+    <div id="profile-avatar"><img src="{{avatar_url}}"></img></div>
+    <div id="profile-url">{{url}}</div>
+    <div id="profile-name">{{name}}</div>
+    <div id="profile-company">{{company}}</div>
+    <div id="profile-blog">{{blog}}</div>
+    <div id="profile-location">{{location}}</div>
+    <div id="profile-email">{{email}}</div>
+    <div id="profile-hireable">{{hireable}}</div>
+    <div id="profile-bio">{{bio}}</div>
+    <div id="profile-public-repos">{{public_repos}}</div>
+    <div id="profile-public-gists">{{public_gists}}</div>
+    <div id="profile-followers">{{followers}}</div>
+    <div id="profile-following">{{following}}</div>
+    <div id="profile-html-url">{{html_url}}</div>
+    <div id="profile-type">{{type}}</div>
 {{/each}}

@@ -62,7 +62,7 @@
 /* Overthrow CSS:
    Enable overflow: auto on elements with overthrow class when html element has overthrow class too */
 .overthrow-enabled .overthrow {
-    overflow: auto;
+    overflow: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -299,10 +299,19 @@ a {
 }
 
 /***** List styling *****/
-#search-results { 
-    color: black !important; 
-    background-color: grey: !important;
+#search-results {
+    background-color: #222222;
     margin-top: 15px;
+}
+
+#search-results .collapsible-header {
+    padding-left: 5px;
+}
+
+.file-content {
+    background-color: white;
+    border: 1px grey;
+    padding: 5px;
 }
 
 #search-results .collapsible-header {
@@ -361,9 +370,10 @@ a {
 
 .child-list-item  .user, .issue-list-item .user, .commit-list-item .user {
     display: inline-block;
+    font-size: 0.8em;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
-    width: 90px;
+    width: 60px;
     float: left;
     margin-right: 8px;
 }
