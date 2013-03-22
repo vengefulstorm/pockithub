@@ -1,3 +1,37 @@
+.profile-user-card{
+  background-color: white;
+  padding: 2em;
+  margin: 1em;
+}
+
+.profile-avatar{
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.profile-avatar img{
+    width: 40px;
+    height: 40px;
+}
+
+.profile-name{
+    font-family: "open sans", sans-serif;
+    font-size: 16px;
+}
+
+.profile-login{
+    font-family: "open sans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-user-card h2{
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
 /******** JQuery Mobile styling override ********/
 .content fieldset {
     margin: 0;

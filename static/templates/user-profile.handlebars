@@ -1,18 +1,21 @@
 {{#each list}}
-    <div id="profile-login">{{login}}</div>
-    <div id="profile-avatar"><img src="{{avatar_url}}"></img></div>
-    <div id="profile-url">{{url}}</div>
-    <div id="profile-name">{{name}}</div>
-    <div id="profile-company">{{company}}</div>
-    <div id="profile-blog">{{blog}}</div>
-    <div id="profile-location">{{location}}</div>
-    <div id="profile-email">{{email}}</div>
-    <div id="profile-hireable">{{hireable}}</div>
-    <div id="profile-bio">{{bio}}</div>
-    <div id="profile-public-repos">{{public_repos}}</div>
-    <div id="profile-public-gists">{{public_gists}}</div>
-    <div id="profile-followers">{{followers}}</div>
-    <div id="profile-following">{{following}}</div>
-    <div id="profile-html-url">{{html_url}}</div>
-    <div id="profile-type">{{type}}</div>
+    <div class="profile-user-card">
+      <div class="profile-avatar"><img src="{{avatar_url}}"></img></div>
+      
+      <div class="profile-name">{{name}}</div>
+      <div class="profile-login">{{login}}</div>
+      
+      <div class="profile-company">{{company}}</div>
+      <div class="profile-blog"><a href="{{blog}}">{{blog}}</a></div>
+      <div class="profile-location">{{location}}</div>
+      <div class="profile-email"><a href="mailto://{{email}}">{{email}}</a></div>
+      <div class="profile-hireable">{{hireable}}</div>
+      <div class="profile-bio">{{bio}}</div>
+
+      <h2>STATS</h2>
+      <div class="profile-public-repos"><strong>public repos</strong> {{public_repos}}</div>
+      <div class="profile-public-gists"><strong>public gists</strong> {{public_gists}}</div>
+      <div class="profile-followers"><strong>followers</strong> {{followers}}</div>
+      <div class="profile-following"><strong>following</strong>  {{following}}</div>
+    </div>
 {{/each}}
