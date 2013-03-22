@@ -232,6 +232,11 @@ a {
 
 .content .ui-li-aside {
     width: auto !important;
+    font-size: 0.8em;
+}
+
+.ui-li-desc{
+    margin: 0
 }
 
 /***** Header styling *****/
@@ -464,7 +469,6 @@ a {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    height: 79px;
     overflow: ellipsis;
     text-overflow: ellipsis;
 }
