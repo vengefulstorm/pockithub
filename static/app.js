@@ -850,7 +850,7 @@ function extractFiletypeFromRequest(filename){
 }
 
 function updateUpDirContext(name,link){
-    var index = link.indexOf(name);
+    var index = link.lastIndexOf(name);
     var upDir = link.substring(0,index-1);
     window.ctx["upDir"].push(upDir);
 }
