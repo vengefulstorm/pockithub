@@ -33,8 +33,7 @@ def favicon():
 @app.route('/error')
 def get_error():
     code = request.args.get('code');
-    code = atoi(code);
-    abort(code);
+    return code + "Error. Please try again.";
 
 
 #MANIFEST
