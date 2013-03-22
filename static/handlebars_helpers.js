@@ -212,6 +212,12 @@ Handlebars.registerHelper('getItemIcon', function(type) {
     }
 });
 
+Handlebars.registerHelper('isRoot', function(isRoot, block){
+    if (!isRoot){
+        return block.fn(this);
+    }
+});
+
 Handlebars.registerHelper('formatRelativeDate', function(isoDate) {
     var date = new Date(isoDate);
     var now = new Date();

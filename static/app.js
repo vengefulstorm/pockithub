@@ -790,6 +790,11 @@ function transformToCommitViewChild(jsonItem){
 function sortDirectory(opts) {
     var dir = opts.list;
     dir.sort(sortByName).sort(sortByType);
+    if (opts.list[0]["path"].indexOf("/") == -1){
+        opts["isRoot"] = true;
+    }else{
+        opts["isRoot"] = false;
+    }
     return opts;
 }
 

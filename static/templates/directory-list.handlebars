@@ -1,10 +1,12 @@
 <ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false'>
+    {{#isRoot isRoot}}
     <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id="upDir">
         <a href='javascript:void(0)'>
             <img src='{{getItemIcon "dir"}}'/>
             <h1 class='itemName'>..</h1>
         </a>
     </li>
+    {{/isRoot}}
     {{#each list}}
     <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}' data-path='{{path}}' {{#notFolder type}}data-role="collapsible"{{else}}{{/notFolder}}>
         {{#notFolder type}} 
