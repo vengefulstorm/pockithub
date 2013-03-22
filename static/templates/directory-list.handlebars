@@ -12,15 +12,13 @@
                 <img src='{{getItemIcon type}}'/>
                 {{name}}
             </h3>
-            <div id='file-{{name}}' class="collapsible-content file-content">
+            <div id='file-{{name}}' class="collapsible-content file-content overthrow">
             </div>
         {{else}}
             <a href='javascript:void(0)'>
                 <img src='{{getItemIcon type}}'/>
                 {{name}}
             </a>
-            <div id='file-{{name}}' class="file-content">
-            </div>
         {{/notFolder}}
     </li>
     {{/each}}

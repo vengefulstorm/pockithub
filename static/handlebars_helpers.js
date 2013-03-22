@@ -82,29 +82,44 @@ Handlebars.registerHelper('render', function(item, type) {
     return elt;
 });
 
-Handlebars.registerHelper('renderMarkup', function(item, renderType, rawUrl) {
-    var selector = "#file-" + item["name"];
+var MARKDOWN_EXT = 'md';
+Handlebars.registerHelper('renderMarkup', function(item) {
+    var fileItem = item["content"];
+    var renderType = item["render_type"];
+    var rawUrl = item["raw_url"];
+    var ext = item["ext"];
+    
+    var selector = "#file-" + fileItem["name"];
     var elt = '';
     switch(renderType) {
         case "image":
             elt = elt + '<img src="' + rawUrl + '" />';
             break;
         case "markdown":
-            var rq = "/helper/markdown64";
             var data = {
-                data: item["content"]
+                data: fileItem["content"]
             };
+            var rq = "/helper/syntax";
+            if (ext == MARKDOWN_EXT) {
+                rq = "/helper/markdown64";
+            } else {
+                var lang = window.languageExtensionMap[ext];
+                if (typeof lang === 'undefined') {
+                    lang = '';
+                }
+                data["lang"] = lang;
+            }
             $.ajax({
                 type: 'POST',
                 url: rq,
                 data: data,
                 success: function(data) {
-                    $("#file-" + item["name"]).html(data);
+                    $("#file-" + fileItem["name"].replace(".","\\.")).html(data);
                 }
             });
-            return item;
+            return;
         default:
-            return item;
+            return fileItem["content"];
     }
     return elt;
 });
