@@ -429,10 +429,12 @@ a {
 
 .child-list-item  .user, .issue-list-item .user, .commit-list-item .user {
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.7em;
+    font-weight: 100;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
-    width: 60px;
+    width: 30px;
+    padding-right: 10px;
     float: left;
     margin-right: 8px;
 }
