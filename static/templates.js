@@ -1049,79 +1049,71 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <h2>";
+  buffer += "\n    <div id=\"profile-login\">";
   if (stack1 = helpers.login) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.login; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h2>\n  <img src=\"";
+    + "</div>\n    <div id=\"profile-avatar\"><img src=\"";
   if (stack1 = helpers.avatar_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.avatar_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"></img>\n  ";
-  if (stack1 = helpers.gravatar_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.gravatar_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "\"></img></div>\n    <div id=\"profile-url\">";
   if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-name\">";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-company\">";
   if (stack1 = helpers.company) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.company; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-blog\">";
   if (stack1 = helpers.blog) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.blog; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-location\">";
   if (stack1 = helpers.location) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.location; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-email\">";
   if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.email; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-hireable\">";
   if (stack1 = helpers.hireable) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.hireable; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-bio\">";
   if (stack1 = helpers.bio) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.bio; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-public-repos\">";
   if (stack1 = helpers.public_repos) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.public_repos; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-public-gists\">";
   if (stack1 = helpers.public_gists) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.public_gists; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-followers\">";
   if (stack1 = helpers.followers) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.followers; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-following\">";
   if (stack1 = helpers.following) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.following; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-html-url\">";
   if (stack1 = helpers.html_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.html_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n  ";
-  if (stack1 = helpers.created_at) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.created_at; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\n  ";
+    + "</div>\n    <div id=\"profile-type\">";
   if (stack1 = helpers.type) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n";
+    + "</div>\n";
   return buffer;
   }
 

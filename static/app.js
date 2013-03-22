@@ -15,7 +15,7 @@ var init = function init() {
         }, false);
     }, false);
 
-        $("#sidepanel-subheader, #sidebar-select").show();
+    $("#sidepanel-subheader, #sidebar-select").show();
 
     window.forwardSectionMap = {
         'Issues': 'issues',
@@ -30,7 +30,7 @@ var init = function init() {
         'Followers': 'followers',
         'Following': 'following',
         'UserRepos': 'userrepos',
-        'StarredRepos': 'starredrepos'
+        'Starred': 'starred'
     }
     
     window.backwardSectionMap = {
@@ -46,7 +46,7 @@ var init = function init() {
         'followers': 'Followers',
         'following': 'Following',
         'userrepos': 'UserRepos',
-        'starredrepos': 'StarredRepos'
+        'starred': 'Starred'
     }
 
     window.ctx["upDir"] = [];
@@ -70,7 +70,7 @@ var init = function init() {
         "followers": "user",
         "following": "user",
         "userrepos": "repo",
-        "starredrepos": "repo"
+        "starred": "repo"
     };
     
     $searchResults = $("#search-results");    
@@ -170,17 +170,20 @@ $sidebarWrapper.delegate(".radio-list .ui-radio label", "click",function(event) 
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
     toggleSidebar("main-wrapper");
+    closeSidebar();
 });
 
 $sidebarWrapper.delegate(".radio-list .ui-radio label", "touchstart", function(event) {
     event.stopPropagation();
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
+    closeSidebar();
 });
 
 $(".directory-list-item .collapsible-header").live("expand", function(event) {
     var itemLink = $(this).attr('data-link');
     renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
+    closeSidebar();
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
@@ -201,6 +204,7 @@ $("[class^=directory-list-item]").live("click",function(event){
     }else{
         renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
     }
+    closeSidebar();
 });
 
 
@@ -211,6 +215,7 @@ $("[class^=user-link]").live("click",function(event){
     window.ctx["user"]=clickedUser;
     switchToSection(url);
     setSidebarSection();
+    closeSidebar();
 });
 
 $("li.issue-list-item").live("expand",function(event){
@@ -218,6 +223,7 @@ $("li.issue-list-item").live("expand",function(event){
         var url = $(this).data("url");
         renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }
+    closeSidebar();
 });
 
 $("[class=repo-list-item]").live("click",function(event){
@@ -231,32 +237,38 @@ $("[class=repo-list-item]").live("click",function(event){
     window.ctx["section"] = "repofeed";
     switchToSection();
     setSidebarSection();
+    closeSidebar();
 });
 
 $("[class^=pull-request-commits-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
+    //window.ctx["section"] = "commit";
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-commits"],number);
+    closeSidebar();
 });
 
 $("[class^=pull-request-comments-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-comments"],number);
+    closeSidebar();
 });
 
 $("[class^=pull-request-files-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-files"],number);
+    closeSidebar();
 });
 
 $("[class^=pull-request-commit-view]").live("click",function(event){
     var url = $(this).data("url");
     window.ctx["user"] = $(this).data("user"); 
-    window.ctx["section"] = "commits";
-    switchToSection();
-    setSidebarSection(url);
+    window.ctx["section"] = "commit";
+    switchToSection(url);
+    setSidebarSection();
+    closeSidebar();
 });
 
 $("[class^=starred-repo-list-item]").live("click",function(event){
@@ -265,6 +277,7 @@ $("[class^=starred-repo-list-item]").live("click",function(event){
     window.ctx["section"] = "repofeed";
     switchToSection();
     setSidebarSection();
+    closeSidebar();
 });
 
 $("[class^=commit-link]").live("click",function(event){
@@ -272,6 +285,7 @@ $("[class^=commit-link]").live("click",function(event){
     window.ctx["section"] = "commit";
     switchToSection(url);
     setSidebarSection();
+    closeSidebar();
 });
 };
 
@@ -286,10 +300,12 @@ $( document ).on( "swiperight", function( e ) {
     }
 });
 
-function toggleSidebar(containerId) {
-    
+function toggleSidebar() {
     $("#sidepanel").panel("toggle");
-    
+}
+
+function closeSidebar() {
+    $("#sidepanel").panel("close");
 }
 
 //given api request and id, updates the id with information
@@ -455,7 +471,7 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToFollowing;
             break;
-        case 'starredrepos':
+        case 'starred':
             //TODO: take into consideration auth token
             template = Handlebars.templates["starred-repos-view"];
             data["direction"] = "asc";
@@ -519,7 +535,7 @@ function getUserContext() {
         {item: "UserRepos", idx: 2},
         {item: "Followers", idx: 3},
         {item: "Following", idx: 4},
-        {item: "StarredRepos", idx: 5}
+        {item: "Starred", idx: 5}
     ]
 }
 
@@ -557,7 +573,6 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 templateToFill.block(optionsHash);
             }
         },
-        complete: function() { $.unblockUI();/*templateToFill.unblock()*/},
         success: function(data) {
             if ([400,404,422].indexOf(data.meta.status) > -1) {
                 // Error redirection
@@ -577,6 +592,7 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 }else{
                   opts["list"] = [data.data];
                 }
+                $.unblockUI();
 
                 if (preProcessor) {
                     opts = preProcessor(opts);
