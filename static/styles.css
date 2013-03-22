@@ -298,8 +298,10 @@ a {
 }
 
 /***** List styling *****/
-#search-results {
-    max-height: 100%;
+#search-results { 
+    color: black !important; 
+    background-color: grey: !important;
+    margin-top: 15px;
 }
 
 #search-results .collapsible-header {
