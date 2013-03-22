@@ -299,10 +299,19 @@ a {
 }
 
 /***** List styling *****/
-#search-results { 
-    color: black !important; 
-    background-color: grey: !important;
+#search-results {
+    background-color: #222222;
     margin-top: 15px;
+}
+
+#search-results .collapsible-header {
+    padding-left: 5px;
+}
+
+.file-content {
+    background-color: white;
+    border: 1px grey;
+    padding: 5px;
 }
 
 #search-results .collapsible-header {

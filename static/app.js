@@ -15,7 +15,59 @@ var init = function init() {
         }, false);
     }, false);
 
-    $("#sidepanel-subheader, #sidebar-select").show();
+        $("#sidepanel-subheader, #sidebar-select").show();
+        
+    window.languageExtensionMap = {
+        'as': 'actionscript',
+        'ada': 'ada',
+        'asm': 'asm',
+        'c': 'c',
+        'h': 'c',
+        'cpp': 'c++',
+        'hpp': 'c++',
+        'cs': 'c#',
+        'clj': 'closure',
+        'coffee': 'coffeescript',
+        'litcoffee': 'coffeescript',
+        'cfm': 'coldfusion',
+        'lisp': 'lisp',
+        'pas': 'delphi',
+        'dfm': 'delphi',
+        'di': 'd',
+        'd': 'd',
+        'dart': 'dart',
+        'erl': 'erlang',
+        'f90': 'fortran',
+        'f95': 'fortran',
+        'f03': 'fortran',
+        'f': 'fortran',
+        'for': 'fortran',
+        'fs': 'f#',
+        'hs': 'haskell',
+        'java': 'java',
+        'js': 'javascript',
+        'lua': 'lua',
+        'm': 'objectivec',
+        'php': 'php',
+        'phtml': 'php',
+        'php4': 'php',
+        'php3': 'php',
+        'php5': 'php',
+        'phps': 'php',
+        'pl': 'perl',
+        'pm': 'perl',
+        'ps': 'postscript',
+        'py': 'python',
+        'rb': 'ruby',
+        'rc': 'rust',
+        'rs': 'rust',
+        'scala': 'scala',
+        'ss': 'scheme',
+        'scm': 'scheme',
+        'tcl': 'tcl',
+        'v': 'verilog',
+        'vb': 'visualbasic',
+    }
 
     window.forwardSectionMap = {
         'Issues': 'issues',
@@ -180,10 +232,9 @@ $sidebarWrapper.delegate(".radio-list .ui-radio label", "touchstart", function(e
     closeSidebar();
 });
 
-$(".directory-list-item .collapsible-header").live("expand", function(event) {
+$(".directory-list-item").live("expand", function(event) {
     var itemLink = $(this).attr('data-link');
     renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
-    closeSidebar();
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
@@ -204,7 +255,6 @@ $("[class^=directory-list-item]").live("click",function(event){
     }else{
         renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
     }
-    closeSidebar();
 });
 
 
@@ -215,7 +265,6 @@ $("[class^=user-link]").live("click",function(event){
     window.ctx["user"]=clickedUser;
     switchToSection(url);
     setSidebarSection();
-    closeSidebar();
 });
 
 $("li.issue-list-item").live("expand",function(event){
@@ -223,7 +272,6 @@ $("li.issue-list-item").live("expand",function(event){
         var url = $(this).data("url");
         renderDiv(url,window.ctx["divTypeEnum"]["issue-view"]);
     }
-    closeSidebar();
 });
 
 $("[class=repo-list-item]").live("click",function(event){
@@ -237,7 +285,6 @@ $("[class=repo-list-item]").live("click",function(event){
     window.ctx["section"] = "repofeed";
     switchToSection();
     setSidebarSection();
-    closeSidebar();
 });
 
 $("[class^=pull-request-commits-button]").live("click",function(event){
@@ -245,21 +292,18 @@ $("[class^=pull-request-commits-button]").live("click",function(event){
     var url = $(this).data("url");
     //window.ctx["section"] = "commit";
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-commits"],number);
-    closeSidebar();
 });
 
 $("[class^=pull-request-comments-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-comments"],number);
-    closeSidebar();
 });
 
 $("[class^=pull-request-files-button]").live("click",function(event){
     var number = $(this).data("number");
     var url = $(this).data("url");
     renderDiv(url,window.ctx["divTypeEnum"]["pull-request-files"],number);
-    closeSidebar();
 });
 
 $("[class^=pull-request-commit-view]").live("click",function(event){
@@ -268,7 +312,6 @@ $("[class^=pull-request-commit-view]").live("click",function(event){
     window.ctx["section"] = "commit";
     switchToSection(url);
     setSidebarSection();
-    closeSidebar();
 });
 
 $("[class^=starred-repo-list-item]").live("click",function(event){
@@ -277,7 +320,6 @@ $("[class^=starred-repo-list-item]").live("click",function(event){
     window.ctx["section"] = "repofeed";
     switchToSection();
     setSidebarSection();
-    closeSidebar();
 });
 
 $("[class^=commit-link]").live("click",function(event){
@@ -285,7 +327,6 @@ $("[class^=commit-link]").live("click",function(event){
     window.ctx["section"] = "commit";
     switchToSection(url);
     setSidebarSection();
-    closeSidebar();
 });
 };
 
@@ -302,6 +343,7 @@ $( document ).on( "swiperight", function( e ) {
 
 function toggleSidebar() {
     $("#sidepanel").panel("toggle");
+    
 }
 
 function closeSidebar() {
@@ -590,7 +632,7 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 if (data.data.length) {
                   opts["list"] = $.map(data.data, transformer);
                 }else{
-                  opts["list"] = [data.data];
+                  opts["list"] = [transformer(data.data)];
                 }
                 $.unblockUI();
 
@@ -704,13 +746,17 @@ function transformToCode(fileInfo){
     // TODO: generate file raw url and render
     var filename = fileInfo["name"];
     var isImage = /\.(jpg|jpeg|png|gif|ico)$/i.test(filename);
-    var rawUrl = fileInfo["url"].replace(/^https:\/\/api.github.com\/repos/,"https://raw.github.com").replace(/^(https:\/\/[^\/]+\/[^\/]+\/[^\/]+\/)contents(\/.*)/,"$1s" + window.ctx["branch"] + "$2");
+    var branch = typeof window.ctx["branch"] === 'undefined'? 'master': window.ctx["branch"];
+    var rawUrl = fileInfo["url"].replace(/^https:\/\/api.github.com\/repos/,"https://raw.github.com").replace(/^(https:\/\/[^\/]+\/[^\/]+\/[^\/]+\/)contents(\/.*)/,"$1" + branch + "$2");
+    var extIdx = filename.lastIndexOf('.');
+    var ext = extIdx < 0 || extIdx == filename.length-1? '': filename.substr(extIdx+1);
     var info = {
         content: fileInfo,
         render_type: isImage? 'image': 'markdown',
-        raw_url: rawUrl
+        raw_url: rawUrl,
+        file_ext: ext
     }
-    return fileInfo;
+    return info;
 }
 
 function transformToUserRepos(jsonItem){
@@ -746,6 +792,7 @@ function sortDirectory(opts) {
     dir.sort(sortByName).sort(sortByType);
     return opts;
 }
+
 //internal functions for sorting
 function sortByType(a, b){
     var typeA = a.type;
