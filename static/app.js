@@ -76,12 +76,12 @@ var init = function init() {
         'RepoFeed': 'repofeed',
         'Commits': 'commits',
         'Code': 'code',
-        'PullRequests': 'pullrequests',
+        'Pull Requests': 'pulls',
         'UserFeed': 'userfeed',
         'Profile': 'profile',
         'Followers': 'followers',
         'Following': 'following',
-        'UserRepos': 'userrepos',
+        'Repositories': 'repositories',
         'Starred': 'starred'
     }
     
@@ -92,12 +92,12 @@ var init = function init() {
         'repofeed': 'RepoFeed',
         'commits': 'Commits',
         'code': 'Code',
-        'pullrequests': 'PullRequests',
+        'pulls': 'Pull Requests',
         'userfeed': 'UserFeed',
         'profile': 'Profile',
         'followers': 'Followers',
         'following': 'Following',
-        'userrepos': 'UserRepos',
+        'repositories': 'Repositories',
         'starred': 'Starred'
     }
 
@@ -116,12 +116,12 @@ var init = function init() {
         "repofeed": "repo",
         "commits": "repo",
         "code": "repo",
-        "pullrequests": "repo",
+        "pulls": "repo",
         "userfeed": "user",
         "profile": "user",
         "followers": "user",
         "following": "user",
-        "userrepos": "repo",
+        "repositories": "repo",
         "starred": "repo"
     };
     
@@ -466,7 +466,7 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToMilestoneChild;
             break;
-        case 'pullrequests':
+        case 'pulls':
             template = Handlebars.templates["pull-request-list"];
             if (!nextRQ){
                 rq = getPullRequestsRequest(window.ctx["user"],window.ctx["repo"]);
@@ -489,7 +489,7 @@ function switchToSection(nextRQ) {
             }
             transformer = transformToUserFeed;
             break;
-        case 'userrepos':
+        case 'repositories':
             //pending auth tokens
             template = Handlebars.templates["user-repos"];
             if(!nextRQ){
@@ -563,7 +563,7 @@ function getRepoContext() {
         {item: "RepoFeed", idx: 0},
         {item: "Commits", idx: 1},
         {item: "Code", idx: 2},
-        {item: "PullRequests", idx: 3},
+        {item: "Pull Requests", idx: 3},
         {item: "Issues", idx: 4},
         {item: "Milestones", idx: 5},
         {item: "Watchers", idx: 6}
@@ -574,7 +574,7 @@ function getUserContext() {
     return [
         {item: "Profile", idx: 0},
         {item: "UserFeed", idx: 1},
-        {item: "UserRepos", idx: 2},
+        {item: "Repositories", idx: 2},
         {item: "Followers", idx: 3},
         {item: "Following", idx: 4},
         {item: "Starred", idx: 5}
