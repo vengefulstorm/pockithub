@@ -10,7 +10,7 @@ import markdown
 from flask import Flask, url_for, send_from_directory, render_template, request, jsonify, abort, Markup
 from render_section import render_section
 from pygments import highlight
-from pygments.lexers import get_lexer_by_name
+from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.formatters import HtmlFormatter
 
 app = Flask(__name__);
@@ -158,14 +158,23 @@ def markdown():
     lang = injson['lang'];
     #code = b64decode(code);
 
-    lexer = get_lexer_by_name(lang, stripall=False);
-    formatter = HtmlFormatter(linenos=True, cssclass="source");
+    
+    lexer = None;
+
+    if (lang == ""):
+        lexer = guess_lexer(code);
+    else:
+        lexer = get_lexer_by_name(lang, stripall=True);
+
+
+    formatter = HtmlFormatter(cssclass="source");
+
 
     code = highlight(code, lexer, formatter);
-    style = '<style>' + HtmlFormatter(style='default').get_style_defs('.highlight') + '</style>';
+    style = '<style>' + HtmlFormatter(style='monokai').get_style_defs('.highlight') + '</style>';
+    ''.join(style);
 
-    ret = code+style;
-
+    ret = (style+code);
     return jsonify(data=ret);
 
 #-------------------------------------------------------------

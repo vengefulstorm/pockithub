@@ -37,7 +37,6 @@ def getPAT():
         return PAT_resp['token'];
     else:
         return None;
-        #PAT_resp = register_PAT();
 
 
 def registerPAT():
