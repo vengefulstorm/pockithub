@@ -12,14 +12,14 @@
         {{#notFolder type}} 
             <h3 class="collapsible-header">
                 <img src='{{getItemIcon type}}'/>
-                {{name}}
+                <span class="file-name">{{name}}</span>
             </h3>
             <div id='file-{{name}}' class="collapsible-content file-content overthrow">
             </div>
         {{else}}
             <a href='javascript:void(0)'>
                 <img src='{{getItemIcon type}}'/>
-                {{name}}
+                <span class="folder-name">{{name}}</span>
             </a>
         {{/notFolder}}
     </li>

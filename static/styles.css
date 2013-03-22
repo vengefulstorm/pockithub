@@ -314,6 +314,10 @@ a {
     padding: 5px;
 }
 
+.file-name {
+    padding-left: 10px;
+}
+
 #search-results .collapsible-header {
     margin-top: 5px;
     margin-bottom: 5px;

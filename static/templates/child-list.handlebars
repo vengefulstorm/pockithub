@@ -9,7 +9,9 @@
                 </a>
             </div>
             {{/if}}
+            {{#if created_at}}
             <span class='ui-li-aside'>{{formatRelativeDate created_at}}</span>
+            {{/if}}
             <div class='item-content'>
                 {{{render content type}}}
             </div>
