@@ -267,6 +267,12 @@ $("[class^=starred-repo-list-item]").live("click",function(event){
     setSidebarSection();
 });
 
+$("[class^=commit-link]").live("click",function(event){
+    var url = $(this).data("url");
+    window.ctx["section"] = "commit";
+    switchToSection(url);
+    setSidebarSection();
+});
 };
 
 function selectSectionRadioButton(section) {
@@ -380,6 +386,13 @@ function switchToSection(nextRQ) {
                 rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"]);
             }
             transformer = transformToCommitChild;
+            break;
+        case 'commit':
+            template = Handlebars.templates["commit-view"];
+            if (!nextRQ){
+                rq = getCommitsRequest(window.ctx["user"], window.ctx["repo"], window.ctx["item_id"]);
+            }
+            transformer = transformToCommitViewChild;
             break;
         case 'issues':
             template = Handlebars.templates["issue-list"];
@@ -708,12 +721,15 @@ function transformToUserFeed(jsonItem){
     return jsonItem;
 }
 
+function transformToCommitViewChild(jsonItem){
+    return jsonItem;
+}
+
 function sortDirectory(opts) {
     var dir = opts.list;
     dir.sort(sortByName).sort(sortByType);
     return opts;
 }
-
 //internal functions for sorting
 function sortByType(a, b){
     var typeA = a.type;

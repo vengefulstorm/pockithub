@@ -127,7 +127,8 @@ Handlebars.registerHelper('renderIssue', function(item) {
 });
 
 Handlebars.registerHelper('renderCommit',function(item){
-    var elt = '<a href="javascript:void(0)" ';
+    var elt = '<a class="commit-link" href="javascript:void(0)" data-url="' + item["url"] + '" ';
+    elt = elt + 'data-comments="' + item["comments_url"] + '" ';
     elt = elt + '<h1 style="display:inline;">' + item["commit"]["message"] + '</h1>';
     elt = elt + '</a>';
     return elt;

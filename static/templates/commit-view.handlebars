@@ -1,0 +1,24 @@
+{{#each list}}
+    <div class='user'>
+        <a href="javascript:void(0)">
+            <img src='{{committer.avatar_url}}'/>
+            <h3 class='username' data-username="{{committer.login}}">{{committer.login}}<h1/>
+        </a>
+    </div>
+    <h3>{{commit.message}}</h3>
+
+    <div class='stats'>
+        Total: {{stats.total}} | Additions: {{stats.additions}} | Deletions: {{stats.deletions}}
+    </div>
+
+    <div class='commit-view-file-list'>
+        <ul>
+        {{#each files}}
+            <li>
+                {{filename}}<br/>
+                {{{patch}}}
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+{{/each}}
