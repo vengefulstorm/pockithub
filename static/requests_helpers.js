@@ -143,9 +143,8 @@ function getFeedRequest(user, publicOnly) {
     return rq;
 }
 
-function getUserNotifications(token) {
-    alert(token);
-    return BASE_API_URL + "/notifications/user?access_token="+token;
+function getUserNotifications() {
+    return BASE_API_URL + "/notifications";
 }
 
 function getUserRepos(username) {

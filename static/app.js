@@ -443,7 +443,7 @@ function switchToSection(nextRQ) {
             //TODO:
             template = Handlebars.templates["user-feed"];
             if(!nextRQ){
-                rq = getUserNotifications(window.ctx["user_token"]);
+                rq = getUserNotifications();
             }
             transformer = transformToUserFeed;
             break;
