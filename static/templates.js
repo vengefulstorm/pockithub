@@ -312,7 +312,7 @@ function program10(depth0,data) {
   if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "' class=\"collapsible-content file-content overthrow\">\r\n            </div>\r\n        ";
+    + "' class=\"collapsible-content file-content overthrow highlight\">\r\n            </div>\r\n        ";
   return buffer;
   }
 
