@@ -9,7 +9,9 @@ import markdown
 
 from flask import Flask, url_for, send_from_directory, render_template, request, jsonify, abort, Markup
 from render_section import render_section
-
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
 
 app = Flask(__name__);
 app.register_blueprint(render_section);
@@ -123,6 +125,48 @@ def markdown():
     content = Markup(markdown.markdown(content))
 
     return jsonify(data=content);
+
+
+#Markdown Rendering (for Base 64 encoded data)
+@app.route('/helper/markdown64', methods=['POST'])
+def markdown():
+    injson = None;
+    if (request.headers['Content-Type'] == 'application/json'):
+        injson = json.dumps(request.json);
+        injson = json.loads(injson);
+    else:
+        return abort(415);
+
+    content = injson['data'];
+    content = b64decode(content);
+    content = Markup(markdown.markdown(content))
+
+    return jsonify(data=content);
+
+
+#Syntax (for Base 64 encoded data)
+@app.route('/helper/syntax', methods=['POST'])
+def markdown():
+    injson = None;
+    if (request.headers['Content-Type'] == 'application/json'):
+        injson = json.dumps(request.json);
+        injson = json.loads(injson);
+    else:
+        return abort(415);
+
+    code = injson['data'];
+    lang = injson['lang'];
+    #code = b64decode(code);
+
+    lexer = get_lexer_by_name(lang, stripall=False);
+    formatter = HtmlFormatter(linenos=True, cssclass="source");
+
+    code = highlight(code, lexer, formatter);
+    style = '<style>' + HtmlFormatter(style='default').get_style_defs('.highlight') + '</style>';
+
+    ret = code+style;
+
+    return jsonify(data=ret);
 
 #-------------------------------------------------------------
 
