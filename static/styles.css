@@ -44,6 +44,16 @@
   margin-top: -10px !important;
 }
 
+#menubutton{
+  width: 40px;
+  height: 40px;
+}
+
+#menubutton .ui-icon{
+  width: 34px;
+  height: 34px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (min--moz-device-pixel-ratio: 1.5),
        only screen and (min-resolution: 240dpi) {
@@ -195,11 +205,10 @@ a {
 }
 
 .subheader {
+    height:25px;
     text-align: center;
-    font-size: 1.1em;
-    line-height: 2em;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    font-size: 20px;
+    padding: 5px 0;
     border-bottom: 0;
 }
 
