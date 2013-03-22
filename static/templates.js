@@ -1162,7 +1162,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <li class=\"repo-list-item\" data-name=\"";
+  buffer += "\n    <li>\n        <a href='javascript:void(0)' class=\"repo-list-item\" data-name=\"";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -1170,17 +1170,18 @@ function program1(depth0,data) {
   if (stack1 = helpers.full_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.full_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n        <a href='javascript:void(0)'>\n            <h1 class='repo-list-item-name'>";
+    + "\">\n            <span class='repo-list-item-name'>";
   if (stack1 = helpers.full_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.full_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\n        </a>\n    </li>\n";
+    + "</span>\n        </a>\n    </li>\n";
   return buffer;
   }
 
+  buffer += "<ul data-role=\"listview\" data-inset=\"true\">\n";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n";
+  buffer += "\n</ul>\n";
   return buffer;
   });
 })();

@@ -26,6 +26,10 @@
     font-weight: bold;
 }
 
+.profile-company{
+    clear:both;
+}
+
 .profile-user-card h2{
     margin-bottom: 0;
     padding: 0;

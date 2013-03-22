@@ -276,7 +276,7 @@ $("li.issue-list-item").live("expand",function(event){
     }
 });
 
-$("[class=repo-list-item]").live("click",function(event){
+$(".repo-list-item").live("click",function(event){
     //alert($(this).data("full_name"));
     var full_name = $(this).data("full_name");
     var name = $(this).data("name");
