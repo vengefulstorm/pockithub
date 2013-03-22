@@ -1,15 +1,19 @@
 <ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='pull-request-list'>
     {{#each list}}
         <div class="pull-request-list-item">
-            Pull Request Initiator:<br/>
-            Login: {{user.login}} <br/>
-            Avatar: {{user.avatar_url}} <br/>
-                                <br/>
-            State: {{state}}<br/>
-            Title: {{title}}<br/> 
-            Body: {{body}}<br/>
-            <a href="javascript:void(0)" class="pull-request-commits-button" data-url='{{url}}/commits' data-number="{{number}}" data-role="button" data-mini="true">Show Commits</a>
-            <a href="javascript:void(0)" class="pull-request-comments-button" data-url='{{comments_url}}' data-number="{{number}}" data-role="button" data-mini="true">Show Comments</a>
+            {{#if user.login}}
+                Pull Request Initiator:<br/>
+                Login: {{user.login}} <br/>
+                Avatar: {{user.avatar_url}} <br/>
+                                    <br/>
+                State: {{state}}<br/>
+                Title: {{title}}<br/> 
+                Body: {{body}}<br/>
+                <a href="javascript:void(0)" class="pull-request-commits-button" data-url='{{url}}/commits' data-number="{{number}}" data-role="button" data-mini="true">Show Commits</a>
+                <a href="javascript:void(0)" class="pull-request-comments-button" data-url='{{comments_url}}' data-number="{{number}}" data-role="button" data-mini="true">Show Comments</a>
+            {{else}}
+                No Pull Requests Found
+            {{/if}}
         </div>
         <div id="pull-request-commits-list-{{number}}">
         </div>
