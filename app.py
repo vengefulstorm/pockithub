@@ -29,6 +29,14 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
+#ERROR
+@app.route('/error')
+def get_error():
+    code = request.args.get('code');
+    code = atoi(code);
+    abort(code);
+
+
 #MANIFEST
 @app.route('/manifest.appcache')
 # TODO:
