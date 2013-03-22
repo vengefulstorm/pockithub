@@ -87,7 +87,7 @@ Handlebars.registerHelper('renderMarkup', function(item) {
     var fileItem = item["content"];
     var renderType = item["render_type"];
     var rawUrl = item["raw_url"];
-    var ext = item["ext"];
+    var ext = item["file_ext"];
     
     var selector = "#file-" + fileItem["name"];
     var elt = '';
@@ -109,12 +109,15 @@ Handlebars.registerHelper('renderMarkup', function(item) {
                 }
                 data["lang"] = lang;
             }
+            var data = JSON.stringify(data);
             $.ajax({
-                type: 'POST',
-                url: rq,
-                data: data,
-                success: function(data) {
-                    $("#file-" + fileItem["name"].replace(".","\\.")).html(data);
+                'type': 'POST',
+                'url': rq,
+                'data': data,
+                'contentType': 'application/json',
+                'dataType': 'json',
+                'success': function(data) {
+                    $("#file-" + fileItem["name"].replace(".","\\.")).html(data.data).trigger("create");
                 }
             });
             return;

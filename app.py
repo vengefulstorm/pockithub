@@ -122,9 +122,8 @@ def decrypt():
 @app.route('/helper/markdown', methods=['POST'])
 def markdown():
     injson = None;
-    if (request.headers['Content-Type'] == 'application/json'):
-        injson = json.dumps(request.json);
-        injson = json.loads(injson);
+    if (request.headers['Content-Type'] == 'application/json' or request.headers['Content-Type'] == 'application/json; charset=UTF-8'):
+        injson = request.json;
     else:
         return abort(415);
 
@@ -138,14 +137,13 @@ def markdown():
 @app.route('/helper/markdown64', methods=['POST'])
 def markdown():
     injson = None;
-    if (request.headers['Content-Type'] == 'application/json'):
-        injson = json.dumps(request.json);
-        injson = json.loads(injson);
+    if (request.headers['Content-Type'] == 'application/json' or request.headers['Content-Type'] == 'application/json; charset=UTF-8'):
+        injson = request.json;
     else:
         return abort(415);
 
     content = injson['data'];
-    content = b64decode(content);
+    content = base64.b64decode(content);
     content = Markup(markdown.markdown(content))
 
     return jsonify(data=content);
@@ -155,16 +153,14 @@ def markdown():
 @app.route('/helper/syntax', methods=['POST'])
 def syntax():
     injson = None;
-    if (request.headers['Content-Type'] == 'application/json'):
-        injson = json.dumps(request.json);
-        injson = json.loads(injson);
+    if (request.headers['Content-Type'] == 'application/json' or request.headers['Content-Type'] == 'application/json; charset=UTF-8'):
+        injson = request.json;
     else:
         return abort(415);
 
     code = injson['data'];
     lang = injson['lang'];
-    code = b64decode(code);
-
+    code = base64.b64decode(code.strip());
     
     lexer = None;
 

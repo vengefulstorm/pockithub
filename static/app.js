@@ -616,14 +616,14 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
             }
         },
         success: function(data) {
-            if ([400,404,422].indexOf(data.meta.status) > -1) {
+            // if ([400,404,422].indexOf(data.meta.status) > -1) {
                 // Error redirection
-                window.location.href = "/error?code=" + data.meta.status;
-            } else if([301,302,307].indexOf(data.meta.status) > -1) {
+                // window.location.href = "/error?code=" + data.meta.status;
+            // } else if([301,302,307].indexOf(data.meta.status) > -1) {
                 // API redirection
-                var redirRq = xhr.getResponseHeader("Location");
-                loadTemplatedContent(redirRq, template, transformer, data, preProcessor, templateToFill);
-            } else { 
+                // var redirRq = xhr.getResponseHeader("Location");
+                // loadTemplatedContent(redirRq, template, transformer, data, preProcessor, templateToFill);
+            // } else { 
                 var opts = {
                     containerTheme: window.ctx['containerTheme'],
                     childTheme: window.ctx['childTheme']
@@ -641,7 +641,7 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
                 }
                 var templated = template(opts);
                 templateToFill.html(templated).trigger("create").scrollTop(0);
-            }
+            //}
         },
         error: function(xhr) { 
             window.location.href = "/error?code=" + xhr.status;
