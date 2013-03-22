@@ -317,8 +317,13 @@ a {
     padding: 0;
 }
 
+.user img{
+  width: 30px !important;
+
+}
+
 .user-list-item h3 {
-    padding-left: 1em;
+    padding-left: 30px;
 }
 
 .user-list-item  .avatar, .issue-list-item .avatar {
