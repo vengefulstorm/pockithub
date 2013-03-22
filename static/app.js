@@ -196,6 +196,8 @@ var init = function init() {
                 var userResultsTemplated = template(userOpts);
                 $userResultsContainer.html(userResultsTemplated).trigger("create");
                 $searchResults.collapsibleset("refresh");
+                $("#sidepanel").trigger("updatelayout");
+                $("#sidepanel").removeClass("ui-panel-fixed");
             });
         } else {
             $("#sidepanel-subheader, #sidepanel-content").show();
