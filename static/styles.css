@@ -185,6 +185,7 @@ a {
 
 /***** Header styling *****/
 
+
 .mainheader {
     text-align: center;
     font-size: 2em;
@@ -228,6 +229,10 @@ a {
 }
 
 .sidebar  select {
+}
+
+#main-content{
+  margin-top: 50px !important;
 }
 
 /***** Viewport styling *****/
@@ -337,8 +342,13 @@ a {
     padding: 0;
 }
 
+.user img{
+  width: 30px !important;
+
+}
+
 .user-list-item h3 {
-    padding-left: 1em;
+    padding-left: 30px;
 }
 
 .user-list-item  .avatar, .issue-list-item .avatar {

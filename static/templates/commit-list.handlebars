@@ -1,7 +1,7 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='commit-list'>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='commit-list'>
     {{#each list}}
-        <li data-role='collapsible' data-inset='false' class='commit-list-item' data-url='{{content.url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
-            <h3 class='collapsible-header' data-inset='false'>
+        <li data-role='collapsible' class='commit-list-item' data-url='{{content.url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            <h3 class='collapsible-header'>
                 {{#if avatar_url}}
                 <div class='user'>
                     <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">

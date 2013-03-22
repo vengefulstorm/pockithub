@@ -1,7 +1,7 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false' class='issue-list'>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='issue-list'>
     {{#each list}}
-        <li data-role='collapsible' data-inset='false' class='issue-list-item' data-url='{{children_url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
-            <h3 class='collapsible-header' data-inset='false'>
+        <li data-role='collapsible' data-inset='true' class='issue-list-item' data-url='{{children_url}}' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
+            <h3 class='collapsible-header' data-inset='true'>
                 {{#if avatar_url}}
                 <div class='user'>
                     <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
@@ -18,7 +18,7 @@
             </h3>
             <div class='collapsible-content'>
                 {{#with content}}
-                <ul class='user-list' data-role='listview'>
+                <ul class='user-list' data-role='listview' data-inset='true' >
                     {{#if assignee}}
                     {{#with assignee}}
                     <li class='user-list-item'>
