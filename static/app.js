@@ -686,7 +686,8 @@ function transformToFeedChild(jsonItem) {
     var child = {
         "type": jsonItem["type"],
         "content": jsonItem["payload"],
-        "target": jsonItem["repo"]
+        "target": jsonItem["repo"],
+        "created_at": jsonItem["created_at"]
     };
     return transformToChild(jsonItem["actor"], child);
 }
