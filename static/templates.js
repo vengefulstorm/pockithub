@@ -749,39 +749,10 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n        <div class=\"pull-request-list-item\">\n            Pull Request Initiator:<br/>\n            Login: "
-    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <br/>\n            Avatar: "
-    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <br/>\n                                <br/>\n            State: ";
-  if (stack2 = helpers.state) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.state; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "<br/>\n            Title: ";
-  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "<br/> \n            Body: ";
-  if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "<br/>\n            <a href=\"javascript:void(0)\" class=\"pull-request-commits-button\" data-url='";
-  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "/commits' data-number=\"";
-  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "\" data-role=\"button\" data-mini=\"true\">Show Commits</a>\n            <a href=\"javascript:void(0)\" class=\"pull-request-comments-button\" data-url='";
-  if (stack2 = helpers.comments_url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.comments_url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "' data-number=\"";
-  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "\" data-role=\"button\" data-mini=\"true\">Show Comments</a>\n        </div>\n        <div id=\"pull-request-commits-list-";
+  buffer += "\n        <div class=\"pull-request-list-item\">\n            ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login), {hash:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        </div>\n        <div id=\"pull-request-commits-list-";
   if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -791,6 +762,50 @@ function program3(depth0,data) {
   buffer += escapeExpression(stack2)
     + "\">\n        </div>\n        <hr/>\n    ";
   return buffer;
+  }
+function program4(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n                Pull Request Initiator:<br/>\n                Login: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.login)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <br/>\n                Avatar: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.user),stack1 == null || stack1 === false ? stack1 : stack1.avatar_url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <br/>\n                                    <br/>\n                State: ";
+  if (stack2 = helpers.state) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.state; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/>\n                Title: ";
+  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/> \n                Body: ";
+  if (stack2 = helpers.body) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.body; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "<br/>\n                <a href=\"javascript:void(0)\" class=\"pull-request-commits-button\" data-url='";
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "/commits' data-number=\"";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" data-role=\"button\" data-mini=\"true\">Show Commits</a>\n                <a href=\"javascript:void(0)\" class=\"pull-request-comments-button\" data-url='";
+  if (stack2 = helpers.comments_url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.comments_url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "' data-number=\"";
+  if (stack2 = helpers.number) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.number; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" data-role=\"button\" data-mini=\"true\">Show Comments</a>\n            ";
+  return buffer;
+  }
+
+function program6(depth0,data) {
+  
+  
+  return "\n                No Pull Requests Found\n            ";
   }
 
   buffer += "<ul data-role='listview' ";
