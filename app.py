@@ -146,7 +146,7 @@ def markdown():
 
 #Syntax (for Base 64 encoded data)
 @app.route('/helper/syntax', methods=['POST'])
-def markdown():
+def syntax():
     injson = None;
     if (request.headers['Content-Type'] == 'application/json'):
         injson = json.dumps(request.json);
@@ -156,7 +156,7 @@ def markdown():
 
     code = injson['data'];
     lang = injson['lang'];
-    #code = b64decode(code);
+    code = b64decode(code);
 
     
     lexer = None;
