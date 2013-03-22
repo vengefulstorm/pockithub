@@ -1,4 +1,4 @@
-<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true'>
+<ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='false'>
     <li class='directory-list-item' data-name='..' data-type='dir' data-link='..' data-path='..' id="upDir">
         <a href='javascript:void(0)'>
             <img src='{{getItemIcon "dir"}}'/>
@@ -6,13 +6,22 @@
         </a>
     </li>
     {{#each list}}
-    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}' data-path='{{path}}'>
-        <a href='javascript:void(0)'>
-            <img src='{{getItemIcon type}}'/>
-            <h1 class='itemName'>{{name}}</h1>
-        </a>
-        <div id='file-{{name}}'>
-        </div>
+    <li class='directory-list-item' data-name='{{name}}' data-type='{{type}}' data-link='{{link}}' data-path='{{path}}' {{#notFolder type}}data-role="collapsible"{{else}}{{/notFolder}}>
+        {{#notFolder type}} 
+            <h3 class="collapsible-header">
+                <img src='{{getItemIcon type}}'/>
+                {{name}}
+            </h3>
+            <div id='file-{{name}}' class="collapsible-content file-content">
+            </div>
+        {{else}}
+            <a href='javascript:void(0)'>
+                <img src='{{getItemIcon type}}'/>
+                {{name}}
+            </a>
+            <div id='file-{{name}}' class="file-content">
+            </div>
+        {{/notFolder}}
     </li>
     {{/each}}
 </ul>

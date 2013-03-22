@@ -9,7 +9,7 @@
 				<link rel="shortcut icon" href="/static/favicon.ico">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
-        <link rel="stylesheet" href="static/graphite.css"/>
+        <link rel="stylesheet" href="/static/graphite.css"/>
         <link rel="stylesheet" href="/static/styles.css"/>
         <!-- Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome -->
         <!-- we will most likely be including font awesome for their github icon in our logo -->
@@ -55,7 +55,7 @@
                     <div data-role="header">
 
                         <input id="search-bar" class="ui-input-search ui-shadow-inset" type="search" placeholder="Search..." value=""/>
-                        <div id="search-results" class="search-results-wrapper overthrow" data-role="collapsible-set" data-inset="false">
+                        <div id="search-results" class="search-results-wrapper overthrow" data-role="collapsible-set" data-inset="false" data-theme='c'>
                             <div id="repo-search-results" data-role="collapsible" data-collapsed="false" data-inset="false">
                             </div>
                             <div id="user-search-results" data-role="collapsible" data-inset="false">
@@ -77,7 +77,7 @@
             </div> <!-- /panel-->
 
 
-            <div id="main-header" class="header" data-role="header" data-id="topbar-main" data-position="fixed">
+            <div id="main-header" class="header" data-role="header" data-id="topbar-main">
                 <div data-role="header">
                     <a href="#sidepanel" data-icon="app-sidebar" data-iconpos="notext" data-corners="false">Side</a>
                     <div class="mainheader"><img class="main-logo-img" src="/static/logo_big.png"></img></div>

@@ -82,6 +82,33 @@ Handlebars.registerHelper('render', function(item, type) {
     return elt;
 });
 
+Handlebars.registerHelper('renderMarkup', function(item, renderType, rawUrl) {
+    var selector = "#file-" + item["name"];
+    var elt = '';
+    switch(renderType) {
+        case "image":
+            elt = elt + '<img src="' + rawUrl + '" />';
+            break;
+        case "markdown":
+            var rq = "/helper/markdown64";
+            var data = {
+                data: item["content"]
+            };
+            $.ajax({
+                type: 'POST',
+                url: rq,
+                data: data,
+                success: function(data) {
+                    $("#file-" + item["name"]).html(data);
+                }
+            });
+            return item;
+        default:
+            return item;
+    }
+    return elt;
+});
+
 Handlebars.registerHelper('renderIssue', function(item) {
     var elt = '<a href="javascript:void(0)" ';    
     elt = elt + 'data-url="' + item['url'] + '" class="issue-link">';
@@ -150,6 +177,14 @@ Handlebars.registerHelper('ifEquals', function(elt1, elt2, options) {
         return options.fn(this);
     } else {
         return options.inverse(this);
+    }
+});
+
+Handlebars.registerHelper('notFolder', function(type, block) {
+    if (type != 'dir') {
+        return block.fn(this);
+    } else {
+        return block.inverse(this);
     }
 });
 

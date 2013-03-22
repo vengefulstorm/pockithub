@@ -92,6 +92,23 @@ var init = function init() {
                 type: 'GET',
                 url: rqRepo,
                 data: {},
+                // beforeSend: function() { 
+                    // var optionsHash = {
+                        // message:"<img src='/static/ajax-loader.gif'/>",
+                        // css: { 
+                            // border: 'none', 
+                            // padding: '0px', 
+                            // backgroundColor: '#000', 
+                            // '-webkit-border-radius': '10px', 
+                            // '-moz-border-radius': '10px', 
+                            // opacity: .5, 
+                            // color: '#fff',
+                            // fadeIn: 100,
+                            // fadeOut: 300
+                        // }
+                    // };
+                    // $searchResults.block(optionsHash);
+                // },
                 dataType: 'jsonp',
                 error: function() { 
                     alert("Error on retrieving: " + rqRepo);
@@ -105,6 +122,7 @@ var init = function init() {
                     alert("Error on retrieving: " + rqUser);
                 }
             })).done(function(repoResults, userResults) {
+                //$searchResults.unblock();
                 var repoOpts = {
                     containerTheme: window.ctx['containerTheme'],
                     childTheme: window.ctx['childTheme'],
@@ -158,6 +176,11 @@ $sidebarWrapper.delegate(".radio-list .ui-radio label", "touchstart", function(e
     event.stopPropagation();
     window.ctx["section"] = window.forwardSectionMap[$(this).siblings("input").val()];
     switchToSection();
+});
+
+$(".directory-list-item .collapsible-header").live("expand", function(event) {
+    var itemLink = $(this).attr('data-link');
+    renderDiv(itemLink,window.ctx["divTypeEnum"]["code-view"]);
 });
 
 $("[class^=directory-list-item]").live("click",function(event){
@@ -523,24 +546,34 @@ function loadTemplatedContent(rq, template, transformer, data, preProcessor, tem
         },
         complete: function() { $.unblockUI();/*templateToFill.unblock()*/},
         success: function(data) {
-            var opts = {
-                containerTheme: window.ctx['containerTheme'],
-                childTheme: window.ctx['childTheme']
-            }
+            if ([400,404,422].indexOf(data.meta.status) > -1) {
+                // Error redirection
+                window.location.href = "/error?code=" + data.meta.status;
+            } else if([301,302,307].indexOf(data.meta.status) > -1) {
+                // API redirection
+                var redirRq = xhr.getResponseHeader("Location");
+                loadTemplatedContent(redirRq, template, transformer, data, preProcessor, templateToFill);
+            } else { 
+                var opts = {
+                    containerTheme: window.ctx['containerTheme'],
+                    childTheme: window.ctx['childTheme']
+                }
 
-            if (data.data.length) {
-              opts["list"] = $.map(data.data, transformer);
-            }else{
-              opts["list"] = [data.data];
-            }
+                if (data.data.length) {
+                  opts["list"] = $.map(data.data, transformer);
+                }else{
+                  opts["list"] = [data.data];
+                }
 
-            if (preProcessor) { opts = preProcessor(opts);
+                if (preProcessor) {
+                    opts = preProcessor(opts);
+                }
+                var templated = template(opts);
+                templateToFill.html(templated).trigger("create").scrollTop(0);
             }
-            var templated = template(opts);
-            templateToFill.html(templated).trigger("create").scrollTop(0);
         },
-        error: function() { 
-            alert("Error on retrieving: " + rq);
+        error: function(xhr) { 
+            window.location.href = "/error?code=" + xhr.status;
         }
     });
 }
@@ -639,7 +672,15 @@ function transformToIssue(jsonItem){
 }
 
 function transformToCode(fileInfo){
-    //alert(fileInfo["content"]);
+    // TODO: generate file raw url and render
+    var filename = fileInfo["name"];
+    var isImage = /\.(jpg|jpeg|png|gif|ico)$/i.test(filename);
+    var rawUrl = fileInfo["url"].replace(/^https:\/\/api.github.com\/repos/,"https://raw.github.com").replace(/^(https:\/\/[^\/]+\/[^\/]+\/[^\/]+\/)contents(\/.*)/,"$1s" + window.ctx["branch"] + "$2");
+    var info = {
+        content: fileInfo,
+        render_type: isImage? 'image': 'markdown',
+        raw_url: rawUrl
+    }
     return fileInfo;
 }
 
