@@ -115,6 +115,13 @@
 		top: 16px;
 }
 */
+.highlight {
+		text-shadow: none !important;
+		white-space:normal !important;
+		word-wrap: break-word !important;;
+}
+
+
 .main-logo-img {
 		height: 37px;
 		margin-top: 6px;
