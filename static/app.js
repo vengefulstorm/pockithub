@@ -196,6 +196,8 @@ var init = function init() {
                 var userResultsTemplated = template(userOpts);
                 $userResultsContainer.html(userResultsTemplated).trigger("create");
                 $searchResults.collapsibleset("refresh");
+                $("#sidepanel").trigger("updatelayout");
+                $("#sidepanel").removeClass("ui-panel-fixed");
             });
         } else {
             $("#sidepanel-subheader, #sidepanel-content").show();
@@ -274,7 +276,7 @@ $("li.issue-list-item").live("expand",function(event){
     }
 });
 
-$("[class=repo-list-item]").live("click",function(event){
+$(".repo-list-item").live("click",function(event){
     //alert($(this).data("full_name"));
     var full_name = $(this).data("full_name");
     var name = $(this).data("name");

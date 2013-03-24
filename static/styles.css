@@ -1,3 +1,41 @@
+.profile-user-card{
+  background-color: white;
+  padding: 2em;
+  margin: 1em;
+}
+
+.profile-avatar{
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.profile-avatar img{
+    width: 40px;
+    height: 40px;
+}
+
+.profile-name{
+    font-family: "open sans", sans-serif;
+    font-size: 16px;
+}
+
+.profile-login{
+    font-family: "open sans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-company{
+    clear:both;
+}
+
+.profile-user-card h2{
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
 /******** JQuery Mobile styling override ********/
 .content fieldset {
     margin: 0;
@@ -34,11 +72,24 @@
 	background: url(ajax-loader.gif);
 }																								 
 
+.sidebar{
+  background-color: #444;
+  background-image: none;
+}
+
 .ui-panel-inner{
-  background-color: black;
   padding: 0 !important;
   margin-top: -10px !important;
-  top:0;
+}
+
+#menubutton{
+  width: 40px;
+  height: 40px;
+}
+
+#menubutton .ui-icon{
+  width: 34px;
+  height: 34px;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
@@ -188,6 +239,11 @@ a {
 
 .content .ui-li-aside {
     width: auto !important;
+    font-size: 0.8em;
+}
+
+.ui-li-desc{
+    margin: 0
 }
 
 /***** Header styling *****/
@@ -199,11 +255,10 @@ a {
 }
 
 .subheader {
+    height:25px;
     text-align: center;
-    font-size: 1.1em;
-    line-height: 2em;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    font-size: 20px;
+    padding: 5px 0;
     border-bottom: 0;
 }
 
@@ -381,10 +436,12 @@ a {
 
 .child-list-item  .user, .issue-list-item .user, .commit-list-item .user {
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.7em;
+    font-weight: 100;
     border-right: 1px solid #CCC;
     overflow: ellipsis;
-    width: 60px;
+    width: 30px;
+    padding-right: 10px;
     float: left;
     margin-right: 8px;
 }
@@ -421,7 +478,6 @@ a {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    height: 79px;
     overflow: ellipsis;
     text-overflow: ellipsis;
 }

@@ -1,18 +1,18 @@
 <ul data-role='listview' {{#if containerTheme}} data-theme='{{containerTheme}}' {{/if}} data-inset='true' class='child-list'>
     {{#each list}}
         <li class='child-list-item' {{#if ../childTheme}} data-theme='{{../../childTheme}}' {{/if}}>
-            {{#if avatar_url}}
-            <div class='user'>
-                <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
-                    <img src='{{avatar_url}}'/>
-                    <h1 class='username' data-username="{{user_name}}">{{user_name}}</h1>
-                </a>
-            </div>
-            {{/if}}
-            {{#if created_at}}
-            <span class='ui-li-aside'>{{formatRelativeDate created_at}}</span>
-            {{/if}}
             <div class='item-content'>
+                {{#if avatar_url}}
+                <div class='user'>
+                    <a href='javascript:void(0)' data-url='{{user_url}}' class="user-link">
+                        <img src='{{avatar_url}}'/>
+                        <h1 class='username' data-username="{{user_name}}">{{user_name}}</h1>
+                    </a>
+                </div>
+                {{/if}}
+                {{#if created_at}}
+                <span class='ui-li-aside'>{{formatRelativeDate created_at}}</span>
+                {{/if}}
                 {{{render content type}}}
             </div>
         </li>
