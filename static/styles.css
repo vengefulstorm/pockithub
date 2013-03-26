@@ -151,21 +151,21 @@
 }
 
 .view .header .ui-icon {
+		position: fixed;
     width: 22px;
     height: 22px;
     margin: 1px 1px 1px 1px !important;
 }
 
 /***** Generic styling *****/
-/*
-.collapsible-content {
-		height: 104px;
+
+.user img, .user-link img {
+		border-radius: 10% 38% 10% !important;
+/*		-moz-border-radius: 10% 38% 10% !important;
+		-webkit-border-radius: 10% 38% 10% !important;
+		-khtml-border-radius: 10% 38% 10% !important;*/
 }
 
-.issue-comments-list-item {
-		top: 16px;
-}
-*/
 .highlight {
 		text-shadow: none !important;
 		white-space:normal !important;
@@ -191,20 +191,6 @@
 
 .sidebar #search-bar {
 		top: 0px;
-}
-
-.ui-mobile a img .hoverZoomLink {
-		border-radius: 10% 38% 10% !important;
-		-moz-border-radius: 10% 38% 10% !important;
-		-webkit-border-radius: 10% 38% 10% !important;
-		-khtml-border-radius: 10% 38% 10% !important;
-}
-
-.hoverZoomLink {
-		border-radius: 10% 38% 10% !important;
-		-moz-border-radius: 10% 38% 10% !important;
-		-webkit-border-radius: 10% 38% 10% !important;
-		-khtml-border-radius: 10% 38% 10% !important;
 }
 
 .horizontal-list li{
