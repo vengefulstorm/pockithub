@@ -20,7 +20,7 @@ app.register_blueprint(render_section);
 #LANDING PAGE
 @app.route('/', methods=['GET'])
 def serveLanding():
-    return render_template('index.html', user='vengefulstorm', repo='pockithub', public_token=PH_common.PAT, gen_url='/');
+    return render_template('index.html', user='jquery', repo='jquery', public_token=PH_common.PAT, gen_url='/');
 
 
 #FAVICON
