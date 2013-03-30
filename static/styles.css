@@ -159,7 +159,7 @@
 
 /***** Generic styling *****/
 
-.user img, .user-link img, .profile-avatar img {
+.user img, .user-link img, .profile-avatar img, .avatar {
 		border-radius: 10% 38% 10% !important;
 /*		-moz-border-radius: 10% 38% 10% !important;
 		-webkit-border-radius: 10% 38% 10% !important;
